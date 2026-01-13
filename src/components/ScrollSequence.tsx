@@ -49,10 +49,8 @@ const storyBeats: TextOverlay[] = [
 
 // --- Helper Functions ---
 const getFramePath = (frame: number): string => {
-  // Using picsum.photos for placeholder images
-  const width = 1920;
-  const height = 1080;
-  return `https://picsum.photos/seed/${frame + 1}/${width}/${height}`;
+  const frameNumber = String(frame + 1).padStart(3, '0');
+  return `https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/aritro/ezgif-frame-${frameNumber}.jpg`;
 };
 
 const preloadImages = (onProgress: (progress: number) => void, onComplete: (images: HTMLImageElement[]) => void) => {
