@@ -1,0 +1,248 @@
+"use client";
+
+import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { useScroll, useTransform, motion, useMotionValueEvent } from 'framer-motion';
+
+// --- Configuration Constants ---
+const TOTAL_FRAMES = 240;
+const FRAME_PATH = "/sequence/";
+const FRAME_PREFIX = "frame_";
+const FRAME_EXTENSION = "png";
+const SCROLL_HEIGHT = "400vh";
+
+type TextOverlay = {
+  start: number;
+  end: number;
+  position: 'left' | 'center' | 'right';
+  title: string;
+  subtitle?: string;
+};
+
+// --- Story Beats Configuration ---
+const storyBeats: TextOverlay[] = [
+  {
+    start: 0.05,
+    end: 0.25,
+    position: 'center',
+    title: 'Dr. Aritra Ghosh',
+    subtitle: 'Oral & Dental Surgeon',
+  },
+  {
+    start: 0.3,
+    end: 0.5,
+    position: 'left',
+    title: '5+ Years of Experience',
+    subtitle: 'Dedicated to providing comprehensive dental care with a gentle touch.',
+  },
+  {
+    start: 0.6,
+    end: 0.8,
+    position: 'right',
+    title: 'Advanced Clinical Practice',
+    subtitle: 'Utilizing modern techniques for pain-free and effective treatments.',
+  },
+  {
+    start: 0.85,
+    end: 0.95,
+    position: 'center',
+    title: 'Your Smile, Our Priority',
+    subtitle: 'Book a consultation today.',
+  },
+];
+
+// --- Helper Functions ---
+const getFramePath = (frame: number): string => {
+  const frameNumberPadded = String(frame).padStart(String(TOTAL_FRAMES - 1).length, '0');
+  return `${FRAME_PATH}${FRAME_PREFIX}${frameNumberPadded}.${FRAME_EXTENSION}`;
+};
+
+const preloadImages = (onProgress: (progress: number) => void, onComplete: (images: HTMLImageElement[]) => void) => {
+  const imagePromises: Promise<HTMLImageElement>[] = [];
+  let loadedImagesCount = 0;
+
+  for (let i = 0; i < TOTAL_FRAMES; i++) {
+    const img = new Image();
+    const promise = new Promise<HTMLImageElement>((resolve, reject) => {
+      img.onload = () => {
+        loadedImagesCount++;
+        onProgress((loadedImagesCount / TOTAL_FRAMES) * 100);
+        resolve(img);
+      };
+      img.onerror = reject;
+    });
+    img.src = getFramePath(i);
+    imagePromises.push(promise);
+  }
+
+  Promise.all(imagePromises).then(onComplete).catch(err => console.error("Error preloading images:", err));
+};
+
+const lerp = (start: number, end: number, t: number) => {
+  return start * (1 - t) + end * t;
+};
+
+// --- Text Overlay Component ---
+const TextOverlayContent: React.FC<{ overlay: TextOverlay, scrollYProgress: any }> = ({ overlay, scrollYProgress }) => {
+  const FADE_DURATION = 0.05;
+
+  const opacity = useTransform(
+    scrollYProgress,
+    [overlay.start, overlay.start + FADE_DURATION, overlay.end - FADE_DURATION, overlay.end],
+    [0, 1, 1, 0]
+  );
+  
+  const y = useTransform(
+    scrollYProgress,
+    [overlay.start, overlay.start + FADE_DURATION],
+    ['20px', '0px']
+  );
+
+  const positionClasses = {
+    left: 'items-start text-left',
+    center: 'items-center text-center',
+    right: 'items-end text-right',
+  };
+
+  return (
+    <motion.div
+      style={{ opacity, y }}
+      className={`absolute inset-0 h-full w-full flex flex-col justify-center p-8 md:p-16 pointer-events-none ${positionClasses[overlay.position]}`}
+    >
+      <div className="max-w-md">
+        <h2 className="text-4xl md:text-6xl font-bold text-white/90 drop-shadow-lg">{overlay.title}</h2>
+        {overlay.subtitle && <p className="mt-4 text-lg md:text-xl text-white/60 drop-shadow-md">{overlay.subtitle}</p>}
+      </div>
+    </motion.div>
+  );
+};
+
+// --- Main Scroll Sequence Component ---
+const ScrollSequence: React.FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [loading, setLoading] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [frames, setFrames] = useState<HTMLImageElement[]>([]);
+  const lastDrawnFrame = useRef(-1);
+
+  const { scrollYProgress } = useScroll({
+    target: scrollRef,
+    offset: ['start start', 'end end'],
+  });
+
+  const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
+  const targetFrame = useRef(0);
+  const currentFrame = useRef(0);
+  const rafId = useRef<number>();
+
+  useEffect(() => {
+    preloadImages(setLoadingProgress, (loadedFrames) => {
+      setFrames(loadedFrames);
+      setLoading(false);
+    });
+  }, []);
+
+  const drawFrame = useCallback((frameIdx: number) => {
+    const canvas = canvasRef.current;
+    const image = frames[frameIdx];
+    if (!canvas || !image || lastDrawnFrame.current === frameIdx) return;
+    
+    lastDrawnFrame.current = frameIdx;
+
+    const context = canvas.getContext('2d');
+    if (!context) return;
+    
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * window.devicePixelRatio;
+    canvas.height = rect.height * window.devicePixelRatio;
+    
+    const canvasWidth = canvas.width;
+    const canvasHeight = canvas.height;
+
+    const imgWidth = image.naturalWidth;
+    const imgHeight = image.naturalHeight;
+
+    const canvasRatio = canvasWidth / canvasHeight;
+    const imgRatio = imgWidth / imgHeight;
+
+    let scale = 1;
+    if (imgRatio > canvasRatio) {
+      scale = canvasWidth / imgWidth;
+    } else {
+      scale = canvasHeight / imgHeight;
+    }
+
+    const scaledWidth = imgWidth * scale;
+    const scaledHeight = imgHeight * scale;
+
+    const x = (canvasWidth - scaledWidth) / 2;
+    const y = (canvasHeight - scaledHeight) / 2;
+
+    context.clearRect(0, 0, canvasWidth, canvasHeight);
+    context.drawImage(image, x, y, scaledWidth, scaledHeight);
+  }, [frames]);
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      lastDrawnFrame.current = -1; // Force redraw on resize
+      if (frames.length > 0) {
+        drawFrame(Math.round(currentFrame.current));
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [drawFrame, frames]);
+
+  useMotionValueEvent(frameIndex, "change", (latest) => {
+    targetFrame.current = latest;
+  });
+
+  useEffect(() => {
+    const animate = () => {
+      if (!loading && frames.length > 0) {
+        currentFrame.current = lerp(currentFrame.current, targetFrame.current, 0.1);
+        const roundedFrame = Math.round(currentFrame.current);
+        drawFrame(roundedFrame);
+      }
+      rafId.current = requestAnimationFrame(animate);
+    };
+
+    if (!loading && frames.length > 0) {
+      rafId.current = requestAnimationFrame(animate);
+    }
+    
+    return () => {
+      if (rafId.current) {
+        cancelAnimationFrame(rafId.current);
+      }
+    };
+  }, [loading, frames, drawFrame]);
+
+  useEffect(() => {
+    if (!loading && frames.length > 0) {
+      drawFrame(0);
+    }
+  }, [loading, frames, drawFrame]);
+
+  return (
+    <>
+      {loading && (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background">
+          <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
+          <p className="mt-4 text-white/60">Loading experience... {Math.round(loadingProgress)}%</p>
+        </div>
+      )}
+      <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className="relative w-full">
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
+          <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+          {!loading && storyBeats.map((overlay) => (
+            <TextOverlayContent key={overlay.title} overlay={overlay} scrollYProgress={scrollYProgress}/>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default ScrollSequence;
