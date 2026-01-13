@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { useScroll, useTransform, motion, useMotionValueEvent } from 'framer-motion';
+import { useScroll, useTransform, motion, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 
 // --- Configuration Constants ---
 const TOTAL_FRAMES = 240;
@@ -111,8 +111,8 @@ const TextOverlayContent: React.FC<{ overlay: TextOverlay, scrollYProgress: any 
       className={`absolute inset-0 h-full w-full flex flex-col justify-center p-8 md:p-16 pointer-events-none ${positionClasses[overlay.position]}`}
     >
       <div className="max-w-md">
-        <h2 className="text-4xl md:text-6xl font-bold text-white/90 drop-shadow-lg">{overlay.title}</h2>
-        {overlay.subtitle && <p className="mt-4 text-lg md:text-xl text-white/60 drop-shadow-md">{overlay.subtitle}</p>}
+        <h2 className="text-4xl md:text-6xl font-bold text-white/90 drop-shadow-2xl">{overlay.title}</h2>
+        {overlay.subtitle && <p className="mt-4 text-lg md:text-xl text-white/70 drop-shadow-xl">{overlay.subtitle}</p>}
       </div>
     </motion.div>
   );
@@ -231,16 +231,23 @@ const ScrollSequence: React.FC = () => {
 
   return (
     <>
-      {loading && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background">
-          <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
-          <p className="mt-4 text-white/60">Loading experience... {Math.round(loadingProgress)}%</p>
-        </div>
-      )}
+      <AnimatePresence>
+        {loading && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
+          >
+            <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
+            <p className="mt-4 text-white/60">Loading experience... {Math.round(loadingProgress)}%</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className="relative w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
-          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 bg-black/60" />
           {!loading && storyBeats.map((overlay) => (
             <TextOverlayContent key={overlay.title} overlay={overlay} scrollYProgress={scrollYProgress}/>
           ))}
