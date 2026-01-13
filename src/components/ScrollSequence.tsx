@@ -5,9 +5,6 @@ import { useScroll, useTransform, motion, useMotionValueEvent } from 'framer-mot
 
 // --- Configuration Constants ---
 const TOTAL_FRAMES = 240;
-const FRAME_PATH = "/sequence/";
-const FRAME_PREFIX = "frame_";
-const FRAME_EXTENSION = "png";
 const SCROLL_HEIGHT = "400vh";
 
 type TextOverlay = {
@@ -52,8 +49,10 @@ const storyBeats: TextOverlay[] = [
 
 // --- Helper Functions ---
 const getFramePath = (frame: number): string => {
-  const frameNumberPadded = String(frame).padStart(String(TOTAL_FRAMES - 1).length, '0');
-  return `${FRAME_PATH}${FRAME_PREFIX}${frameNumberPadded}.${FRAME_EXTENSION}`;
+  // Using picsum.photos for placeholder images
+  const width = 1920;
+  const height = 1080;
+  return `https://picsum.photos/seed/${frame + 1}/${width}/${height}`;
 };
 
 const preloadImages = (onProgress: (progress: number) => void, onComplete: (images: HTMLImageElement[]) => void) => {
@@ -62,13 +61,18 @@ const preloadImages = (onProgress: (progress: number) => void, onComplete: (imag
 
   for (let i = 0; i < TOTAL_FRAMES; i++) {
     const img = new Image();
+    img.crossOrigin = "anonymous"; // Required for cross-origin images on canvas
     const promise = new Promise<HTMLImageElement>((resolve, reject) => {
       img.onload = () => {
         loadedImagesCount++;
         onProgress((loadedImagesCount / TOTAL_FRAMES) * 100);
         resolve(img);
       };
-      img.onerror = reject;
+      img.onerror = (err) => {
+        // Even with placeholders, network errors can occur.
+        console.error(`Failed to load image: ${img.src}`);
+        reject(err);
+      };
     });
     img.src = getFramePath(i);
     imagePromises.push(promise);
@@ -203,7 +207,9 @@ const ScrollSequence: React.FC = () => {
       if (!loading && frames.length > 0) {
         currentFrame.current = lerp(currentFrame.current, targetFrame.current, 0.1);
         const roundedFrame = Math.round(currentFrame.current);
-        drawFrame(roundedFrame);
+        if(frames[roundedFrame]) {
+            drawFrame(roundedFrame);
+        }
       }
       rafId.current = requestAnimationFrame(animate);
     };
