@@ -239,7 +239,7 @@ const ScrollSequence: React.FC = () => {
       )}
       <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className="relative w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
-          <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+          <canvas ref={canvasRef} className="absolute inset-0 h-full w-full filter contrast-125" />
           {!loading && storyBeats.map((overlay) => (
             <TextOverlayContent key={overlay.title} overlay={overlay} scrollYProgress={scrollYProgress}/>
           ))}
