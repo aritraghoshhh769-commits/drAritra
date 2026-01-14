@@ -67,7 +67,6 @@ const preloadImages = (onProgress: (progress: number) => void, onComplete: (imag
         resolve(img);
       };
       img.onerror = (err) => {
-        // Even with placeholders, network errors can occur.
         console.error(`Failed to load image: ${img.src}`);
         reject(err);
       };
@@ -131,6 +130,12 @@ const ScrollSequence: React.FC = () => {
     target: scrollRef,
     offset: ['start start', 'end end'],
   });
+
+  const ndFilterOpacity = useTransform(
+    scrollYProgress,
+    [0.04, 0.05],
+    [0, 0.7]
+  );
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
   const targetFrame = useRef(0);
@@ -248,7 +253,7 @@ const ScrollSequence: React.FC = () => {
       <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className="relative w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
-          <div className="absolute inset-0 bg-black/70" />
+          <motion.div className="absolute inset-0 bg-black" style={{ opacity: ndFilterOpacity }} />
           {!loading && storyBeats.map((overlay) => (
             <TextOverlayContent key={overlay.title} overlay={overlay} scrollYProgress={scrollYProgress}/>
           ))}
