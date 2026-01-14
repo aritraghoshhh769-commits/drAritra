@@ -133,8 +133,8 @@ const ScrollSequence: React.FC = () => {
 
   const ndFilterOpacity = useTransform(
     scrollYProgress,
-    [0.05, 0.15],
-    [0, 0.35]
+    [0.05, 0.25],
+    [0, 0.175]
   );
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
@@ -252,8 +252,16 @@ const ScrollSequence: React.FC = () => {
       </AnimatePresence>
       <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className="relative w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
+          <div 
+            className="absolute top-0 left-0 h-full w-1/4 z-10" 
+            style={{background: 'linear-gradient(to right, #1e282f, transparent)'}}
+          ></div>
+          <div 
+            className="absolute top-0 right-0 h-full w-1/4 z-10" 
+            style={{background: 'linear-gradient(to left, #1e282f, transparent)'}}
+          ></div>
           <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
-          <motion.div className="absolute inset-0 bg-black" style={{ opacity: ndFilterOpacity }} />
+          <motion.div className="absolute inset-0 bg-black z-20" style={{ opacity: ndFilterOpacity }} />
           {!loading && storyBeats.map((overlay) => (
             <TextOverlayContent key={overlay.title} overlay={overlay} scrollYProgress={scrollYProgress}/>
           ))}
