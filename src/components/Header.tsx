@@ -11,6 +11,7 @@ import ClientOnly from './ClientOnly';
 const navLinks = [
   { href: '#about', label: 'About' },
   { href: '#services', label: 'Services' },
+  { href: '#dental-issues', label: 'Dental Issues' },
   { href: '#credentials', label: 'Credentials' },
   { href: '#contact-us', label: 'Contact us' },
 ];
