@@ -76,7 +76,10 @@ void main() {
     
     vec4 texColor = texture(uTex, st);
 
-    // Apply a black background by blending the texture color with black based on alpha
+    // Apply alpha and discard transparent fragments
+    if (texColor.a < 0.1) {
+        discard;
+    }
     outColor = vec4(texColor.rgb, texColor.a * vAlpha);
 }
 `;
