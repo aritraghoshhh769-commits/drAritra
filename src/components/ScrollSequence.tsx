@@ -255,27 +255,10 @@ const ScrollSequence: React.FC = () => {
           <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
           <motion.div className="absolute inset-0 bg-black" style={{ opacity: ndFilterOpacity }} />
           <div
-            className="absolute bottom-0 right-0 w-1/3 h-1/3"
+            className="absolute inset-0"
             style={{
-              background: 'radial-gradient(ellipse at bottom right, hsl(var(--background)) 30%, transparent 80%)',
-            }}
-          />
-          <div
-            className="absolute bottom-0 left-0 w-1/3 h-1/3"
-            style={{
-              background: 'radial-gradient(ellipse at bottom left, hsl(var(--background)) 30%, transparent 80%)',
-            }}
-          />
-          <div
-            className="absolute top-0 right-0 w-1/2 h-full"
-            style={{
-              background: 'linear-gradient(to left, hsl(var(--background)), transparent 80%)',
-            }}
-           />
-          <div
-            className="absolute top-0 left-0 w-1/2 h-full"
-            style={{
-              background: 'linear-gradient(to right, hsl(var(--background)), transparent 80%)',
+              background:
+                'radial-gradient(ellipse at bottom right, hsl(var(--background)) 20%, transparent 60%), radial-gradient(ellipse at bottom left, hsl(var(--background)) 20%, transparent 60%), linear-gradient(to right, hsl(var(--background)) 0%, transparent 50%, transparent 100%), linear-gradient(to left, hsl(var(--background)) 0%, transparent 50%, transparent 100%)',
             }}
           />
           {!loading && storyBeats.map((overlay) => (
