@@ -21,14 +21,16 @@
 }
 
 .face-title {
-  top: 65%;
+  top: 50%;
+  transform: translate(-50%, -100%);
   font-size: 2rem;
   font-weight: bold;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .face-description {
-  top: calc(65% + 3rem);
+  top: 50%;
+  transform: translate(-50%, 0%);
   font-size: 1rem;
   max-width: 80%;
   opacity: 0.8;
@@ -62,8 +64,14 @@
   transform: translate(-50%, 20px);
 }
 
-.face-title.active,
-.face-description.active,
+.face-title.active {
+  opacity: 1;
+  transform: translate(-50%, -100%);
+}
+.face-description.active {
+  opacity: 1;
+  transform: translate(-50%, 0%);
+}
 .action-button.active {
   opacity: 1;
   transform: translateX(-50%);
