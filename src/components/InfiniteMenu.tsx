@@ -70,23 +70,18 @@ void main() {
     int cellY = itemIndex / cellsPerRow;
     vec2 cellSize = vec2(1.0) / vec2(float(cellsPerRow));
     vec2 cellOffset = vec2(float(cellX), float(cellY)) * cellSize;
-
-    ivec2 texSize = textureSize(uTex, 0);
-    float imageAspect = float(texSize.x) / float(texSize.y);
-    float containerAspect = 1.0;
-    
-    float scale = max(imageAspect / containerAspect, 
-                     containerAspect / imageAspect);
     
     vec2 st = vec2(vUvs.x, 1.0 - vUvs.y);
-    st = (st - 0.5) * scale + 0.5;
-    
-    st = clamp(st, 0.0, 1.0);
-    
     st = st * cellSize + cellOffset;
     
-    outColor = texture(uTex, st);
-    outColor.a *= vAlpha;
+    vec4 texColor = texture(uTex, st);
+    
+    // For SVG, we might want to use its alpha channel as the mask
+    if (texColor.a > 0.0) {
+        outColor = vec4(texColor.rgb, texColor.a * vAlpha);
+    } else {
+        outColor = vec4(0.0, 0.0, 0.0, 0.0);
+    }
 }
 `;
 
@@ -964,8 +959,8 @@ class InfiniteGridMenu {
 
 const defaultItems = [
   {
-    image: 'https://picsum.photos/900/900?grayscale',
-    link: 'https://google.com/',
+    image: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9IndoaXRlIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjAuNSI+PC9zdmc+',
+    link: '#',
     title: '',
     description: ''
   }
