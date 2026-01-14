@@ -256,28 +256,28 @@ const ScrollSequence: React.FC = () => {
 
           {/* --- Edge Blending Gradients --- */}
           <div
-            className="absolute top-0 left-0 w-1/2 h-1/2"
+            className="absolute top-0 left-0 w-[25%] h-[25%]"
             style={{
               background: 'radial-gradient(at 0% 0%, #172125 40%, transparent 80%)',
               pointerEvents: 'none',
             }}
           />
           <div
-            className="absolute top-0 right-0 w-1/2 h-1/2"
+            className="absolute top-0 right-0 w-[25%] h-[25%]"
             style={{
               background: 'radial-gradient(at 100% 0%, #172125 40%, transparent 80%)',
               pointerEvents: 'none',
             }}
           />
           <div
-            className="absolute bottom-0 left-0 w-1/2 h-1/2"
+            className="absolute bottom-0 left-0 w-[25%] h-[25%]"
             style={{
               background: 'radial-gradient(at 0% 100%, #172125 50%, transparent 80%)',
               pointerEvents: 'none',
             }}
           />
           <div
-            className="absolute bottom-0 right-0 w-1/2 h-1/2"
+            className="absolute bottom-0 right-0 w-[25%] h-[25%]"
             style={{
               background: 'radial-gradient(at 100% 100%, #172125 50%, transparent 80%)',
               pointerEvents: 'none',
@@ -310,5 +310,3 @@ const ScrollSequence: React.FC = () => {
 };
 
 export default ScrollSequence;
-
-    
