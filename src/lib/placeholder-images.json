@@ -9,19 +9,19 @@
     {
       "id": "cert-nss",
       "description": "NSS Certificate",
-      "imageUrl": "https://images.unsplash.com/photo-1589330694653-ded6df03f754?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjZXJ0aWZpY2F0ZXxlbnwwfHx8fDE3NjgzNzg2MDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/doc%20credentials/ChatGPT%20Image%20Jan%2014,%202026,%2012_58_15%20PM.png",
       "imageHint": "certificate"
     },
     {
       "id": "cert-rcp",
       "description": "Royal College of Physicians Certificate",
-      "imageUrl": "https://images.unsplash.com/photo-1570610159825-ec5d3823660c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjZXJ0aWZpY2F0ZXxlbnwwfHx8fDE3NjgzNzg2MDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/doc%20credentials/ChatGPT%20Image%20Jan%2014,%202026,%2012_58_10%20PM.png",
       "imageHint": "certificate"
     },
     {
       "id": "cert-guinness",
       "description": "Guinness World Records Certificate",
-      "imageUrl": "https://images.unsplash.com/photo-1589948516895-db76617cb753?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjZXJ0aWZpY2F0ZXxlbnwwfHx8fDE3NjgzNzg2MDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/doc%20credentials/ChatGPT%20Image%20Jan%2014,%202026,%2012_58_02%20PM.png",
       "imageHint": "certificate"
     },
     {

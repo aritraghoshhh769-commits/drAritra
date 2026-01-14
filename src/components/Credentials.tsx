@@ -39,14 +39,15 @@ const Credentials = () => {
             return (
               <div key={cred.id} className="group overflow-hidden rounded-lg border border-border/50 bg-background/30 shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
                 {image && (
-                  <Image
-                    src={image.imageUrl}
-                    alt={cred.title}
-                    width={600}
-                    height={400}
-                    className="w-full h-48 object-cover"
-                    data-ai-hint={image.imageHint}
-                  />
+                  <div className="relative aspect-video bg-white">
+                    <Image
+                      src={image.imageUrl}
+                      alt={cred.title}
+                      layout="fill"
+                      className="object-contain p-4"
+                      data-ai-hint={image.imageHint}
+                    />
+                  </div>
                 )}
                 <div className="p-4 bg-background">
                     <h3 className="text-lg font-semibold text-foreground">{cred.title}</h3>
