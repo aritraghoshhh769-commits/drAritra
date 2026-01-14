@@ -258,28 +258,28 @@ const ScrollSequence: React.FC = () => {
           <div
             className="absolute top-0 left-0 w-1/2 h-1/2"
             style={{
-              background: 'radial-gradient(at top left, #1a242a 0%, transparent 60%)',
+              background: 'radial-gradient(at 0% 0%, #1e282f 0%, transparent 50%)',
               pointerEvents: 'none'
             }}
           />
           <div
             className="absolute top-0 right-0 w-1/2 h-1/2"
             style={{
-              background: 'radial-gradient(at top right, #1a242a 0%, transparent 60%)',
+              background: 'radial-gradient(at 100% 0%, #1e282f 0%, transparent 50%)',
               pointerEvents: 'none'
             }}
           />
           <div
             className="absolute bottom-0 left-0 w-1/2 h-1/2"
             style={{
-              background: 'radial-gradient(at bottom left, #1a242a 0%, transparent 60%)',
+              background: 'radial-gradient(at 0% 100%, #1e282f 0%, transparent 50%)',
               pointerEvents: 'none'
             }}
           />
           <div
             className="absolute bottom-0 right-0 w-1/2 h-1/2"
             style={{
-              background: 'radial-gradient(at bottom right, #1a242a 0%, transparent 60%)',
+              background: 'radial-gradient(at 100% 100%, #1e282f 0%, transparent 50%)',
               pointerEvents: 'none'
             }}
           />
