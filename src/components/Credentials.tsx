@@ -6,10 +6,10 @@ const credentials = [
     id: 'cert-nss',
   },
   {
-    id: 'cert-rcp',
+    id: 'cert-guinness',
   },
   {
-    id: 'cert-guinness',
+    id: 'cert-rcp',
   },
 ];
 
@@ -24,10 +24,11 @@ const Credentials = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
           {credentials.map((cred) => {
             const image = PlaceHolderImages.find(img => img.id === cred.id);
+            const isGuinness = cred.id === 'cert-guinness';
             return (
               <div key={cred.id} className="group overflow-hidden transition-all duration-300 hover:shadow-2xl hover:z-10 hover:scale-105">
                 {image && (
-                  <div className="relative aspect-auto bg-white">
+                  <div className={`relative aspect-auto bg-white ${isGuinness ? 'h-[90%] overflow-hidden' : ''}`}>
                     <Image
                       src={image.imageUrl}
                       alt={image.description}
