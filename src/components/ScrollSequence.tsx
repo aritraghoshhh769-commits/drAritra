@@ -110,8 +110,8 @@ const TextOverlayContent: React.FC<{ overlay: TextOverlay, scrollYProgress: any 
       className={`absolute inset-0 h-full w-full flex flex-col justify-center p-8 md:p-16 pointer-events-none ${positionClasses[overlay.position]}`}
     >
       <div className="max-w-md">
-        <h2 className="text-4xl md:text-6xl font-bold text-white/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">{overlay.title}</h2>
-        {overlay.subtitle && <p className="mt-4 text-lg md:text-xl text-white/80 drop-shadow-[0_2px_3px_rgba(0,0,0,0.7)]">{overlay.subtitle}</p>}
+        <h2 className="text-4xl md:text-6xl font-bold text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.title}</h2>
+        {overlay.subtitle && <p className="mt-4 text-lg md:text-xl text-white/80 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">{overlay.subtitle}</p>}
       </div>
     </motion.div>
   );
@@ -133,7 +133,7 @@ const ScrollSequence: React.FC = () => {
 
   const ndFilterOpacity = useTransform(
     scrollYProgress,
-    [0.04, 0.05],
+    [0.05, 0.15],
     [0, 0.7]
   );
 
