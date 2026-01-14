@@ -131,12 +131,6 @@ const ScrollSequence: React.FC = () => {
     offset: ['start start', 'end end'],
   });
 
-  const ndFilterOpacity = useTransform(
-    scrollYProgress,
-    [0.1, 0.15],
-    [0, 0.0512]
-  );
-
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
   const targetFrame = useRef(0);
   const currentFrame = useRef(0);
@@ -253,8 +247,32 @@ const ScrollSequence: React.FC = () => {
       <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className="relative w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
-
-          <motion.div className="absolute inset-0 bg-black z-20 pointer-events-none" style={{ opacity: ndFilterOpacity }} />
+          
+          {/* Gradient Overlays for seamless blending */}
+          <div
+            className="absolute top-0 left-0 w-1/4 h-1/4"
+            style={{ background: 'radial-gradient(circle at top left, transparent 50%, #1C262D 80%)' }}
+          />
+          <div
+            className="absolute top-0 right-0 w-1/4 h-1/4"
+            style={{ background: 'radial-gradient(circle at top right, transparent 50%, #1C262D 80%)' }}
+          />
+          <div
+            className="absolute bottom-0 left-0 w-1/4 h-1/4"
+            style={{ background: 'radial-gradient(circle at bottom left, transparent 50%, #1C262D 80%)' }}
+          />
+          <div
+            className="absolute bottom-0 right-0 w-1/4 h-1/4"
+            style={{ background: 'radial-gradient(circle at bottom right, transparent 50%, #1C262D 80%)' }}
+          />
+          <div
+            className="absolute top-0 left-0 h-full w-1/5"
+            style={{ background: 'linear-gradient(to right, #1C262D 0%, transparent 100%)' }}
+          />
+          <div
+            className="absolute top-0 right-0 h-full w-1/5"
+            style={{ background: 'linear-gradient(to left, #1C262D 0%, transparent 100%)' }}
+          />
 
           {!loading && storyBeats.map((overlay) => (
             <TextOverlayContent key={overlay.title} overlay={overlay} scrollYProgress={scrollYProgress}/>
