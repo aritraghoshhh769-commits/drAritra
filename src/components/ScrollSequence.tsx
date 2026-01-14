@@ -256,44 +256,44 @@ const ScrollSequence: React.FC = () => {
 
           {/* --- Edge Blending Gradients --- */}
           <div
-            className="absolute top-0 left-0 w-[15%] h-[15%]"
+            className="absolute top-0 left-0 w-[20%] h-[20%]"
             style={{
-              background: 'radial-gradient(at 0% 0%, #1F2A2E 40%, transparent 80%)',
+              background: 'radial-gradient(at 0% 0%, hsl(var(--background)) 35%, transparent 70%)',
               pointerEvents: 'none',
             }}
           />
           <div
-            className="absolute top-0 right-0 w-[15%] h-[15%]"
+            className="absolute top-0 right-0 w-[20%] h-[20%]"
             style={{
-              background: 'radial-gradient(at 100% 0%, #1F2A2E 40%, transparent 80%)',
+              background: 'radial-gradient(at 100% 0%, hsl(var(--background)) 35%, transparent 70%)',
               pointerEvents: 'none',
             }}
           />
           <div
-            className="absolute bottom-0 left-0 w-[15%] h-[15%]"
+            className="absolute bottom-0 left-0 w-[20%] h-[20%]"
             style={{
-              background: 'radial-gradient(at 0% 100%, #1F2A2E 50%, transparent 80%)',
+              background: 'radial-gradient(at 0% 100%, hsl(var(--background)) 35%, transparent 70%)',
               pointerEvents: 'none',
             }}
           />
           <div
-            className="absolute bottom-0 right-0 w-[15%] h-[15%]"
+            className="absolute bottom-0 right-0 w-[20%] h-[20%]"
             style={{
-              background: 'radial-gradient(at 100% 100%, #1F2A2E 50%, transparent 80%)',
+              background: 'radial-gradient(at 100% 100%, hsl(var(--background)) 35%, transparent 70%)',
               pointerEvents: 'none',
             }}
           />
           <div
-            className="absolute top-0 left-0 h-full w-[10%]"
+            className="absolute top-0 left-0 h-full w-[15%]"
             style={{
-              background: 'linear-gradient(to right, #1F2A2E 50%, transparent 100%)',
+              background: 'linear-gradient(to right, hsl(var(--background)) 40%, transparent 80%)',
               pointerEvents: 'none'
             }}
           />
           <div
-            className="absolute top-0 right-0 h-full w-[10%]"
+            className="absolute top-0 right-0 h-full w-[15%]"
             style={{
-              background: 'linear-gradient(to left, #1F2A2E 50%, transparent 100%)',
+              background: 'linear-gradient(to left, hsl(var(--background)) 40%, transparent 80%)',
               pointerEvents: 'none'
             }}
           />
