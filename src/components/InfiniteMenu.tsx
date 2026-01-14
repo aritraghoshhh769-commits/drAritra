@@ -77,7 +77,7 @@ void main() {
     vec4 texColor = texture(uTex, st);
 
     // Apply a black background by blending the texture color with black based on alpha
-    outColor = vec4(texColor.rgb * texColor.a, texColor.a * vAlpha);
+    outColor = vec4(texColor.rgb, texColor.a * vAlpha);
 }
 `;
 
@@ -748,7 +748,7 @@ class InfiniteGridMenu {
 
     if (!ctx) return;
     
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 
