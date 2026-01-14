@@ -267,11 +267,11 @@ const ScrollSequence: React.FC = () => {
           />
           <div
             className="absolute top-0 left-0 h-full w-1/5"
-            style={{ background: 'linear-gradient(to right, #1C262D 0%, transparent 100%)' }}
+            style={{ background: 'linear-gradient(to right, transparent 0%, #1C262D 100%)' }}
           />
           <div
             className="absolute top-0 right-0 h-full w-1/5"
-            style={{ background: 'linear-gradient(to left, #1C262D 0%, transparent 100%)' }}
+            style={{ background: 'linear-gradient(to left, transparent 0%, #1C262D 100%)' }}
           />
 
           {!loading && storyBeats.map((overlay) => (
