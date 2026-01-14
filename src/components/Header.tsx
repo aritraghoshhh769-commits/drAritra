@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
+import ClientOnly from './ClientOnly';
 
 const navLinks = [
   { href: '#about', label: 'About' },
@@ -86,38 +87,40 @@ const Header = () => {
           </div>
 
           <div className="md:hidden">
-            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className={cn(!isScrolled && "text-white hover:bg-white/10 hover:text-white")}>
-                  <Menu className="h-6 w-6" />
-                  <span className="sr-only">Open menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-background">
-                 <div className="p-6 h-full flex flex-col">
-                    <div className="flex justify-between items-center mb-8">
-                        <h2 className="text-lg font-semibold text-primary">Menu</h2>
-                    </div>
-                    <nav className="flex flex-col space-y-6">
-                        {navLinks.map((link) => (
-                        <a
-                            key={link.href}
-                            href={link.href}
-                            onClick={(e) => handleLinkClick(e, link.href)}
-                            className="text-lg font-medium text-foreground hover:text-primary transition-colors cursor-pointer"
-                        >
-                            {link.label}
-                        </a>
-                        ))}
-                    </nav>
-                    <div className="mt-auto">
-                        <Button asChild className="w-full" size="lg">
-                            <Link href="/appointment" target="_blank" onClick={() => setMobileMenuOpen(false)}>Book Appointment</Link>
-                        </Button>
-                    </div>
-                </div>
-              </SheetContent>
-            </Sheet>
+            <ClientOnly>
+              <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" className={cn(!isScrolled && "text-white hover:bg-white/10 hover:text-white")}>
+                    <Menu className="h-6 w-6" />
+                    <span className="sr-only">Open menu</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-background">
+                  <div className="p-6 h-full flex flex-col">
+                      <div className="flex justify-between items-center mb-8">
+                          <h2 className="text-lg font-semibold text-primary">Menu</h2>
+                      </div>
+                      <nav className="flex flex-col space-y-6">
+                          {navLinks.map((link) => (
+                          <a
+                              key={link.href}
+                              href={link.href}
+                              onClick={(e) => handleLinkClick(e, link.href)}
+                              className="text-lg font-medium text-foreground hover:text-primary transition-colors cursor-pointer"
+                          >
+                              {link.label}
+                          </a>
+                          ))}
+                      </nav>
+                      <div className="mt-auto">
+                          <Button asChild className="w-full" size="lg">
+                              <Link href="/appointment" target="_blank" onClick={() => setMobileMenuOpen(false)}>Book Appointment</Link>
+                          </Button>
+                      </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </ClientOnly>
           </div>
         </div>
       </div>
