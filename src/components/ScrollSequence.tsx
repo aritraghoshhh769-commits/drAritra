@@ -254,36 +254,6 @@ const ScrollSequence: React.FC = () => {
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
 
-          {/* --- Edge Blending Gradients --- */}
-          <div
-            className="absolute top-0 left-0 w-[50%] h-[50%]"
-            style={{
-              background: 'radial-gradient(at 0% 0%, hsl(var(--background)) 40%, transparent 80%)',
-              pointerEvents: 'none',
-            }}
-          />
-          <div
-            className="absolute top-0 right-0 w-[50%] h-[50%]"
-            style={{
-              background: 'radial-gradient(at 100% 0%, hsl(var(--background)) 40%, transparent 80%)',
-              pointerEvents: 'none',
-            }}
-          />
-          <div
-            className="absolute bottom-0 left-0 w-[50%] h-[50%]"
-            style={{
-              background: 'radial-gradient(at 0% 100%, hsl(var(--background)) 40%, transparent 80%)',
-              pointerEvents: 'none',
-            }}
-          />
-          <div
-            className="absolute bottom-0 right-0 w-[50%] h-[50%]"
-            style={{
-              background: 'radial-gradient(at 100% 100%, hsl(var(--background)) 40%, transparent 80%)',
-              pointerEvents: 'none',
-            }}
-          />
-
           <motion.div className="absolute inset-0 bg-black z-20 pointer-events-none" style={{ opacity: ndFilterOpacity }} />
 
           {!loading && storyBeats.map((overlay) => (
