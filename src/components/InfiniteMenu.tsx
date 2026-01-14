@@ -53,34 +53,11 @@ void main() {
 const discFragShaderSource = `#version 300 es
 precision highp float;
 
-uniform sampler2D uTex;
-uniform int uItemCount;
-uniform int uAtlasSize;
-
 out vec4 outColor;
-
-in vec2 vUvs;
 in float vAlpha;
-flat in int vInstanceId;
 
 void main() {
-    int itemIndex = vInstanceId % uItemCount;
-    int cellsPerRow = uAtlasSize;
-    int cellX = itemIndex % cellsPerRow;
-    int cellY = itemIndex / cellsPerRow;
-    vec2 cellSize = vec2(1.0) / vec2(float(cellsPerRow));
-    vec2 cellOffset = vec2(float(cellX), float(cellY)) * cellSize;
-    
-    vec2 st = vec2(vUvs.x, 1.0 - vUvs.y);
-    st = st * cellSize + cellOffset;
-    
-    vec4 texColor = texture(uTex, st);
-
-    // Apply alpha and discard transparent fragments
-    if (texColor.a < 0.1) {
-        discard;
-    }
-    outColor = vec4(texColor.rgb, texColor.a * vAlpha);
+    outColor = vec4(0.0, 0.0, 0.0, vAlpha);
 }
 `;
 
@@ -428,16 +405,6 @@ function makeBuffer(gl: WebGL2RenderingContext, sizeOrData: number | ArrayBuffer
   return buf;
 }
 
-function createAndSetupTexture(gl: WebGL2RenderingContext, minFilter: number, magFilter: number, wrapS: number, wrapT: number) {
-  const texture = gl.createTexture();
-  gl.bindTexture(gl.TEXTURE_2D, texture);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, wrapS);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, wrapT);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, minFilter);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, magFilter);
-  return texture;
-}
-
 class ArcballControl {
   isPointerDown = false;
   orientation = quat.create();
@@ -630,8 +597,6 @@ class InfiniteGridMenu {
   DISC_INSTANCE_COUNT!: number;
   discInstances!: { matricesArray: Float32Array, matrices: mat4[], buffer: WebGLBuffer | null };
   worldMatrix!: mat4;
-  tex!: WebGLTexture | null;
-  atlasSize!: number;
   control!: ArcballControl;
 
 
@@ -697,10 +662,7 @@ class InfiniteGridMenu {
       uCameraPosition: gl.getUniformLocation(this.discProgram, 'uCameraPosition')!,
       uScaleFactor: gl.getUniformLocation(this.discProgram, 'uScaleFactor')!,
       uRotationAxisVelocity: gl.getUniformLocation(this.discProgram, 'uRotationAxisVelocity')!,
-      uTex: gl.getUniformLocation(this.discProgram, 'uTex')!,
       uFrames: gl.getUniformLocation(this.discProgram, 'uFrames')!,
-      uItemCount: gl.getUniformLocation(this.discProgram, 'uItemCount')!,
-      uAtlasSize: gl.getUniformLocation(this.discProgram, 'uAtlasSize')!
     };
 
     this.discGeo = new DiscGeometry(56, 1);
@@ -725,7 +687,6 @@ class InfiniteGridMenu {
     this.#initDiscInstances(this.DISC_INSTANCE_COUNT);
 
     this.worldMatrix = mat4.create();
-    this.#initTexture();
 
     this.control = new ArcballControl(this.canvas, deltaTime => this.#onControlUpdate(deltaTime));
 
@@ -734,67 +695,6 @@ class InfiniteGridMenu {
     this.resize();
 
     if (onInit) onInit(this);
-  }
-
-  #initTexture() {
-    const gl = this.gl;
-    this.tex = createAndSetupTexture(gl, gl.LINEAR_MIPMAP_LINEAR, gl.LINEAR, gl.CLAMP_TO_EDGE, gl.CLAMP_TO_EDGE);
-
-    const itemCount = Math.max(1, this.items.length);
-    this.atlasSize = Math.ceil(Math.sqrt(itemCount));
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const cellSize = 1024; // Increased resolution for better quality
-
-    canvas.width = this.atlasSize * cellSize;
-    canvas.height = this.atlasSize * cellSize;
-
-    if (!ctx) return;
-    
-    ctx.fillStyle = 'rgba(0, 0, 0, 0)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-
-    Promise.all(
-      this.items.map(
-        item =>
-          new Promise(resolve => {
-            const img = new Image();
-            img.crossOrigin = 'anonymous';
-            img.onload = () => resolve(img);
-            img.onerror = () => resolve(null); // Resolve with null if image fails to load
-            img.src = item.image;
-          })
-      )
-    ).then(images => {
-      images.forEach((img, i) => {
-        if (img) {
-          const x = (i % this.atlasSize) * cellSize;
-          const y = Math.floor(i / this.atlasSize) * cellSize;
-          
-          const imgRatio = (img as HTMLImageElement).width / (img as HTMLImageElement).height;
-          const cellRatio = 1.0;
-          
-          let dWidth = cellSize;
-          let dHeight = cellSize;
-
-          if (imgRatio > cellRatio) {
-            dHeight = cellSize / imgRatio;
-          } else {
-            dWidth = cellSize * imgRatio;
-          }
-
-          const dx = x + (cellSize - dWidth) / 2;
-          const dy = y + (cellSize - dHeight) / 2;
-
-          ctx.drawImage(img as CanvasImageSource, dx, dy, dWidth, dHeight);
-        }
-      });
-
-      gl.bindTexture(gl.TEXTURE_2D, this.tex);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, canvas);
-      gl.generateMipmap(gl.TEXTURE_2D);
-    });
   }
 
   #initDiscInstances(count: number) {
@@ -881,14 +781,8 @@ class InfiniteGridMenu {
       this.smoothRotationVelocity * 1.1
     );
 
-    gl.uniform1i(this.discLocations.uItemCount as WebGLUniformLocation, this.items.length);
-    gl.uniform1i(this.discLocations.uAtlasSize as WebGLUniformLocation, this.atlasSize);
-
     gl.uniform1f(this.discLocations.uFrames as WebGLUniformLocation, this.#frames);
     gl.uniform1f(this.discLocations.uScaleFactor as WebGLUniformLocation, this.scaleFactor);
-    gl.uniform1i(this.discLocations.uTex as WebGLUniformLocation, 0);
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, this.tex);
 
     gl.bindVertexArray(this.discVAO);
     gl.drawElementsInstanced(
@@ -978,7 +872,7 @@ class InfiniteGridMenu {
 
 const defaultItems = [
   {
-    image: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9IndoaXRlIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjAuNSI+PC9zdmc+',
+    image: '',
     link: '#',
     title: '',
     description: ''

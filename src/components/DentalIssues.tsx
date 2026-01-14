@@ -1,7 +1,6 @@
 'use client';
 
 import InfiniteMenu from './InfiniteMenu';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import ClientOnly from './ClientOnly';
 
 const dentalIssues = [
@@ -38,9 +37,8 @@ const dentalIssues = [
 ];
 
 const items = dentalIssues.map(issue => {
-  const placeholder = PlaceHolderImages.find(p => p.id === issue.id);
   return {
-    image: placeholder ? placeholder.imageUrl : `https://picsum.photos/seed/${issue.id}/300/300`,
+    image: '', // No image
     link: '#',
     title: issue.title,
     description: issue.description
