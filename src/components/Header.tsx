@@ -20,9 +20,12 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Use a larger value to ensure it only triggers after the hero section
-      const heroHeight = window.innerHeight * 0.9; // 90% of the viewport height
-      setIsScrolled(window.scrollY > heroHeight);
+      const aboutSection = document.getElementById('about');
+      if (aboutSection) {
+        // Trigger when the top of the about section is at or above the top of the viewport
+        const triggerPoint = aboutSection.offsetTop;
+        setIsScrolled(window.scrollY >= triggerPoint);
+      }
     };
     
     // Set initial state
