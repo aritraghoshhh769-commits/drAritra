@@ -133,8 +133,8 @@ const ScrollSequence: React.FC = () => {
 
   const ndFilterOpacity = useTransform(
     scrollYProgress,
-    [0.05, 0.1],
-    [0, 0.7]
+    [0.05, 0.15],
+    [0, 0.35]
   );
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
