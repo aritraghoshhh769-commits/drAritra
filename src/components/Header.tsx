@@ -31,8 +31,7 @@ const Header = () => {
       }
     };
     
-    // Set initial state
-    handleScroll();
+    handleScroll(); // Set initial state on client
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
