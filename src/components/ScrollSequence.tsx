@@ -19,20 +19,20 @@ type TextOverlay = {
 const storyBeats: TextOverlay[] = [
   {
     start: 0.1,
-    end: 0.3,
+    end: 0.4,
     position: 'center',
     title: 'Dr. Aritra Ghosh',
     subtitle: 'Oral & Dental Surgeon',
   },
   {
-    start: 0.35,
-    end: 0.55,
+    start: 0.45,
+    end: 0.6,
     position: 'left',
     title: '5+ Years of Experience',
     subtitle: 'Dedicated to providing comprehensive dental care with a gentle touch.',
   },
   {
-    start: 0.6,
+    start: 0.65,
     end: 0.8,
     position: 'right',
     title: 'Advanced Clinical Practice',
@@ -111,7 +111,7 @@ const TextOverlayContent: React.FC<{ overlay: TextOverlay, scrollYProgress: any 
     >
       <div className="max-w-md">
         <h2 className="text-4xl md:text-6xl font-bold text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.title}</h2>
-        {overlay.subtitle && <p className="mt-4 text-lg md:text-xl text-white/80 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">{overlay.subtitle}</p>}
+        {overlay.subtitle && <p className="mt-4 text-lg md:text-xl text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.subtitle}</p>}
       </div>
     </motion.div>
   );
