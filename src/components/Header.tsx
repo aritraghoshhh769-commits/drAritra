@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { cn } from '@/lib/utils';
 
 const navLinks = [
   { href: '#about', label: 'About' },
@@ -19,8 +20,14 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      // Use a larger value to ensure it only triggers after the hero section
+      const heroHeight = window.innerHeight * 0.9; // 90% of the viewport height
+      setIsScrolled(window.scrollY > heroHeight);
     };
+    
+    // Set initial state
+    handleScroll();
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -31,26 +38,33 @@ const Header = () => {
   
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={cn(
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
         isScrolled ? 'bg-background/80 shadow-md backdrop-blur-sm' : 'bg-black/20'
-      }`}
+      )}
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-20">
-          <Link href="/" className="text-xl font-bold text-primary">
+          <Link href="/" className={cn(
+            "text-xl font-bold transition-colors",
+            isScrolled ? "text-primary" : "text-white"
+          )}>
             Dr. Aritra Ghosh
           </Link>
 
           <nav className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">
+              <Link key={link.href} href={link.href} className={cn(
+                "text-sm font-medium transition-colors",
+                isScrolled ? "text-foreground/80 hover:text-primary" : "text-white/90 hover:text-white"
+              )}>
                   {link.label}
               </Link>
             ))}
           </nav>
 
           <div className="hidden md:flex items-center space-x-4">
-             <Button asChild>
+             <Button asChild variant={isScrolled ? "default" : "outline"} className={cn(!isScrolled && "text-white border-white hover:bg-white hover:text-primary")}>
                 <Link href="#booking">Book Appointment</Link>
             </Button>
           </div>
@@ -58,7 +72,7 @@ const Header = () => {
           <div className="md:hidden">
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button variant="ghost" size="icon" className={cn(!isScrolled && "text-white hover:bg-white/10 hover:text-white")}>
                   <Menu className="h-6 w-6" />
                   <span className="sr-only">Open menu</span>
                 </Button>
