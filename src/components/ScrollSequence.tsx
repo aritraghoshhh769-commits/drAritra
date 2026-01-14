@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { useScroll, useTransform, motion, useMotionValueEvent, AnimatePresence, animate } from 'framer-motion';
+import { useScroll, useTransform, motion, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 
 // --- Configuration Constants ---
-const TOTAL_FRAMES = 120;
+const TOTAL_FRAMES = 240;
 const SCROLL_HEIGHT = "400vh";
-const AUTOPLAY_END_PROGRESS = 0.9;
 
 type TextOverlay = {
   start: number;
@@ -50,9 +49,7 @@ const storyBeats: TextOverlay[] = [
 
 // --- Helper Functions ---
 const getFramePath = (frame: number): string => {
-  // We now have 120 frames, so we need to map the frame index (0-119) to the image file number (1-240).
-  // We can do this by skipping every other frame.
-  const frameNumber = String(frame * 2 + 1).padStart(3, '0');
+  const frameNumber = String(frame + 1).padStart(3, '0');
   return `https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/aritro/ezgif-frame-${frameNumber}.jpg`;
 };
 
@@ -129,12 +126,10 @@ const ScrollSequence: React.FC = () => {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [frames, setFrames] = useState<HTMLImageElement[]>([]);
   const lastDrawnFrame = useRef(-1);
-  const [autoplayFinished, setAutoplayFinished] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: scrollRef,
     offset: ['start start', 'end end'],
-    disabled: !autoplayFinished,
   });
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
@@ -148,30 +143,6 @@ const ScrollSequence: React.FC = () => {
       setLoading(false);
     });
   }, []);
-
-  useEffect(() => {
-    if (!loading && frames.length > 0 && !autoplayFinished) {
-      const scrollElement = scrollRef.current;
-      if (scrollElement) {
-        // Ensure scroll is at top before starting animation
-        scrollElement.scrollTop = 0;
-
-        const animation = animate(scrollYProgress, AUTOPLAY_END_PROGRESS, {
-          duration: 8,
-          ease: "easeInOut",
-          onUpdate: (latest) => {
-            // During autoplay, we manually set the scroll position based on progress.
-             const scrollRange = scrollElement.scrollHeight - window.innerHeight;
-             scrollElement.scrollTop = latest * scrollRange;
-          },
-          onComplete: () => {
-            setAutoplayFinished(true);
-          }
-        });
-        return () => animation.stop();
-      }
-    }
-  }, [loading, frames, scrollYProgress, autoplayFinished]);
 
   const drawFrame = useCallback((frameIdx: number) => {
     const canvas = canvasRef.current;
@@ -232,13 +203,7 @@ const ScrollSequence: React.FC = () => {
   useEffect(() => {
     const animateFrame = () => {
       if (!loading && frames.length > 0) {
-        // During autoplay, the scrollYProgress drives the change.
-        // After autoplay, we use LERP for smooth user scrolling.
-        if (autoplayFinished) {
-          currentFrame.current = lerp(currentFrame.current, targetFrame.current, 0.1);
-        } else {
-          currentFrame.current = targetFrame.current;
-        }
+        currentFrame.current = lerp(currentFrame.current, targetFrame.current, 0.1);
 
         const roundedFrame = Math.round(currentFrame.current);
         if(frames[roundedFrame]) {
@@ -257,7 +222,7 @@ const ScrollSequence: React.FC = () => {
         cancelAnimationFrame(rafId.current);
       }
     };
-  }, [loading, frames, drawFrame, autoplayFinished]);
+  }, [loading, frames, drawFrame]);
 
   useEffect(() => {
     if (!loading && frames.length > 0) {
@@ -280,7 +245,7 @@ const ScrollSequence: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className={`relative w-full ${!autoplayFinished ? 'overflow-hidden' : ''}`}>
+      <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className="relative w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
           <div className="absolute inset-0 bg-black/70" />
@@ -294,5 +259,3 @@ const ScrollSequence: React.FC = () => {
 };
 
 export default ScrollSequence;
-
-    
