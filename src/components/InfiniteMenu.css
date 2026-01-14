@@ -28,7 +28,7 @@
 }
 
 .face-description {
-  top: calc(65% + 2.5rem);
+  top: calc(65% + 3rem);
   font-size: 1rem;
   max-width: 80%;
   opacity: 0.8;
