@@ -32,18 +32,20 @@ const Credentials = () => {
           {credentials.map((cred) => {
             const image = PlaceHolderImages.find(img => img.id === cred.id);
             return (
-              <div key={cred.id} className="group transition-all duration-300 hover:shadow-2xl hover:z-10 hover:scale-105 rounded-lg shadow-lg overflow-hidden bg-white">
+              <div key={cred.id} className="relative transition-all duration-300 hover:z-10 hover:scale-105">
                 {image && (
-                  <div className="relative" style={{width: `${cred.width / 4}px`, height: `${cred.height / 4}px`}}>
                     <Image
                       src={image.imageUrl}
                       alt={image.description}
-                      layout="fill"
-                      objectFit="contain"
-                      className="rounded-lg"
+                      width={cred.width / 4}
+                      height={cred.height / 4}
+                      className="rounded-lg shadow-lg"
                       data-ai-hint={image.imageHint}
+                      style={{
+                        maxWidth: '100%',
+                        height: 'auto',
+                      }}
                     />
-                  </div>
                 )}
               </div>
             );
