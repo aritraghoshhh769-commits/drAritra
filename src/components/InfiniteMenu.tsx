@@ -75,13 +75,9 @@ void main() {
     st = st * cellSize + cellOffset;
     
     vec4 texColor = texture(uTex, st);
-    
-    // For SVG, we might want to use its alpha channel as the mask
-    if (texColor.a > 0.0) {
-        outColor = vec4(texColor.rgb, texColor.a * vAlpha);
-    } else {
-        outColor = vec4(0.0, 0.0, 0.0, 0.0);
-    }
+
+    // Apply a black background by blending the texture color with black based on alpha
+    outColor = vec4(texColor.rgb * texColor.a, texColor.a * vAlpha);
 }
 `;
 
@@ -671,7 +667,7 @@ class InfiniteGridMenu {
   }
 
   #init(onInit: ((sketch: InfiniteGridMenu) => void) | null) {
-    const gl = this.canvas.getContext('webgl2', { antialias: true, alpha: false });
+    const gl = this.canvas.getContext('webgl2', { antialias: true, alpha: true });
     if (!gl) {
       throw new Error('No WebGL 2 context!');
     }
@@ -745,12 +741,16 @@ class InfiniteGridMenu {
     this.atlasSize = Math.ceil(Math.sqrt(itemCount));
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    const cellSize = 512;
+    const cellSize = 1024; // Increased resolution for better quality
 
     canvas.width = this.atlasSize * cellSize;
     canvas.height = this.atlasSize * cellSize;
 
     if (!ctx) return;
+    
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
 
     Promise.all(
       this.items.map(
@@ -768,7 +768,23 @@ class InfiniteGridMenu {
         if (img) {
           const x = (i % this.atlasSize) * cellSize;
           const y = Math.floor(i / this.atlasSize) * cellSize;
-          ctx.drawImage(img as CanvasImageSource, x, y, cellSize, cellSize);
+          
+          const imgRatio = (img as HTMLImageElement).width / (img as HTMLImageElement).height;
+          const cellRatio = 1.0;
+          
+          let dWidth = cellSize;
+          let dHeight = cellSize;
+
+          if (imgRatio > cellRatio) {
+            dHeight = cellSize / imgRatio;
+          } else {
+            dWidth = cellSize * imgRatio;
+          }
+
+          const dx = x + (cellSize - dWidth) / 2;
+          const dy = y + (cellSize - dHeight) / 2;
+
+          ctx.drawImage(img as CanvasImageSource, dx, dy, dWidth, dHeight);
         }
       });
 
