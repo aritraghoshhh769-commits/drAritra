@@ -31,6 +31,7 @@ const Header = () => {
       }
     };
     
+    // Set initial state
     handleScroll();
 
     window.addEventListener('scroll', handleScroll);
