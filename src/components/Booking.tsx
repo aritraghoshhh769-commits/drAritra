@@ -121,12 +121,12 @@ const Booking = () => {
                 </Form>
               </CardContent>
             </Card>
-            <div className="flex flex-col justify-center items-center text-center">
+            <div className="flex flex-col justify-center">
               <h3 className="text-2xl font-bold text-primary mb-4">Clinic Details</h3>
               <p className="text-lg text-foreground/80">Dr. Aritra Ghosh Dental Clinic</p>
               <p className="text-foreground/70 mt-2">Mondal Apartment,<br />M. Sarkar Para, Near Nabin Club,<br />Doctor Para, Rampurhat</p>
               <p className="text-lg text-foreground/80 mt-4 font-semibold">
-                <a href="tel:+919800912661" className="flex items-center justify-center gap-2 hover:text-primary">
+                <a href="tel:+919800912661" className="flex items-center gap-2 hover:text-primary">
                   <Phone className="h-5 w-5" /> +91 9800912661
                 </a>
               </p>
