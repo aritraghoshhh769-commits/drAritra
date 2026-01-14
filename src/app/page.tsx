@@ -5,6 +5,7 @@ import Services from '@/components/Services';
 import Credentials from '@/components/Credentials';
 import Booking from '@/components/Booking';
 import Footer from '@/components/Footer';
+import DentalIssues from '@/components/DentalIssues';
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
         <ScrollSequence />
         <About />
         <Services />
+        <DentalIssues />
         <Credentials />
         <Booking />
         <Footer />

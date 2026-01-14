@@ -29,6 +29,42 @@
       "description": "Placeholder for clinic location map",
       "imageUrl": "https://images.unsplash.com/photo-1604357209793-fca5dca89f97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtYXB8ZW58MHx8fHwxNzY4Mzc4NjAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "map"
+    },
+    {
+      "id": "cavities",
+      "description": "Image showing tooth with cavities",
+      "imageUrl": "https://images.unsplash.com/photo-1664530837411-0c2e8a3d4dca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0b290aCUyMGRlY2F5fGVufDB8fHx8MTc2ODM4MTkyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tooth decay"
+    },
+    {
+      "id": "gum-disease",
+      "description": "Image showing inflamed gums",
+      "imageUrl": "https://images.unsplash.com/photo-1615592602923-9fb437226763?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxndW0lMjBkaXNlYXNlfGVufDB8fHx8MTc2ODM4MTkyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gum disease"
+    },
+    {
+      "id": "tooth-sensitivity",
+      "description": "Image showing tooth sensitivity",
+      "imageUrl": "https://images.unsplash.com/photo-1704579924216-31ef96f7e008?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0b290aCUyMHNlbnNpdGl2aXR5fGVufDB8fHx8MTc2ODM4MTkyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tooth sensitivity"
+    },
+    {
+      "id": "cracked-tooth",
+      "description": "Image showing a cracked tooth",
+      "imageUrl": "https://picsum.photos/seed/cracked-tooth/300/300?grayscale",
+      "imageHint": "cracked tooth"
+    },
+    {
+      "id": "bad-breath",
+      "description": "Image representing bad breath",
+      "imageUrl": "https://picsum.photos/seed/bad-breath/300/300?grayscale",
+      "imageHint": "person talking"
+    },
+    {
+      "id": "wisdom-teeth",
+      "description": "Image showing impacted wisdom teeth",
+      "imageUrl": "https://picsum.photos/seed/wisdom-teeth/300/300?grayscale",
+      "imageHint": "dental x-ray"
     }
   ]
 }
