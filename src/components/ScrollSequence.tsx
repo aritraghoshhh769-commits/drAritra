@@ -258,42 +258,42 @@ const ScrollSequence: React.FC = () => {
           <div
             className="absolute top-0 left-0 w-[20%] h-[20%]"
             style={{
-              background: 'radial-gradient(at 0% 0%, hsl(var(--background)) 35%, transparent 70%)',
+              background: 'radial-gradient(at 0% 0%, hsl(var(--background)) 25%, transparent 80%)',
               pointerEvents: 'none',
             }}
           />
           <div
             className="absolute top-0 right-0 w-[20%] h-[20%]"
             style={{
-              background: 'radial-gradient(at 100% 0%, hsl(var(--background)) 35%, transparent 70%)',
+              background: 'radial-gradient(at 100% 0%, hsl(var(--background)) 25%, transparent 80%)',
               pointerEvents: 'none',
             }}
           />
           <div
             className="absolute bottom-0 left-0 w-[20%] h-[20%]"
             style={{
-              background: 'radial-gradient(at 0% 100%, hsl(var(--background)) 35%, transparent 70%)',
+              background: 'radial-gradient(at 0% 100%, hsl(var(--background)) 25%, transparent 80%)',
               pointerEvents: 'none',
             }}
           />
           <div
             className="absolute bottom-0 right-0 w-[20%] h-[20%]"
             style={{
-              background: 'radial-gradient(at 100% 100%, hsl(var(--background)) 35%, transparent 70%)',
+              background: 'radial-gradient(at 100% 100%, hsl(var(--background)) 25%, transparent 80%)',
               pointerEvents: 'none',
             }}
           />
           <div
             className="absolute top-0 left-0 h-full w-[15%]"
             style={{
-              background: 'linear-gradient(to right, hsl(var(--background)) 40%, transparent 80%)',
+              background: 'linear-gradient(to right, hsl(var(--background)) 30%, transparent 80%)',
               pointerEvents: 'none'
             }}
           />
           <div
             className="absolute top-0 right-0 h-full w-[15%]"
             style={{
-              background: 'linear-gradient(to left, hsl(var(--background)) 40%, transparent 80%)',
+              background: 'linear-gradient(to left, hsl(var(--background)) 30%, transparent 80%)',
               pointerEvents: 'none'
             }}
           />
