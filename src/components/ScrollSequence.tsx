@@ -133,7 +133,7 @@ const ScrollSequence: React.FC = () => {
 
   const ndFilterOpacity = useTransform(
     scrollYProgress,
-    [0.05, 0.15],
+    [0.05, 0.25],
     [0, 0.7]
   );
 
@@ -269,13 +269,13 @@ const ScrollSequence: React.FC = () => {
           <div
             className="absolute top-0 right-0 w-1/2 h-full"
             style={{
-              background: 'linear-gradient(to left, hsl(var(--background)), transparent)',
+              background: 'linear-gradient(to left, hsl(var(--background)), transparent 80%)',
             }}
            />
           <div
             className="absolute top-0 left-0 w-1/2 h-full"
             style={{
-              background: 'linear-gradient(to right, hsl(var(--background)), transparent)',
+              background: 'linear-gradient(to right, hsl(var(--background)), transparent 80%)',
             }}
           />
           {!loading && storyBeats.map((overlay) => (
