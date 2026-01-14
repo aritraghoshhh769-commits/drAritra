@@ -18,15 +18,15 @@ type TextOverlay = {
 // --- Story Beats Configuration ---
 const storyBeats: TextOverlay[] = [
   {
-    start: 0.15,
-    end: 0.25,
+    start: 0.1,
+    end: 0.3,
     position: 'center',
     title: 'Dr. Aritra Ghosh',
     subtitle: 'Oral & Dental Surgeon',
   },
   {
-    start: 0.3,
-    end: 0.5,
+    start: 0.35,
+    end: 0.55,
     position: 'left',
     title: '5+ Years of Experience',
     subtitle: 'Dedicated to providing comprehensive dental care with a gentle touch.',
