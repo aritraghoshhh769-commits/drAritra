@@ -28,19 +28,19 @@ const Credentials = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-primary">Recognitions & Professional Credentials</h2>
           <p className="text-lg text-foreground/80 mt-2">A commitment to continuous learning and excellence.</p>
         </div>
-        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+        <div className="flex flex-nowrap justify-start md:justify-center items-center gap-8 md:gap-12 overflow-x-auto pb-4">
           {credentials.map((cred) => {
             const image = PlaceHolderImages.find(img => img.id === cred.id);
             return (
-              <div key={cred.id} className="group transition-all duration-300 hover:shadow-2xl hover:z-10 hover:scale-105 bg-white rounded-lg shadow-lg overflow-hidden">
+              <div key={cred.id} className="flex-shrink-0 group transition-all duration-300 hover:shadow-2xl hover:z-10 hover:scale-105 rounded-lg shadow-lg overflow-hidden">
                 {image && (
-                  <div className="relative" style={{width: 'auto', height: 'auto'}}>
+                  <div className="relative" style={{width: `${cred.width / 4}px`, height: `${cred.height / 4}px`}}>
                     <Image
                       src={image.imageUrl}
                       alt={image.description}
-                      width={cred.width / 3}
-                      height={cred.height / 3}
-                      className="object-contain"
+                      layout="fill"
+                      objectFit="contain"
+                      className="rounded-lg"
                       data-ai-hint={image.imageHint}
                     />
                   </div>
