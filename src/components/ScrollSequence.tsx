@@ -254,13 +254,6 @@ const ScrollSequence: React.FC = () => {
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
           <motion.div className="absolute inset-0 bg-black" style={{ opacity: ndFilterOpacity }} />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                'radial-gradient(ellipse at bottom right, hsl(var(--background)) 20%, transparent 60%), radial-gradient(ellipse at bottom left, hsl(var(--background)) 20%, transparent 60%), linear-gradient(to right, hsl(var(--background)) 0%, transparent 50%, transparent 100%), linear-gradient(to left, hsl(var(--background)) 0%, transparent 50%, transparent 100%)',
-            }}
-          />
           {!loading && storyBeats.map((overlay) => (
             <TextOverlayContent key={overlay.title} overlay={overlay} scrollYProgress={scrollYProgress}/>
           ))}
