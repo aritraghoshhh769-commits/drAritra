@@ -22,13 +22,13 @@ const Header = () => {
     const handleScroll = () => {
       const aboutSection = document.getElementById('about');
       if (aboutSection) {
-        // Trigger when the top of the about section is at or above the top of the viewport
         const triggerPoint = aboutSection.offsetTop;
         setIsScrolled(window.scrollY >= triggerPoint);
+      } else if (window.scrollY > 100) {
+        setIsScrolled(true);
       }
     };
     
-    // Set initial state
     handleScroll();
 
     window.addEventListener('scroll', handleScroll);
@@ -36,11 +36,13 @@ const Header = () => {
   }, []);
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const targetId = href.substring(1);
-    const targetElement = document.getElementById(targetId);
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth' });
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const targetId = href.substring(1);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
     }
     setMobileMenuOpen(false);
   };
@@ -79,7 +81,7 @@ const Header = () => {
 
           <div className="hidden md:flex items-center space-x-4">
              <Button asChild variant={isScrolled ? "default" : "outline"} className={cn(!isScrolled && "text-white border-white hover:bg-white hover:text-primary")}>
-                <a href="#contact-us" onClick={(e) => handleLinkClick(e, '#contact-us')}>Book Appointment</a>
+                <Link href="/appointment" target="_blank">Book Appointment</Link>
             </Button>
           </div>
 
@@ -110,7 +112,7 @@ const Header = () => {
                     </nav>
                     <div className="mt-auto">
                         <Button asChild className="w-full" size="lg">
-                            <a href="#contact-us" onClick={(e) => handleLinkClick(e, '#contact-us')}>Book Appointment</a>
+                            <Link href="/appointment" target="_blank" onClick={() => setMobileMenuOpen(false)}>Book Appointment</Link>
                         </Button>
                     </div>
                 </div>
