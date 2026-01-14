@@ -65,7 +65,7 @@ const Booking = () => {
                         <FormItem>
                           <FormLabel>Phone / WhatsApp</FormLabel>
                           <FormControl>
-                            <Input placeholder="+91 9002694838" {...field} />
+                            <Input placeholder="+91 9800912661" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -123,8 +123,8 @@ const Booking = () => {
               <p className="text-lg text-foreground/80">Dr. Aritra Ghosh Dental Clinic</p>
               <p className="text-foreground/70 mt-2">Mondal Apartment,<br />M. Sarkar Para, Near Nabin Club,<br />Doctor Para, Rampurhat</p>
               <p className="text-lg text-foreground/80 mt-4 font-semibold">
-                <a href="tel:+919002694838" className="flex items-center gap-2 hover:text-primary">
-                  <Phone className="h-5 w-5" /> +91 9002694838
+                <a href="tel:+919800912661" className="flex items-center gap-2 hover:text-primary">
+                  <Phone className="h-5 w-5" /> +91 9800912661
                 </a>
               </p>
             </div>

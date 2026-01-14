@@ -7,7 +7,7 @@ const Footer = () => {
         <Separator className="mb-8" />
         <p className="font-bold text-lg text-primary">Dr. Aritra Ghosh</p>
         <p className="text-sm">Dr. Aritra Ghosh Dental Clinic</p>
-        <p className="text-sm mt-2">+91 9002694838</p>
+        <p className="text-sm mt-2">+91 9800912661</p>
         <p className="text-sm">Mondal Apartment, M. Sarkar Para, Rampurhat</p>
         <p className="text-xs mt-8">&copy; {new Date().getFullYear()} Dr. Aritra Ghosh. All Rights Reserved.</p>
       </div>
