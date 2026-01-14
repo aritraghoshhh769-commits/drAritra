@@ -134,7 +134,7 @@ const ScrollSequence: React.FC = () => {
   const ndFilterOpacity = useTransform(
     scrollYProgress,
     [0.05, 0.25],
-    [0, 0.14]
+    [0, 0.07]
   );
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
@@ -257,7 +257,7 @@ const ScrollSequence: React.FC = () => {
             className="absolute inset-0 z-10" 
             style={{
               background: 'radial-gradient(circle at 0% 50%, #1e282f 0%, transparent 40%), radial-gradient(circle at 100% 50%, #1e282f 0%, transparent 40%), radial-gradient(circle at 100% 100%, #1e282f 0%, transparent 35%), radial-gradient(circle at 0% 100%, #1e282f 0%, transparent 30%), radial-gradient(circle at 0% 0%, #1e282f 0%, transparent 30%), radial-gradient(circle at 100% 0%, #1e282f 0%, transparent 30%)',
-              opacity: 0.95,
+              opacity: 1,
             }}
           ></div>
           <motion.div className="absolute inset-0 bg-black z-20 pointer-events-none" style={{ opacity: ndFilterOpacity }} />
