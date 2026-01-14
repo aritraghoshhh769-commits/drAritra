@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -13,14 +14,13 @@ const About = () => {
       
       <div className="container mx-auto px-4 relative">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="relative rounded-lg overflow-hidden shadow-2xl bg-white/5 backdrop-blur-sm p-2">
+          <div className="relative rounded-lg overflow-hidden shadow-2xl bg-white/5 backdrop-blur-sm p-2 aspect-[3/4]">
             {doctorImage && (
               <Image
                 src={doctorImage.imageUrl}
                 alt={doctorImage.description}
-                width={600}
-                height={800}
-                className="rounded-lg object-cover w-full h-full"
+                fill
+                className="rounded-lg object-cover object-top"
                 data-ai-hint={doctorImage.imageHint}
               />
             )}

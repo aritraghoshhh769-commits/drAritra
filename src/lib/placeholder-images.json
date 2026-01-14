@@ -2,8 +2,8 @@
   "placeholderImages": [
     {
       "id": "doctor-portrait",
-      "description": "Professional portrait of a doctor in a clinic environment",
-      "imageUrl": "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxkb2N0b3IlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjgzMDgzNzh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "description": "Professional portrait of Dr. Aritra Ghosh",
+      "imageUrl": "https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/WhatsApp%20Image%202026-01-13%20at%2016.26.55.jpeg",
       "imageHint": "doctor portrait"
     },
     {
