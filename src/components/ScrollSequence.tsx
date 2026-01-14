@@ -283,20 +283,6 @@ const ScrollSequence: React.FC = () => {
               pointerEvents: 'none'
             }}
           />
-          <div
-            className="absolute left-0 top-0 h-full w-1/4"
-            style={{
-              background: 'linear-gradient(to right, #101518 20%, transparent 80%)',
-              pointerEvents: 'none'
-            }}
-          />
-          <div
-            className="absolute right-0 top-0 h-full w-1/4"
-            style={{
-              background: 'linear-gradient(to left, #101518 20%, transparent 80%)',
-              pointerEvents: 'none'
-            }}
-          />
 
           <motion.div className="absolute inset-0 bg-black z-20 pointer-events-none" style={{ opacity: ndFilterOpacity }} />
 
