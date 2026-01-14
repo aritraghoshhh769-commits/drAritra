@@ -4,7 +4,6 @@ import About from '@/components/About';
 import Services from '@/components/Services';
 import Credentials from '@/components/Credentials';
 import Booking from '@/components/Booking';
-import Location from '@/components/Location';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -17,7 +16,6 @@ export default function Home() {
         <Services />
         <Credentials />
         <Booking />
-        <Location />
         <Footer />
       </main>
     </>
