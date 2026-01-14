@@ -134,7 +134,7 @@ const ScrollSequence: React.FC = () => {
   const ndFilterOpacity = useTransform(
     scrollYProgress,
     [0.1, 0.15],
-    [0, 0.064]
+    [0, 0.0512]
   );
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
@@ -284,16 +284,16 @@ const ScrollSequence: React.FC = () => {
             }}
           />
           <div
-            className="absolute top-0 left-0 h-full w-1/5"
+            className="absolute top-0 left-0 h-full w-[15%]"
             style={{
-              background: 'linear-gradient(to right, #172125 25%, transparent 100%)',
+              background: 'linear-gradient(to right, #172125 50%, transparent 100%)',
               pointerEvents: 'none'
             }}
           />
           <div
-            className="absolute top-0 right-0 h-full w-1/5"
+            className="absolute top-0 right-0 h-full w-[15%]"
             style={{
-              background: 'linear-gradient(to left, #172125 25%, transparent 100%)',
+              background: 'linear-gradient(to left, #172125 50%, transparent 100%)',
               pointerEvents: 'none'
             }}
           />
@@ -310,3 +310,5 @@ const ScrollSequence: React.FC = () => {
 };
 
 export default ScrollSequence;
+
+    
