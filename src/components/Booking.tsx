@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Card, CardContent } from '@/components/ui/card';
-import { CalendarIcon, Clock, Phone, User } from 'lucide-react';
+import { Phone } from 'lucide-react';
 import ClientOnly from './ClientOnly';
 
 const appointmentSchema = z.object({
@@ -38,11 +38,14 @@ const Booking = () => {
   return (
     <section id="contact-us" className="py-20 sm:py-32 bg-background">
       <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary">Contact Us</h2>
+          <p className="text-lg text-foreground/80 mt-2">Book an appointment or get in touch.</p>
+        </div>
         <ClientOnly>
           <div className="grid lg:grid-cols-2 gap-12">
             <Card className="p-8 border-primary/20 bg-card/30 backdrop-blur-sm">
               <CardContent className="p-0">
-                <h2 className="text-3xl font-bold text-primary mb-6">Contact Us</h2>
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <FormField
