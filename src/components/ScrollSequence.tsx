@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useScroll, useTransform, motion, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 
 // --- Configuration Constants ---
-const TOTAL_FRAMES = 240;
+const TOTAL_FRAMES = 120;
 const SCROLL_HEIGHT = "400vh";
 
 type TextOverlay = {
@@ -254,6 +254,12 @@ const ScrollSequence: React.FC = () => {
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
           <motion.div className="absolute inset-0 bg-black" style={{ opacity: ndFilterOpacity }} />
+          <div
+            className="absolute bottom-0 right-0 w-1/4 h-1/4"
+            style={{
+              background: 'radial-gradient(ellipse at bottom right, hsl(var(--background)) 20%, transparent 70%)',
+            }}
+          />
           {!loading && storyBeats.map((overlay) => (
             <TextOverlayContent key={overlay.title} overlay={overlay} scrollYProgress={scrollYProgress}/>
           ))}
