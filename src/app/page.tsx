@@ -6,18 +6,25 @@ import Credentials from '@/components/Credentials';
 import Booking from '@/components/Booking';
 import Footer from '@/components/Footer';
 import DentalIssues from '@/components/DentalIssues';
+import ClientOnly from '@/components/ClientOnly';
 
 export default function Home() {
   return (
     <>
       <Header />
       <main>
-        <ScrollSequence />
+        <ClientOnly>
+          <ScrollSequence />
+        </ClientOnly>
         <About />
         <Services />
-        <DentalIssues />
+        <ClientOnly>
+          <DentalIssues />
+        </ClientOnly>
         <Credentials />
-        <Booking />
+        <ClientOnly>
+          <Booking />
+        </ClientOnly>
         <Footer />
       </main>
     </>
