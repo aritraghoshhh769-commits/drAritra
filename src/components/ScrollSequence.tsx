@@ -266,6 +266,18 @@ const ScrollSequence: React.FC = () => {
               background: 'radial-gradient(ellipse at bottom left, hsl(var(--background)) 20%, transparent 70%)',
             }}
           />
+          <div
+            className="absolute top-0 right-0 w-1/4 h-full"
+            style={{
+              background: 'linear-gradient(to left, hsl(var(--background)), transparent)',
+            }}
+           />
+          <div
+            className="absolute top-0 left-0 w-1/4 h-full"
+            style={{
+              background: 'linear-gradient(to right, hsl(var(--background)), transparent)',
+            }}
+          />
           {!loading && storyBeats.map((overlay) => (
             <TextOverlayContent key={overlay.title} overlay={overlay} scrollYProgress={scrollYProgress}/>
           ))}
