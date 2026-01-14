@@ -18,7 +18,7 @@ type TextOverlay = {
 // --- Story Beats Configuration ---
 const storyBeats: TextOverlay[] = [
   {
-    start: 0.05,
+    start: 0.15,
     end: 0.25,
     position: 'center',
     title: 'Dr. Aritra Ghosh',
@@ -133,8 +133,8 @@ const ScrollSequence: React.FC = () => {
 
   const ndFilterOpacity = useTransform(
     scrollYProgress,
-    [0.05, 0.15],
-    [0, 0.056]
+    [0.1, 0.15],
+    [0, 0.224]
   );
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
@@ -256,7 +256,7 @@ const ScrollSequence: React.FC = () => {
           <div 
             className="absolute inset-0 z-10" 
             style={{
-              background: 'radial-gradient(circle at 0% 50%, #1a252a 0%, transparent 40%), radial-gradient(circle at 100% 50%, #1a252a 0%, transparent 40%), radial-gradient(circle at 100% 100%, #1a252a 20%, transparent 45%), radial-gradient(circle at 0% 100%, #1a252a 0%, transparent 30%), radial-gradient(circle at 0% 0%, #1a252a 0%, transparent 30%), radial-gradient(circle at 100% 0%, #1a252a 0%, transparent 30%)',
+              background: 'radial-gradient(circle at 0% 50%, #10181c 0%, transparent 45%), radial-gradient(circle at 100% 50%, #10181c 0%, transparent 45%), radial-gradient(circle at 100% 100%, #10181c 25%, transparent 50%), radial-gradient(circle at 0% 100%, #10181c 0%, transparent 35%), radial-gradient(circle at 0% 0%, #10181c 0%, transparent 35%), radial-gradient(circle at 100% 0%, #10181c 0%, transparent 35%)',
               opacity: 1,
             }}
           ></div>
