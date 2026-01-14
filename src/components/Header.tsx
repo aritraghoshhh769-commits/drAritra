@@ -35,7 +35,13 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleLinkClick = () => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.substring(1);
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+    }
     setMobileMenuOpen(false);
   };
   
@@ -57,18 +63,23 @@ const Header = () => {
 
           <nav className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} className={cn(
-                "text-sm font-medium transition-colors",
-                isScrolled ? "text-foreground/80 hover:text-primary" : "text-white/90 hover:text-white"
-              )}>
-                  {link.label}
-              </Link>
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => handleLinkClick(e, link.href)}
+                className={cn(
+                  "text-sm font-medium transition-colors cursor-pointer",
+                  isScrolled ? "text-foreground/80 hover:text-primary" : "text-white/90 hover:text-white"
+                )}
+              >
+                {link.label}
+              </a>
             ))}
           </nav>
 
           <div className="hidden md:flex items-center space-x-4">
              <Button asChild variant={isScrolled ? "default" : "outline"} className={cn(!isScrolled && "text-white border-white hover:bg-white hover:text-primary")}>
-                <Link href="#contact-us">Book Appointment</Link>
+                <a href="#contact-us" onClick={(e) => handleLinkClick(e, '#contact-us')}>Book Appointment</a>
             </Button>
           </div>
 
@@ -87,19 +98,19 @@ const Header = () => {
                     </div>
                     <nav className="flex flex-col space-y-6">
                         {navLinks.map((link) => (
-                        <Link
+                        <a
                             key={link.href}
                             href={link.href}
-                            onClick={handleLinkClick}
-                            className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                            onClick={(e) => handleLinkClick(e, link.href)}
+                            className="text-lg font-medium text-foreground hover:text-primary transition-colors cursor-pointer"
                         >
                             {link.label}
-                        </Link>
+                        </a>
                         ))}
                     </nav>
                     <div className="mt-auto">
                         <Button asChild className="w-full" size="lg">
-                            <Link href="#contact-us" onClick={handleLinkClick}>Book Appointment</Link>
+                            <a href="#contact-us" onClick={(e) => handleLinkClick(e, '#contact-us')}>Book Appointment</a>
                         </Button>
                     </div>
                 </div>
