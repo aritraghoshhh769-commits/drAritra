@@ -133,7 +133,7 @@ const ScrollSequence: React.FC = () => {
 
   const ndFilterOpacity = useTransform(
     scrollYProgress,
-    [0.05, 0.25],
+    [0.05, 0.1],
     [0, 0.7]
   );
 
@@ -242,7 +242,7 @@ const ScrollSequence: React.FC = () => {
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 1.5 }}
             className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
           >
             <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
