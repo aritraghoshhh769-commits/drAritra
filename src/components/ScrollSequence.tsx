@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { useScroll, useTransform, motion, useMotionValueEvent, AnimatePresence } from 'framer-motion';
+import { useScroll, useTransform, motion, useMotionValueEvent, AnimatePresence, animate } from 'framer-motion';
 
 // --- Configuration Constants ---
 const TOTAL_FRAMES = 240;
 const SCROLL_HEIGHT = "400vh";
+const AUTOPLAY_END_PROGRESS = 0.9;
 
 type TextOverlay = {
   start: number;
@@ -111,8 +112,8 @@ const TextOverlayContent: React.FC<{ overlay: TextOverlay, scrollYProgress: any 
       className={`absolute inset-0 h-full w-full flex flex-col justify-center p-8 md:p-16 pointer-events-none ${positionClasses[overlay.position]}`}
     >
       <div className="max-w-md">
-        <h2 className="text-4xl md:text-6xl font-bold text-white/90 drop-shadow-2xl">{overlay.title}</h2>
-        {overlay.subtitle && <p className="mt-4 text-lg md:text-xl text-white/70 drop-shadow-xl">{overlay.subtitle}</p>}
+        <h2 className="text-4xl md:text-6xl font-bold text-white/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">{overlay.title}</h2>
+        {overlay.subtitle && <p className="mt-4 text-lg md:text-xl text-white/80 drop-shadow-[0_2px_3px_rgba(0,0,0,0.7)]">{overlay.subtitle}</p>}
       </div>
     </motion.div>
   );
@@ -126,10 +127,12 @@ const ScrollSequence: React.FC = () => {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [frames, setFrames] = useState<HTMLImageElement[]>([]);
   const lastDrawnFrame = useRef(-1);
+  const [autoplayFinished, setAutoplayFinished] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: scrollRef,
     offset: ['start start', 'end end'],
+    disabled: !autoplayFinished,
   });
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
@@ -143,6 +146,26 @@ const ScrollSequence: React.FC = () => {
       setLoading(false);
     });
   }, []);
+
+  useEffect(() => {
+    if (!loading && frames.length > 0 && !autoplayFinished) {
+      const scrollElement = scrollRef.current;
+      if (scrollElement) {
+        const animation = animate(scrollYProgress, AUTOPLAY_END_PROGRESS, {
+          duration: 8,
+          ease: "easeInOut",
+          onUpdate: (latest) => {
+            const scrollRange = scrollElement.scrollHeight - window.innerHeight;
+            scrollElement.scrollTop = latest * scrollRange;
+          },
+          onComplete: () => {
+            setAutoplayFinished(true);
+          }
+        });
+        return () => animation.stop();
+      }
+    }
+  }, [loading, frames, scrollYProgress, autoplayFinished]);
 
   const drawFrame = useCallback((frameIdx: number) => {
     const canvas = canvasRef.current;
@@ -201,19 +224,26 @@ const ScrollSequence: React.FC = () => {
   });
 
   useEffect(() => {
-    const animate = () => {
+    const animateFrame = () => {
       if (!loading && frames.length > 0) {
-        currentFrame.current = lerp(currentFrame.current, targetFrame.current, 0.1);
+        // During autoplay, the scrollYProgress drives the change.
+        // After autoplay, we use LERP for smooth user scrolling.
+        if (autoplayFinished) {
+          currentFrame.current = lerp(currentFrame.current, targetFrame.current, 0.1);
+        } else {
+          currentFrame.current = targetFrame.current;
+        }
+
         const roundedFrame = Math.round(currentFrame.current);
         if(frames[roundedFrame]) {
             drawFrame(roundedFrame);
         }
       }
-      rafId.current = requestAnimationFrame(animate);
+      rafId.current = requestAnimationFrame(animateFrame);
     };
 
     if (!loading && frames.length > 0) {
-      rafId.current = requestAnimationFrame(animate);
+      rafId.current = requestAnimationFrame(animateFrame);
     }
     
     return () => {
@@ -221,7 +251,7 @@ const ScrollSequence: React.FC = () => {
         cancelAnimationFrame(rafId.current);
       }
     };
-  }, [loading, frames, drawFrame]);
+  }, [loading, frames, drawFrame, autoplayFinished]);
 
   useEffect(() => {
     if (!loading && frames.length > 0) {
@@ -236,6 +266,7 @@ const ScrollSequence: React.FC = () => {
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
             className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
           >
             <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
@@ -243,10 +274,10 @@ const ScrollSequence: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className="relative w-full">
+      <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className={`relative w-full ${!autoplayFinished ? 'overflow-hidden' : ''}`}>
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
-          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute inset-0 bg-black/70" />
           {!loading && storyBeats.map((overlay) => (
             <TextOverlayContent key={overlay.title} overlay={overlay} scrollYProgress={scrollYProgress}/>
           ))}
