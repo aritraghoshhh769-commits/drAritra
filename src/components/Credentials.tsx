@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const credentials = [
@@ -38,7 +37,7 @@ const Credentials = () => {
           {credentials.map((cred) => {
             const image = PlaceHolderImages.find(img => img.id === cred.id);
             return (
-              <Card key={cred.id} className="overflow-hidden bg-card/50 backdrop-blur-sm border-border/50">
+              <div key={cred.id} className="group overflow-hidden rounded-lg border border-border/50 bg-background/30 shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
                 {image && (
                   <Image
                     src={image.imageUrl}
@@ -49,17 +48,15 @@ const Credentials = () => {
                     data-ai-hint={image.imageHint}
                   />
                 )}
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold">{cred.title}</CardTitle>
-                  <p className="text-sm text-primary font-medium">{cred.institution}</p>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex justify-between items-center text-xs text-foreground/70">
-                    <span>{cred.accreditation}</span>
+                <div className="p-4 bg-background">
+                    <h3 className="text-lg font-semibold text-foreground">{cred.title}</h3>
+                    <p className="text-sm text-primary font-medium mt-1">{cred.institution}</p>
+                  <div className="mt-4 flex justify-between items-center text-xs text-foreground/70">
+                    <span className="max-w-[70%]">{cred.accreditation}</span>
                     <span className="font-bold text-primary">{cred.year}</span>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             );
           })}
         </div>
