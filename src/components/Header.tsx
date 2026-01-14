@@ -11,7 +11,7 @@ const navLinks = [
   { href: '#about', label: 'About' },
   { href: '#services', label: 'Services' },
   { href: '#credentials', label: 'Credentials' },
-  { href: '#location', label: 'Contact' },
+  { href: '#location', label: 'Location' },
 ];
 
 const Header = () => {
@@ -68,7 +68,7 @@ const Header = () => {
 
           <div className="hidden md:flex items-center space-x-4">
              <Button asChild variant={isScrolled ? "default" : "outline"} className={cn(!isScrolled && "text-white border-white hover:bg-white hover:text-primary")}>
-                <Link href="#booking">Book Appointment</Link>
+                <Link href="#contact">Book Appointment</Link>
             </Button>
           </div>
 
@@ -99,7 +99,7 @@ const Header = () => {
                     </nav>
                     <div className="mt-auto">
                         <Button asChild className="w-full" size="lg">
-                            <Link href="#booking" onClick={handleLinkClick}>Book Appointment</Link>
+                            <Link href="#contact" onClick={handleLinkClick}>Book Appointment</Link>
                         </Button>
                     </div>
                 </div>

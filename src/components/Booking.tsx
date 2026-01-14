@@ -36,13 +36,13 @@ const Booking = () => {
   }
 
   return (
-    <section id="booking" className="py-20 sm:py-32 bg-background">
+    <section id="contact" className="py-20 sm:py-32 bg-background">
       <div className="container mx-auto px-4">
         <ClientOnly>
           <div className="grid lg:grid-cols-2 gap-12">
             <Card className="p-8 border-primary/20 bg-card/30 backdrop-blur-sm">
               <CardContent className="p-0">
-                <h2 className="text-3xl font-bold text-primary mb-6">Book an Appointment</h2>
+                <h2 className="text-3xl font-bold text-primary mb-6">Contact & Appointments</h2>
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <FormField
