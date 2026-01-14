@@ -251,24 +251,7 @@ const ScrollSequence: React.FC = () => {
           <div
             className="absolute inset-0"
             style={{
-              background: `
-                radial-gradient(circle at top left, transparent, #1C262D 50%),
-                radial-gradient(circle at top right, transparent, #1C262D 50%),
-                radial-gradient(circle at bottom left, transparent, #1C262D 50%),
-                radial-gradient(circle at bottom right, transparent, #1C262D 50%),
-                linear-gradient(to right, #1C262D, transparent 30%),
-                linear-gradient(to left, #1C262D, transparent 30%)
-              `,
-              backgroundPosition: `
-                top left,
-                top right,
-                bottom left,
-                bottom right,
-                left center,
-                right center
-              `,
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: '25% 25%, 25% 25%, 25% 25%, 25% 25%, 20% 100%, 20% 100%',
+              background: 'radial-gradient(ellipse at center, transparent 40%, #1C262D 85%)'
             }}
           />
 
