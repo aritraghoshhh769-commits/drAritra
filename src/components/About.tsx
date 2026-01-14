@@ -1,14 +1,22 @@
-
+'use client';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Award, CheckCircle, Shield, Trophy } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const About = () => {
   const doctorImage = PlaceHolderImages.find(img => img.id === 'doctor-portrait');
 
   return (
-    <section id="about" className="py-20 sm:py-32 bg-background relative overflow-hidden">
+    <motion.section 
+        id="about" 
+        className="py-20 sm:py-32 bg-background relative overflow-hidden"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8 }}
+    >
       <div className="absolute top-0 left-0 w-full h-full opacity-30" style={{backgroundImage: 'radial-gradient(circle at top left, hsl(var(--primary)), transparent 60%)'}}></div>
       <div className="absolute bottom-0 right-0 w-full h-full opacity-30" style={{backgroundImage: 'radial-gradient(circle at bottom right, hsl(var(--accent)), transparent 70%)'}}></div>
       
@@ -48,7 +56,7 @@ const About = () => {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

@@ -25,8 +25,8 @@ export default function Home() {
         <ClientOnly>
           <Booking />
         </ClientOnly>
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }

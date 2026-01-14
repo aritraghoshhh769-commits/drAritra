@@ -4,10 +4,18 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Phone, Calendar } from 'lucide-react';
 import ClientOnly from './ClientOnly';
+import { motion } from 'framer-motion';
 
 const Booking = () => {
   return (
-    <section id="contact-us" className="py-20 sm:py-32 bg-background">
+    <motion.section 
+        id="contact-us" 
+        className="py-20 sm:py-32 bg-background"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8 }}
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-primary">Contact Us</h2>
@@ -38,7 +46,7 @@ const Booking = () => {
           </div>
         </ClientOnly>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

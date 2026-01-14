@@ -2,6 +2,7 @@
 
 import InfiniteMenu from './InfiniteMenu';
 import ClientOnly from './ClientOnly';
+import { motion } from 'framer-motion';
 
 const dentalIssues = [
   {
@@ -47,7 +48,14 @@ const items = dentalIssues.map(issue => {
 
 const DentalIssues = () => {
   return (
-    <section id="dental-issues" className="py-20 sm:py-32 bg-background">
+    <motion.section 
+        id="dental-issues" 
+        className="py-20 sm:py-32 bg-background"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8 }}
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-primary">Common Dental Issues</h2>
@@ -59,7 +67,7 @@ const DentalIssues = () => {
           </div>
         </ClientOnly>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

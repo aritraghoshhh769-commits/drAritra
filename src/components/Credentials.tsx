@@ -1,6 +1,8 @@
+'use client';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
 const credentials = [
   {
@@ -22,7 +24,14 @@ const credentials = [
 
 const Credentials = () => {
   return (
-    <section id="credentials" className="py-20 sm:py-32 bg-background">
+    <motion.section 
+        id="credentials" 
+        className="py-20 sm:py-32 bg-background"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8 }}
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-primary">Recognitions & Professional Credentials</h2>
@@ -52,7 +61,7 @@ const Credentials = () => {
           })}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

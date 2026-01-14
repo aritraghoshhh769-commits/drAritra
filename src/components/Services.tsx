@@ -1,5 +1,7 @@
+'use client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Stethoscope, ShieldCheck, HeartPulse, MessageCircle, GitBranch } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const ToothIcon = () => (
     <svg
@@ -52,29 +54,44 @@ const services = [
 
 const Services = () => {
   return (
-    <section id="services" className="py-20 sm:py-32 bg-background/70">
+    <motion.section 
+        id="services" 
+        className="py-20 sm:py-32 bg-background/70"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8 }}
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-primary">Our Clinical Services</h2>
           <p className="text-lg text-foreground/80 mt-2">Trust built on years of dedication and expertise.</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service) => (
-            <Card key={service.title} className="text-center bg-card/50 backdrop-blur-sm border-border/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:border-primary/50">
-              <CardHeader className="items-center">
-                <div className="p-4 bg-primary/10 text-primary rounded-full mb-4">
-                  {service.icon}
-                </div>
-                <CardTitle className="text-xl font-semibold text-foreground">{service.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-foreground/70">{service.description}</p>
-              </CardContent>
-            </Card>
+          {services.map((service, index) => (
+            <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+                <Card className="text-center h-full bg-card/50 backdrop-blur-sm border-border/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:border-primary/50">
+                <CardHeader className="items-center">
+                    <div className="p-4 bg-primary/10 text-primary rounded-full mb-4">
+                    {service.icon}
+                    </div>
+                    <CardTitle className="text-xl font-semibold text-foreground">{service.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <p className="text-foreground/70">{service.description}</p>
+                </CardContent>
+                </Card>
+            </motion.div>
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
