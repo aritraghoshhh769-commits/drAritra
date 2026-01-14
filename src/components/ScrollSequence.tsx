@@ -248,30 +248,28 @@ const ScrollSequence: React.FC = () => {
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
           
-          {/* Gradient Overlays for seamless blending */}
           <div
-            className="absolute top-0 left-0 w-1/4 h-1/4"
-            style={{ background: 'radial-gradient(circle at top left, transparent 50%, #1C262D 80%)' }}
-          />
-          <div
-            className="absolute top-0 right-0 w-1/4 h-1/4"
-            style={{ background: 'radial-gradient(circle at top right, transparent 50%, #1C262D 80%)' }}
-          />
-          <div
-            className="absolute bottom-0 left-0 w-1/4 h-1/4"
-            style={{ background: 'radial-gradient(circle at bottom left, transparent 50%, #1C262D 80%)' }}
-          />
-          <div
-            className="absolute bottom-0 right-0 w-1/4 h-1/4"
-            style={{ background: 'radial-gradient(circle at bottom right, transparent 50%, #1C262D 80%)' }}
-          />
-          <div
-            className="absolute top-0 left-0 h-full w-1/5"
-            style={{ background: 'linear-gradient(to right, transparent 0%, #1C262D 100%)' }}
-          />
-          <div
-            className="absolute top-0 right-0 h-full w-1/5"
-            style={{ background: 'linear-gradient(to left, transparent 0%, #1C262D 100%)' }}
+            className="absolute inset-0"
+            style={{
+              background: `
+                radial-gradient(circle at top left, transparent, #1C262D 50%),
+                radial-gradient(circle at top right, transparent, #1C262D 50%),
+                radial-gradient(circle at bottom left, transparent, #1C262D 50%),
+                radial-gradient(circle at bottom right, transparent, #1C262D 50%),
+                linear-gradient(to right, #1C262D, transparent 30%),
+                linear-gradient(to left, #1C262D, transparent 30%)
+              `,
+              backgroundPosition: `
+                top left,
+                top right,
+                bottom left,
+                bottom right,
+                left center,
+                right center
+              `,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: '25% 25%, 25% 25%, 25% 25%, 25% 25%, 20% 100%, 20% 100%',
+            }}
           />
 
           {!loading && storyBeats.map((overlay) => (
