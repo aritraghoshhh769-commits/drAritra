@@ -57,7 +57,8 @@ out vec4 outColor;
 in float vAlpha;
 
 void main() {
-    outColor = vec4(0.0, 0.0, 0.0, vAlpha);
+    // A lighter version of the primary color: hsl(180, 50%, 60%)
+    outColor = vec4(0.4, 0.8, 0.8, vAlpha);
 }
 `;
 
