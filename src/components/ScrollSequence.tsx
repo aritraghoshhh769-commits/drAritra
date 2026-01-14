@@ -134,7 +134,7 @@ const ScrollSequence: React.FC = () => {
   const ndFilterOpacity = useTransform(
     scrollYProgress,
     [0.1, 0.15],
-    [0, 0.112]
+    [0, 0.1]
   );
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
@@ -258,28 +258,28 @@ const ScrollSequence: React.FC = () => {
           <div
             className="absolute top-0 left-0 w-1/2 h-1/2"
             style={{
-              background: 'radial-gradient(at 0% 0%, #1e282f 0%, transparent 50%)',
+              background: 'radial-gradient(at 0% 0%, #101518 20%, transparent 80%)',
               pointerEvents: 'none'
             }}
           />
           <div
             className="absolute top-0 right-0 w-1/2 h-1/2"
             style={{
-              background: 'radial-gradient(at 100% 0%, #1e282f 0%, transparent 50%)',
+              background: 'radial-gradient(at 100% 0%, #101518 20%, transparent 80%)',
               pointerEvents: 'none'
             }}
           />
           <div
             className="absolute bottom-0 left-0 w-1/2 h-1/2"
             style={{
-              background: 'radial-gradient(at 0% 100%, #1e282f 0%, transparent 50%)',
+              background: 'radial-gradient(at 0% 100%, #101518 20%, transparent 80%)',
               pointerEvents: 'none'
             }}
           />
           <div
             className="absolute bottom-0 right-0 w-1/2 h-1/2"
             style={{
-              background: 'radial-gradient(at 100% 100%, #1e282f 0%, transparent 50%)',
+              background: 'radial-gradient(at 100% 100%, #101518 20%, transparent 80%)',
               pointerEvents: 'none'
             }}
           />
