@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useScroll, useTransform, motion, useMotionValueEvent, AnimatePresence, animate } from 'framer-motion';
 
 // --- Configuration Constants ---
-const TOTAL_FRAMES = 240;
+const TOTAL_FRAMES = 120;
 const SCROLL_HEIGHT = "400vh";
 const AUTOPLAY_END_PROGRESS = 0.9;
 
@@ -50,7 +50,9 @@ const storyBeats: TextOverlay[] = [
 
 // --- Helper Functions ---
 const getFramePath = (frame: number): string => {
-  const frameNumber = String(frame + 1).padStart(3, '0');
+  // We now have 120 frames, so we need to map the frame index (0-119) to the image file number (1-240).
+  // We can do this by skipping every other frame.
+  const frameNumber = String(frame * 2 + 1).padStart(3, '0');
   return `https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/aritro/ezgif-frame-${frameNumber}.jpg`;
 };
 
@@ -151,12 +153,16 @@ const ScrollSequence: React.FC = () => {
     if (!loading && frames.length > 0 && !autoplayFinished) {
       const scrollElement = scrollRef.current;
       if (scrollElement) {
+        // Ensure scroll is at top before starting animation
+        scrollElement.scrollTop = 0;
+
         const animation = animate(scrollYProgress, AUTOPLAY_END_PROGRESS, {
           duration: 8,
           ease: "easeInOut",
           onUpdate: (latest) => {
-            const scrollRange = scrollElement.scrollHeight - window.innerHeight;
-            scrollElement.scrollTop = latest * scrollRange;
+            // During autoplay, we manually set the scroll position based on progress.
+             const scrollRange = scrollElement.scrollHeight - window.innerHeight;
+             scrollElement.scrollTop = latest * scrollRange;
           },
           onComplete: () => {
             setAutoplayFinished(true);
@@ -288,3 +294,5 @@ const ScrollSequence: React.FC = () => {
 };
 
 export default ScrollSequence;
+
+    
