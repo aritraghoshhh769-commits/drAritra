@@ -28,13 +28,12 @@ const Credentials = () => {
             return (
               <div key={cred.id} className="group overflow-hidden transition-all duration-300 hover:shadow-2xl hover:z-10 hover:scale-105">
                 {image && (
-                  <div className={`relative aspect-auto bg-white ${isGuinness ? 'h-[90%] overflow-hidden' : ''}`}>
+                  <div className={`relative w-full h-full ${isGuinness ? 'aspect-[4/3]' : 'aspect-video'}`}>
                     <Image
                       src={image.imageUrl}
                       alt={image.description}
-                      width={800}
-                      height={600}
-                      className="object-cover w-full h-full"
+                      fill
+                      className={`object-cover ${isGuinness ? 'object-top' : ''}`}
                       data-ai-hint={image.imageHint}
                     />
                   </div>
