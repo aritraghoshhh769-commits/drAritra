@@ -107,7 +107,7 @@ const TextOverlayContent: React.FC<{ overlay: TextOverlay, scrollYProgress: any 
   return (
     <motion.div
       style={{ opacity, y }}
-      className={`absolute inset-0 h-full w-full flex flex-col justify-center p-8 md:p-16 pointer-events-none ${positionClasses[overlay.position]}`}
+      className={`absolute inset-0 h-full w-full flex flex-col justify-center p-8 md:p-16 pointer-events-none z-30 ${positionClasses[overlay.position]}`}
     >
       <div className="max-w-md">
         <h2 className="text-4xl md:text-6xl font-bold text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.title}</h2>
@@ -134,7 +134,7 @@ const ScrollSequence: React.FC = () => {
   const ndFilterOpacity = useTransform(
     scrollYProgress,
     [0.05, 0.25],
-    [0, 0.0875]
+    [0, 0.4375]
   );
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
@@ -252,14 +252,14 @@ const ScrollSequence: React.FC = () => {
       </AnimatePresence>
       <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className="relative w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
+          <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
           <div 
             className="absolute inset-0 z-10" 
             style={{
-              background: 'radial-gradient(circle at 0% 50%, #1e282f 0%, transparent 40%), radial-gradient(circle at 100% 50%, #1e282f 0%, transparent 40%), radial-gradient(circle at 50% 100%, #1e282f 0%, transparent 30%)'
+              background: 'radial-gradient(circle at 0% 50%, #1e282f 0%, transparent 40%), radial-gradient(circle at 100% 50%, #1e282f 0%, transparent 40%), radial-gradient(circle at 100% 100%, #1e282f 0%, transparent 35%), radial-gradient(circle at 0% 100%, #1e282f 0%, transparent 30%)'
             }}
           ></div>
-          <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
-          <motion.div className="absolute inset-0 bg-black z-20" style={{ opacity: ndFilterOpacity }} />
+          <motion.div className="absolute inset-0 bg-black z-20 pointer-events-none" style={{ opacity: ndFilterOpacity }} />
           {!loading && storyBeats.map((overlay) => (
             <TextOverlayContent key={overlay.title} overlay={overlay} scrollYProgress={scrollYProgress}/>
           ))}
