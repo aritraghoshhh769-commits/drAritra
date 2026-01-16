@@ -11,9 +11,9 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 90%;
-  max-width: 22rem;
-  padding: 1.5rem;
+  width: 70%;
+  max-width: 16rem;
+  padding: 1rem;
   box-sizing: border-box;
   color: white;
   text-align: center;
@@ -22,16 +22,20 @@
   pointer-events: none;
 }
 
+.face-text-wrapper {
+  /* This wrapper can be used for additional styling if needed */
+}
+
 .face-title {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-  font-size: 1.75rem;
+  font-size: 1.4rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
 
 .face-description {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-  font-size: 1rem;
+  font-size: 0.85rem;
   opacity: 0.9;
   line-height: 1.4;
 }
