@@ -172,16 +172,16 @@ const ScrollSequence: React.FC = () => {
 
     let drawWidth, drawHeight, drawX, drawY;
 
-    // This is 'cover' logic to fill the container
+    // This is 'contain' logic to fit the image inside the container
     if (imgRatio > containerRatio) {
-      drawHeight = canvasHeight;
-      drawWidth = drawHeight * imgRatio;
+        drawWidth = canvasWidth;
+        drawHeight = drawWidth / imgRatio;
     } else {
-      drawWidth = canvasWidth;
-      drawHeight = drawWidth / imgRatio;
+        drawHeight = canvasHeight;
+        drawWidth = drawHeight * imgRatio;
     }
     
-    const zoomFactor = 0.85; // Zoom out further
+    const zoomFactor = 0.75; // Zoom out further
     drawWidth *= zoomFactor;
     drawHeight *= zoomFactor;
 
@@ -259,7 +259,7 @@ const ScrollSequence: React.FC = () => {
            <div 
             className="absolute inset-0 z-20 pointer-events-none" 
             style={{
-                background: 'radial-gradient(ellipse 80% 65% at 50% 40%, transparent 40%, black 95%)'
+                background: 'radial-gradient(ellipse 70% 90% at 50% 45%, transparent 70%, black 100%)'
             }} 
           />
           <canvas ref={canvasRef} className="absolute z-10" />
