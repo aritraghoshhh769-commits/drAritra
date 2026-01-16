@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
@@ -182,6 +181,10 @@ const ScrollSequence: React.FC = () => {
       drawHeight = drawWidth / imgRatio;
     }
     
+    const zoomFactor = 0.95; // Zoom out by 5%
+    drawWidth *= zoomFactor;
+    drawHeight *= zoomFactor;
+
     drawX = (canvasWidth - drawWidth) / 2;
     drawY = (canvasHeight - drawHeight) / 2;
 
@@ -256,7 +259,7 @@ const ScrollSequence: React.FC = () => {
            <div 
             className="absolute inset-0 z-20 pointer-events-none" 
             style={{ 
-                background: 'radial-gradient(ellipse 85% 75% at 50% 45%, transparent 40%, black 95%)'
+                background: 'radial-gradient(ellipse 95% 85% at 50% 45%, transparent 40%, black 90%)'
             }} 
           />
           <canvas ref={canvasRef} className="absolute z-10" />
