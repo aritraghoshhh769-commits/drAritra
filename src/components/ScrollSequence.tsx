@@ -146,47 +146,44 @@ const ScrollSequence: React.FC = () => {
   const drawFrame = useCallback((frameIdx: number) => {
     const canvas = canvasRef.current;
     const image = frames[frameIdx];
-    if (!canvas || !image || lastDrawnFrame.current === frameIdx) return;
-    
-    lastDrawnFrame.current = frameIdx;
+    if (!canvas || !image) return;
 
     const context = canvas.getContext('2d');
     if (!context) return;
     
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width * window.devicePixelRatio;
-    canvas.height = rect.height * window.devicePixelRatio;
-    
-    const canvasWidth = canvas.width;
-    const canvasHeight = canvas.height;
+    const container = canvas.parentElement;
+    if (!container) return;
 
+    const dpr = window.devicePixelRatio;
+    const containerRect = container.getBoundingClientRect();
+    
     const imgWidth = image.naturalWidth;
     const imgHeight = image.naturalHeight;
-
-    const canvasRatio = canvasWidth / canvasHeight;
     const imgRatio = imgWidth / imgHeight;
+    const containerRatio = containerRect.width / containerRect.height;
+    
+    let canvasDisplayWidth, canvasDisplayHeight;
 
-    context.clearRect(0, 0, canvasWidth, canvasHeight);
-
-    // This implements object-fit: cover, which will fill the canvas
-    let sWidth, sHeight, sX, sY;
-
-    if (imgRatio > canvasRatio) {
-      // Image is wider than canvas. Fit to canvas height, crop sides.
-      sHeight = imgHeight;
-      sWidth = imgHeight * canvasRatio;
-      sX = (imgWidth - sWidth) / 2;
-      sY = 0;
+    if (imgRatio > containerRatio) {
+        // Image is wider than container, fit to container width
+        canvasDisplayWidth = containerRect.width;
+        canvasDisplayHeight = containerRect.width / imgRatio;
     } else {
-      // Image is taller than canvas. Fit to canvas width, crop top/bottom.
-      sWidth = imgWidth;
-      sHeight = imgWidth / canvasRatio;
-      sX = 0;
-      sY = (imgHeight - sHeight) / 2;
+        // Image is taller than container, fit to container height
+        canvasDisplayHeight = containerRect.height;
+        canvasDisplayWidth = containerRect.height * imgRatio;
     }
 
-    context.drawImage(image, sX, sY, sWidth, sHeight, 0, 0, canvasWidth, canvasHeight);
-  }, [frames]);
+    if (canvas.width !== canvasDisplayWidth * dpr || canvas.height !== canvasDisplayHeight * dpr) {
+        canvas.width = canvasDisplayWidth * dpr;
+        canvas.height = canvasDisplayHeight * dpr;
+        canvas.style.width = `${canvasDisplayWidth}px`;
+        canvas.style.height = `${canvasDisplayHeight}px`;
+    }
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+}, [frames]);
 
 
   useEffect(() => {
@@ -250,8 +247,8 @@ const ScrollSequence: React.FC = () => {
         )}
       </AnimatePresence>
       <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className="relative w-full">
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
-          <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+        <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#1C262D]">
+          <canvas ref={canvasRef} className="absolute" />
           
           <div
             className="absolute inset-0"

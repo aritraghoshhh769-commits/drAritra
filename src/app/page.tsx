@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import DentalIssues from '@/components/DentalIssues';
 import ClientOnly from '@/components/ClientOnly';
 import BottomNavBar from '@/components/BottomNavBar';
+import Credentials from '@/components/Credentials';
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         </ClientOnly>
         <About />
         <Services />
+        <Credentials />
         <ClientOnly>
           <DentalIssues />
         </ClientOnly>
