@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -13,8 +13,6 @@ const navLinks = [
 ];
 
 const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#')) {
       e.preventDefault();
@@ -26,20 +24,11 @@ const Header = () => {
     }
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-  
   return (
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300 md:block hidden',
-        isScrolled ? 'bg-black/80 backdrop-blur-sm shadow-md' : 'bg-transparent'
+        'bg-black/25 backdrop-blur-sm shadow-md'
       )}
     >
       <div className="container mx-auto px-4">
