@@ -236,7 +236,7 @@ const ScrollSequence: React.FC = () => {
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1.0 }}
+            transition={{ duration: 0.5 }}
             className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
           >
             <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
@@ -248,8 +248,12 @@ const ScrollSequence: React.FC = () => {
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
           
+          {/* No gradient on mobile */}
+          <div className="absolute inset-0 md:hidden" />
+          
+          {/* Gradient on desktop */}
           <div
-            className="absolute inset-0"
+            className="absolute inset-0 hidden md:block"
             style={{
               background: 'radial-gradient(ellipse at center, transparent 40%, #1C262D 100%), linear-gradient(to right, #1C262D 0%, transparent 20%, transparent 80%, #1C262D 100%), linear-gradient(to right, #1C262D 0%, transparent 40%, transparent 60%, #1C262D 100%)',
             }}
