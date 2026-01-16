@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { User, BriefcaseMedical, Orbit, Phone } from 'lucide-react';
+import { User, BriefcaseMedical, Orbit, Phone, Calendar } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 const navItems = [
   { href: '#about', label: 'About', icon: User },
@@ -55,24 +57,34 @@ const BottomNavBar = () => {
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-sm border-t border-border/50 md:hidden">
-      <div className="flex justify-around items-center h-16">
-        {navItems.map((item) => (
-          <a
-            key={item.label}
-            href={item.href}
-            onClick={(e) => handleLinkClick(e, item.href)}
-            className={cn(
-              'flex flex-col items-center justify-center text-xs w-full h-full transition-colors',
-              activeSection === item.href.substring(1) ? 'text-primary' : 'text-foreground/60 hover:text-foreground'
-            )}
-          >
-            <item.icon className="h-5 w-5 mb-1" />
-            <span className="truncate">{item.label}</span>
-          </a>
-        ))}
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-sm border-t border-border/50 md:hidden">
+      <div className="p-3 border-b border-border/50">
+        <Button asChild size="lg" className="w-full font-semibold">
+            <Link href="/appointment" target="_blank">
+              <Calendar className="mr-2 h-5 w-5" />
+              Book an Appointment
+            </Link>
+        </Button>
       </div>
-    </nav>
+      <nav>
+        <div className="flex justify-around items-center h-16">
+          {navItems.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              onClick={(e) => handleLinkClick(e, item.href)}
+              className={cn(
+                'flex flex-col items-center justify-center text-xs w-full h-full transition-colors',
+                activeSection === item.href.substring(1) ? 'text-primary' : 'text-foreground/60 hover:text-foreground'
+              )}
+            >
+              <item.icon className="h-5 w-5 mb-1" />
+              <span className="truncate">{item.label}</span>
+            </a>
+          ))}
+        </div>
+      </nav>
+    </div>
   );
 };
 
