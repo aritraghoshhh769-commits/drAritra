@@ -1,46 +1,39 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import { Stethoscope, Shield, Users, HeartPulse, Brain, Bone } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const services = [
   {
-    icon: <Stethoscope className="h-8 w-8 text-[#5FAFCB]" />,
     title: 'General Dental Care',
     description: 'Comprehensive check-ups and routine dental treatments.',
     ctaText: 'Learn More',
     ctaLink: '#',
   },
   {
-    icon: <Shield className="h-8 w-8 text-[#5FAFCB]" />,
     title: 'Preventive Dentistry',
     description: 'Proactive care to maintain optimal oral health.',
     ctaText: 'Learn More',
     ctaLink: '#',
   },
   {
-    icon: <HeartPulse className="h-8 w-8 text-[#5FAFCB]" />,
     title: 'Oral Pain Management',
     description: 'Effective solutions for acute and chronic dental pain.',
     ctaText: 'Learn More',
     ctaLink: '#',
   },
   {
-    icon: <Users className="h-8 w-8 text-[#5FAFCB]" />,
     title: 'Dental Consultations',
     description: 'Expert advice and personalized treatment planning.',
     ctaText: 'Learn More',
     ctaLink: '#',
   },
   {
-    icon: <Brain className="h-8 w-8 text-[#5FAFCB]" />,
     title: 'Oral Hygiene Guidance',
     description: 'Professional guidance for your daily care routine.',
     ctaText: 'Learn More',
     ctaLink: '#',
   },
   {
-    icon: <Bone className="h-8 w-8 text-[#5FAFCB]" />,
     title: 'Conservative Dental Procedures',
     description: 'Minimally invasive treatments to preserve your natural teeth.',
     ctaText: 'Learn More',
@@ -85,7 +78,6 @@ const Services = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="group flex h-full flex-col bg-[#DFF6F8] rounded-2xl p-8 shadow-[0px_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg"
             >
-              <div className="mb-4">{service.icon}</div>
               <h3 className="text-lg font-semibold text-[#1F2A37] uppercase mb-4 tracking-wider">{service.title}</h3>
               <p className="text-sm text-[#6B7280] leading-relaxed mb-6 flex-grow">{service.description}</p>
               
