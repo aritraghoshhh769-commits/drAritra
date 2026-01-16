@@ -168,22 +168,29 @@ const ScrollSequence: React.FC = () => {
     const imgHeight = image.naturalHeight;
     const imgRatio = imgWidth / imgHeight;
     const containerRatio = canvas.width / canvas.height;
+    
+    const zoomFactor = 1.1; // 10% zoom to hide watermark
 
     let drawWidth, drawHeight, drawX, drawY;
 
     if (imgRatio > containerRatio) {
-        // Image is wider than canvas, fit to height
+        // Image is wider than canvas, fit to height to cover.
         drawHeight = canvas.height;
         drawWidth = drawHeight * imgRatio;
-        drawX = (canvas.width - drawWidth) / 2;
-        drawY = 0;
     } else {
-        // Image is taller than canvas, fit to width
+        // Image is taller than canvas, fit to width to cover.
         drawWidth = canvas.width;
         drawHeight = drawWidth / imgRatio;
-        drawY = (canvas.height - drawHeight) / 2;
-        drawX = 0;
     }
+    
+    // Apply zoom
+    drawWidth *= zoomFactor;
+    drawHeight *= zoomFactor;
+
+    // Center the zoomed image
+    drawX = (canvas.width - drawWidth) / 2;
+    drawY = (canvas.height - drawHeight) / 2;
+
 
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.drawImage(image, drawX, drawY, drawWidth, drawHeight);
