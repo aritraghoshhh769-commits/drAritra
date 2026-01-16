@@ -1,8 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Phone, Calendar } from 'lucide-react';
+import { Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Booking = () => {
@@ -31,16 +30,11 @@ const Booking = () => {
               </a>
             </p>
           </div>
-          <Card className="p-8 border-primary/20 bg-card/30 backdrop-blur-sm flex flex-col items-center justify-center text-center">
-            <CardContent className="p-0">
-              <Calendar className="h-16 w-16 text-primary mx-auto mb-6" />
-              <h3 className="text-2xl font-bold text-primary mb-4">Ready for your check-up?</h3>
-              <p className="text-foreground/80 mb-8">Click the button below to book your appointment in a new tab.</p>
+          <div className="flex items-center justify-center">
               <Button asChild size="lg">
                   <Link href="/appointment" target="_blank">Book an Appointment</Link>
               </Button>
-            </CardContent>
-          </Card>
+          </div>
         </div>
       </div>
     </motion.section>
