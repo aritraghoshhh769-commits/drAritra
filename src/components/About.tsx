@@ -62,20 +62,20 @@ const About = () => {
     >
       <div className="container mx-auto max-w-7xl px-4">
         <motion.div 
-          className="bg-white/90 backdrop-blur-md rounded-2xl lg:rounded-[24px] p-5 md:p-8 lg:p-12 shadow-[0_20px_40px_rgba(0,0,0,0.06)] border border-white/60 flex items-center md:min-h-[720px]"
+          className="bg-white/90 backdrop-blur-md rounded-2xl lg:rounded-[24px] p-5 md:p-8 lg:p-12 shadow-[0_20px_40px_rgba(0,0,0,0.06)] border border-white/60 flex items-center md:min-h-[560px]"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={containerVariants}
         >
-          <div className="grid grid-cols-1 w-full items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full items-center">
+            <div className="hidden md:block"></div>
             
-            {/* Text Content Column */}
-            <div className="flex flex-col justify-center items-center text-center space-y-4 md:space-y-6">
+            <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left space-y-3 md:space-y-5">
               <motion.h2 
                 id="about-dr-aritra"
                 variants={itemVariants}
-                className="text-[34px] md:text-[40px] lg:text-[48px] font-bold tracking-[-0.5px]" 
+                className="text-[28px] md:text-[36px] font-bold tracking-[-0.5px]" 
                 style={{ color: '#2f9aa0' }}
               >
                 About Dr. Aritra Ghosh
@@ -83,7 +83,7 @@ const About = () => {
 
               <motion.p 
                 variants={itemVariants}
-                className="text-[15px] md:text-[18px] max-w-[520px]"
+                className="text-sm md:text-base max-w-[520px]"
                 style={{ color: '#4a5d66', lineHeight: 1.7 }}
               >
                 A dedicated Dental Surgeon (BDS) committed to providing exceptional care through clinical precision and continuous medical education. With a strong foundation in community service and a passion for ethical practice, Dr. Ghosh ensures every patient receives personalized and effective treatment.
@@ -97,7 +97,7 @@ const About = () => {
                   <motion.div
                     key={badge.text}
                     variants={badgeItemVariants}
-                    className="flex items-center justify-center h-[44px] px-[18px] rounded-full border shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]"
+                    className="flex items-center h-[44px] px-[18px] rounded-full border shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]"
                     style={{ background: '#e6f6f8', borderColor: '#bfe6ea'}}
                     whileHover={{ y: -4, boxShadow: '0 8px 16px rgba(0,0,0,0.1)', transition: { duration: 0.2 } }}
                   >
@@ -107,10 +107,10 @@ const About = () => {
                 ))}
               </motion.div>
               
-              <motion.div variants={itemVariants} className="pt-2 md:pt-4">
+              <motion.div variants={itemVariants} className="pt-2 md:pt-3">
                  <Button 
                    asChild 
-                   className="w-full sm:w-[280px] h-[56px] text-[18px] font-semibold text-white rounded-[14px] shadow-[0_12px_30px_rgba(47,154,160,0.35)] transition-all duration-300 hover:scale-[1.03] hover:shadow-xl"
+                   className="w-full sm:w-[260px] h-[52px] text-base font-semibold text-white rounded-[14px] shadow-[0_12px_30px_rgba(47,154,160,0.35)] transition-all duration-300 hover:scale-[1.03] hover:shadow-xl"
                    style={{
                      background: 'linear-gradient(135deg, #2f9aa0 0%, #5fc2c7 100%)'
                    }}
