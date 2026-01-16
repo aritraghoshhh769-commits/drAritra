@@ -80,8 +80,8 @@ const Credentials = () => {
               );
             })}
           </CarouselContent>
-          <CarouselPrevious className="hidden sm:inline-flex" />
-          <CarouselNext className="hidden sm:inline-flex" />
+          <CarouselPrevious className="inline-flex left-4 sm:left-auto" />
+          <CarouselNext className="inline-flex right-4 sm:right-auto" />
         </Carousel>
       </div>
     </motion.section>
