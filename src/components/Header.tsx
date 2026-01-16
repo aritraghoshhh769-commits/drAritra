@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 import ClientOnly from './ClientOnly';
 
@@ -12,7 +12,6 @@ const navLinks = [
   { href: '#about', label: 'About' },
   { href: '#services', label: 'Services' },
   { href: '#dental-issues', label: 'Dental Issues' },
-  { href: '#credentials', label: 'Credentials' },
   { href: '#contact-us', label: 'Contact us' },
 ];
 
@@ -80,9 +79,9 @@ const Header = () => {
                 </SheetTrigger>
                 <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-background">
                   <div className="p-6 h-full flex flex-col">
-                      <div className="flex justify-between items-center mb-8">
-                          <h2 className="text-lg font-semibold text-primary">Menu</h2>
-                      </div>
+                      <SheetHeader className="mb-8">
+                          <SheetTitle className="text-lg font-semibold text-primary text-left">Menu</SheetTitle>
+                      </SheetHeader>
                       <nav className="flex flex-col space-y-6">
                           {navLinks.map((link) => (
                           <a
