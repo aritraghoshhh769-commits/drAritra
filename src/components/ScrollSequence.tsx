@@ -110,8 +110,8 @@ const TextOverlayContent: React.FC<{ overlay: TextOverlay, scrollYProgress: any 
       className={`absolute inset-0 h-full w-full flex flex-col justify-center p-4 sm:p-8 md:p-16 pointer-events-none z-30 ${positionClasses[overlay.position]}`}
     >
       <div className="max-w-md">
-        <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.title}</h2>
-        {overlay.subtitle && <p className="mt-1 sm:mt-2 text-xs sm:text-sm md:text-base lg:text-lg text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.subtitle}</p>}
+        <h2 className="text-[6vw] sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.title}</h2>
+        {overlay.subtitle && <p className="mt-1 sm:mt-2 text-[3vw] sm:text-sm md:text-base lg:text-lg text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.subtitle}</p>}
       </div>
     </motion.div>
   );
@@ -168,24 +168,24 @@ const ScrollSequence: React.FC = () => {
 
     context.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    // This implements object-fit: contain for the canvas
-    let destWidth, destHeight, destX, destY;
+    // This implements object-fit: cover, which will fill the canvas
+    let sWidth, sHeight, sX, sY;
 
     if (imgRatio > canvasRatio) {
-        // Image is wider than canvas, fit to width
-        destWidth = canvasWidth;
-        destHeight = canvasWidth / imgRatio;
-        destX = 0;
-        destY = (canvasHeight - destHeight) / 2;
+      // Image is wider than canvas. Fit to canvas height, crop sides.
+      sHeight = imgHeight;
+      sWidth = imgHeight * canvasRatio;
+      sX = (imgWidth - sWidth) / 2;
+      sY = 0;
     } else {
-        // Image is taller than canvas, fit to height
-        destHeight = canvasHeight;
-        destWidth = canvasHeight * imgRatio;
-        destY = 0;
-        destX = (canvasWidth - destWidth) / 2;
+      // Image is taller than canvas. Fit to canvas width, crop top/bottom.
+      sWidth = imgWidth;
+      sHeight = imgWidth / canvasRatio;
+      sX = 0;
+      sY = (imgHeight - sHeight) / 2;
     }
 
-    context.drawImage(image, 0, 0, imgWidth, imgHeight, destX, destY, destWidth, destHeight);
+    context.drawImage(image, sX, sY, sWidth, sHeight, 0, 0, canvasWidth, canvasHeight);
   }, [frames]);
 
 
