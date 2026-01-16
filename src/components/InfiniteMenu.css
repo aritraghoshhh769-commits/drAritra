@@ -7,44 +7,38 @@
   background-color: transparent;
 }
 
-.face-title,
-.face-description,
-.action-button {
+.face-content {
   position: absolute;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  width: 90%;
+  max-width: 22rem;
+  padding: 1.5rem;
+  box-sizing: border-box;
   color: white;
   text-align: center;
   transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
   font-family: 'Inter', sans-serif;
-  pointer-events: auto;
+  pointer-events: none;
 }
 
 .face-title {
-  top: 50%;
-  transform: translate(-50%, -150%);
-  font-size: 2rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  font-size: 1.75rem;
   font-weight: bold;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  max-width: 30rem;
-  width: 100%;
-  padding: 0 2rem;
-  box-sizing: border-box;
+  margin-bottom: 0.5rem;
 }
 
 .face-description {
-  top: 50%;
-  transform: translate(-50%, 0%);
-  font-size: 1.1rem;
-  opacity: 0.8;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-  max-width: 30rem;
-  width: 100%;
-  padding: 0 2rem;
-  box-sizing: border-box;
+  font-size: 1rem;
+  opacity: 0.9;
+  line-height: 1.4;
 }
 
 .action-button {
+  position: absolute;
+  left: 50%;
   bottom: 10%;
   width: 60px;
   height: 60px;
@@ -56,6 +50,11 @@
   cursor: pointer;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  text-align: center;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  font-family: 'Inter', sans-serif;
+  pointer-events: auto;
 }
 
 .action-button-icon {
@@ -64,21 +63,25 @@
   transform: rotate(-45deg);
 }
 
-.face-title.inactive,
-.face-description.inactive,
+.face-content.inactive,
 .action-button.inactive {
   opacity: 0;
-  transform: translate(-50%, 20px);
+  pointer-events: none;
 }
 
-.face-title.active {
-  opacity: 1;
-  transform: translate(-50%, -150%);
+.face-content.inactive {
+    transform: translate(-50%, calc(-50% + 20px));
 }
-.face-description.active {
-  opacity: 1;
-  transform: translate(-50%, 0%);
+
+.action-button.inactive {
+    transform: translate(-50%, 20px);
 }
+
+.face-content.active {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
 .action-button.active {
   opacity: 1;
   transform: translateX(-50%);
