@@ -28,7 +28,7 @@ const Header = () => {
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300 md:block hidden',
-        'bg-black/25 backdrop-blur-sm shadow-md'
+        'bg-black/25 shadow-md'
       )}
     >
       <div className="container mx-auto px-4">
