@@ -61,19 +61,17 @@ const Credentials = () => {
               {credentials.map((cred) => {
                 const image = PlaceHolderImages.find((img) => img.id === cred.id);
                 return (
-                  <CarouselItem key={cred.id}>
-                    <div className="p-1 flex items-center justify-center aspect-[4/3]">
-                      {image && (
-                        <Image
-                          src={image.imageUrl}
-                          alt={image.description}
-                          width={cred.width}
-                          height={cred.height}
-                          className="rounded-lg shadow-lg object-contain h-full w-auto"
-                          data-ai-hint={image.imageHint}
-                        />
-                      )}
-                    </div>
+                  <CarouselItem key={cred.id} className="flex items-center justify-center p-1">
+                    {image && (
+                      <Image
+                        src={image.imageUrl}
+                        alt={image.description}
+                        width={cred.width}
+                        height={cred.height}
+                        className="object-contain h-auto w-full max-h-[280px]"
+                        data-ai-hint={image.imageHint}
+                      />
+                    )}
                   </CarouselItem>
                 );
               })}
@@ -102,7 +100,7 @@ const Credentials = () => {
                     alt={image.description}
                     width={cred.width}
                     height={cred.height}
-                    className="rounded-lg shadow-lg object-contain h-auto w-full max-h-[293px]"
+                    className="object-contain h-auto w-full max-h-[293px]"
                     data-ai-hint={image.imageHint}
                   />
                 )}
