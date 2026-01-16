@@ -252,7 +252,7 @@ const ScrollSequence: React.FC = () => {
       </AnimatePresence>
       <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className="relative w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
-           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,black)] z-20 pointer-events-none"/>
+           <div className="absolute inset-0 z-20 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 50% 40%, transparent 30%, black 80%)' }} />
           <canvas ref={canvasRef} className="absolute z-10" />
           
           {!loading && storyBeats.map((overlay) => (
