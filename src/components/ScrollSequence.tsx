@@ -110,8 +110,8 @@ const TextOverlayContent: React.FC<{ overlay: TextOverlay, scrollYProgress: any 
       className={`absolute inset-0 h-full w-full flex flex-col justify-center p-4 sm:p-8 md:p-16 pointer-events-none z-30 ${positionClasses[overlay.position]}`}
     >
       <div className="max-w-md">
-        <h2 className="text-lg sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.title}</h2>
-        {overlay.subtitle && <p className="mt-1 sm:mt-2 text-xs sm:text-base md:text-xl text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.subtitle}</p>}
+        <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.title}</h2>
+        {overlay.subtitle && <p className="mt-1 sm:mt-2 text-xs sm:text-sm md:text-base lg:text-lg text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.subtitle}</p>}
       </div>
     </motion.div>
   );
@@ -166,21 +166,26 @@ const ScrollSequence: React.FC = () => {
     const canvasRatio = canvasWidth / canvasHeight;
     const imgRatio = imgWidth / imgHeight;
 
-    let sx = 0, sy = 0, sWidth = imgWidth, sHeight = imgHeight;
+    context.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    // This implements object-fit: cover for the canvas
+    // This implements object-fit: contain for the canvas
+    let destWidth, destHeight, destX, destY;
+
     if (imgRatio > canvasRatio) {
-        // image is wider than canvas, crop horizontally
-        sWidth = imgHeight * canvasRatio;
-        sx = (imgWidth - sWidth) / 2;
+        // Image is wider than canvas, fit to width
+        destWidth = canvasWidth;
+        destHeight = canvasWidth / imgRatio;
+        destX = 0;
+        destY = (canvasHeight - destHeight) / 2;
     } else {
-        // image is taller than canvas, crop vertically
-        sHeight = imgWidth / canvasRatio;
-        sy = (imgHeight - sHeight) / 2;
+        // Image is taller than canvas, fit to height
+        destHeight = canvasHeight;
+        destWidth = canvasHeight * imgRatio;
+        destY = 0;
+        destX = (canvasWidth - destWidth) / 2;
     }
 
-    context.clearRect(0, 0, canvasWidth, canvasHeight);
-    context.drawImage(image, sx, sy, sWidth, sHeight, 0, 0, canvasWidth, canvasHeight);
+    context.drawImage(image, 0, 0, imgWidth, imgHeight, destX, destY, destWidth, destHeight);
   }, [frames]);
 
 
