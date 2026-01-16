@@ -160,29 +160,24 @@ const ScrollSequence: React.FC = () => {
       canvas.height = canvasHeight;
     }
     
-    const navBarHeight = 80 * dpr; // Approximate height of the navbar in physical pixels
-
-    const availableWidth = canvasWidth;
-    const availableHeight = canvasHeight - navBarHeight;
-    
+    // This is the logic to make the animation cover the screen to remove black bars
     const imgRatio = imgWidth / imgHeight;
-    const availableRatio = availableWidth / availableHeight;
+    const canvasRatio = canvasWidth / canvasHeight;
 
     let drawWidth, drawHeight, drawX, drawY;
 
-    if (availableRatio > imgRatio) {
-      // Available space is wider than the image, so height is the constraint
-      drawHeight = availableHeight;
-      drawWidth = drawHeight * imgRatio;
-      drawX = (availableWidth - drawWidth) / 2;
-      drawY = navBarHeight;
-    } else {
-      // Available space is taller than the image, so width is the constraint
-      drawWidth = availableWidth;
-      drawHeight = drawWidth / imgRatio;
+    if (canvasRatio > imgRatio) {
+      // Canvas is wider than image, so fit to canvas width and crop vertically.
+      drawWidth = canvasWidth;
+      drawHeight = canvasWidth / imgRatio;
       drawX = 0;
-      // Center it vertically within the available space below the navbar
-      drawY = navBarHeight + (availableHeight - drawHeight) / 2;
+      drawY = (canvasHeight - drawHeight) / 2;
+    } else {
+      // Canvas is taller than image, so fit to canvas height and crop horizontally.
+      drawHeight = canvasHeight;
+      drawWidth = canvasHeight * imgRatio;
+      drawX = (canvasWidth - drawWidth) / 2;
+      drawY = 0;
     }
     
     context.clearRect(0, 0, canvasWidth, canvasHeight);
