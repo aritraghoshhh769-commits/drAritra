@@ -182,6 +182,10 @@ const ScrollSequence: React.FC = () => {
       drawWidth = drawHeight * imgRatio;
     }
 
+    const zoomOutFactor = 0.9;
+    drawWidth *= zoomOutFactor;
+    drawHeight *= zoomOutFactor;
+    
     drawX = (canvasWidth - drawWidth) / 2;
     drawY = (canvasHeight - drawHeight) / 2;
 
@@ -255,7 +259,7 @@ const ScrollSequence: React.FC = () => {
           <div 
             className="absolute inset-0 z-20 pointer-events-none" 
             style={{ 
-              background: 'radial-gradient(ellipse 90% 75% at 50% 45%, transparent 50%, black 100%)' 
+              background: 'radial-gradient(ellipse 100% 80% at 50% 50%, transparent 60%, black 100%)'
             }} 
           />
           <canvas ref={canvasRef} className="absolute z-10" />
