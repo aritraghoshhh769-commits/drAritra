@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { User, BriefcaseMedical, Orbit, Phone } from 'lucide-react';
+import { User, BriefcaseMedical, Orbit, Phone, GalleryHorizontal } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 const navItems = [
   { href: '#about', label: 'About', icon: User },
   { href: '#services', label: 'Services', icon: BriefcaseMedical },
+  { href: '#gallery', label: 'Gallery', icon: GalleryHorizontal },
   { href: '#dental-issues', label: 'Dental Issues', icon: Orbit },
   { href: '#contact-us', label: 'Contact', icon: Phone },
 ];

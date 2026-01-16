@@ -65,6 +65,24 @@
       "description": "Image showing a dental x-ray of wisdom teeth",
       "imageUrl": "https://images.unsplash.com/photo-1629905680198-503a7c62b0d5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "imageHint": "dental x-ray"
+    },
+    {
+      "id": "gallery-1",
+      "description": "Clinic interior view 1",
+      "imageUrl": "https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/WhatsApp%20Image%202026-01-13%20at%2015.37.10%20(1).jpeg",
+      "imageHint": "clinic interior"
+    },
+    {
+      "id": "gallery-2",
+      "description": "Patient in dental chair",
+      "imageUrl": "https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/WhatsApp%20Image%202026-01-13%20at%2016.26.55%20(2).jpeg",
+      "imageHint": "patient treatment"
+    },
+    {
+      "id": "gallery-3",
+      "description": "Clinic interior view 2",
+      "imageUrl": "https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/WhatsApp%20Image%202026-01-13%20at%2015.37.09%20(1).jpeg",
+      "imageHint": "clinic reception"
     }
   ]
 }

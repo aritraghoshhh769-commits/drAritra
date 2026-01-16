@@ -8,6 +8,7 @@ import DentalIssues from '@/components/DentalIssues';
 import ClientOnly from '@/components/ClientOnly';
 import BottomNavBar from '@/components/BottomNavBar';
 import Credentials from '@/components/Credentials';
+import Gallery from '@/components/Gallery';
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
         </ClientOnly>
         <About />
         <Services />
+        <Gallery />
         <Credentials />
         <ClientOnly>
           <DentalIssues />
