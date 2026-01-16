@@ -110,8 +110,8 @@ const TextOverlayContent: React.FC<{ overlay: TextOverlay, scrollYProgress: any 
       className={`absolute inset-0 h-full w-full flex flex-col justify-center p-4 sm:p-8 md:p-16 pointer-events-none z-30 ${positionClasses[overlay.position]}`}
     >
       <div className="max-w-md">
-        <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.title}</h2>
-        {overlay.subtitle && <p className="mt-2 sm:mt-4 text-sm sm:text-lg md:text-xl text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.subtitle}</p>}
+        <h2 className="text-lg sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.title}</h2>
+        {overlay.subtitle && <p className="mt-1 sm:mt-2 text-xs sm:text-base md:text-xl text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.subtitle}</p>}
       </div>
     </motion.div>
   );
