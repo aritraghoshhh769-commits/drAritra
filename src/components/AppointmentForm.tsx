@@ -1,18 +1,30 @@
 'use client';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { format } from 'date-fns';
+import { CalendarIcon } from 'lucide-react';
+
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const appointmentSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
   phone: z.string().min(10, 'Please enter a valid phone number.'),
-  date: z.string().min(1, 'Please select a date.'),
-  time: z.string().min(1, 'Please select a time.'),
+  date: z.date({
+    required_error: 'A date is required.',
+  }),
+  time: z.string({
+    required_error: "A time is required.",
+  }),
   concern: z.string().optional(),
 });
 
@@ -24,8 +36,6 @@ const AppointmentForm = () => {
     defaultValues: {
       name: '',
       phone: '',
-      date: '',
-      time: '',
       concern: '',
     },
   });
@@ -37,7 +47,7 @@ hi! doctor
 *New Appointment Request*
 *Name:* ${values.name}
 *Phone:* ${values.phone}
-*Preferred Date:* ${values.date}
+*Preferred Date:* ${format(values.date, "PPP")}
 *Preferred Time:* ${values.time}
 *Concern:* ${values.concern || 'Not specified'}
     `.trim();
@@ -46,6 +56,18 @@ hi! doctor
     
     window.open(whatsappUrl, '_blank');
   }
+
+  const timeSlots: string[] = [];
+  // 12 PM to 7 PM (19:00). Last slot is 6:30 PM (18:30).
+  for (let totalMinutes = 12 * 60; totalMinutes < 19 * 60; totalMinutes += 30) {
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    timeSlots.push(`${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`);
+  }
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
 
   return (
     <Card className="w-full max-w-lg border-primary/20 bg-card/30 backdrop-blur-sm">
@@ -87,11 +109,39 @@ hi! doctor
                 control={form.control}
                 name="date"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex flex-col">
                     <FormLabel>Preferred Date</FormLabel>
-                    <FormControl>
-                      <Input type="date" {...field} />
-                    </FormControl>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) =>
+                            date < today || date.getDay() === 0 || date.getDay() === 6
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -102,9 +152,16 @@ hi! doctor
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Preferred Time</FormLabel>
-                    <FormControl>
-                      <Input type="time" {...field} />
-                    </FormControl>
+                     <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select from available slots" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {timeSlots.map(slot => <SelectItem key={slot} value={slot}>{slot}</SelectItem>)}
+                        </SelectContent>
+                      </Select>
                     <FormMessage />
                   </FormItem>
                 )}
