@@ -1,3 +1,4 @@
+
 'use client';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -37,7 +38,7 @@ const Booking = () => {
               You can reach us by phone during clinic hours or use our convenient online booking system to request an appointment at any time. Clicking the button below will take you to our appointment form where you can select a preferred date and time.
             </p>
             <div className="mt-8">
-              <Button asChild size="lg">
+              <Button asChild>
                   <Link href="/appointment" target="_blank">Book an Appointment</Link>
               </Button>
             </div>

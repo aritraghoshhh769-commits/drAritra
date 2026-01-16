@@ -1,7 +1,8 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { User, BriefcaseMedical, Orbit, Phone, Calendar } from 'lucide-react';
+import { User, BriefcaseMedical, Orbit, Phone } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -59,9 +60,8 @@ const BottomNavBar = () => {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-sm border-t border-border/50 md:hidden">
       <div className="p-3 border-b border-border/50">
-        <Button asChild size="lg" className="w-full font-semibold">
+        <Button asChild className="w-full font-semibold">
             <Link href="/appointment" target="_blank">
-              <Calendar className="mr-2 h-5 w-5" />
               Book an Appointment
             </Link>
         </Button>

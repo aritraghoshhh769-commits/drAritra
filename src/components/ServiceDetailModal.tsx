@@ -1,3 +1,4 @@
+
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
@@ -47,7 +48,7 @@ const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ service, onClos
                 </p>
               </CardContent>
               <div className="p-6 pt-0">
-                 <Button asChild size="lg" className="w-full">
+                 <Button asChild className="w-full">
                     <Link href="/appointment" target="_blank" onClick={onClose}>Book an Appointment</Link>
                 </Button>
               </div>

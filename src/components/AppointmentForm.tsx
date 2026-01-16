@@ -1,3 +1,4 @@
+
 'use client';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -182,7 +183,7 @@ hi! doctor
                 </FormItem>
               )}
             />
-            <Button type="submit" size="lg" className="w-full">
+            <Button type="submit" className="w-full">
               Send on WhatsApp
             </Button>
             <p className="text-xs text-center text-foreground/60">
