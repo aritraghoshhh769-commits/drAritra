@@ -157,35 +157,33 @@ const ScrollSequence: React.FC = () => {
     const dpr = window.devicePixelRatio;
     const containerRect = container.getBoundingClientRect();
     
-    if (canvas.width !== containerRect.width * dpr || canvas.height !== containerRect.height * dpr) {
-        canvas.width = containerRect.width * dpr;
-        canvas.height = containerRect.height * dpr;
-        canvas.style.width = `${containerRect.width}px`;
-        canvas.style.height = `${containerRect.height}px`;
-    }
-
     const imgWidth = image.naturalWidth;
     const imgHeight = image.naturalHeight;
     const imgRatio = imgWidth / imgHeight;
-    const containerRatio = canvas.width / canvas.height;
+
+    const canvasWidth = containerRect.width * dpr;
+    const canvasHeight = containerRect.height * dpr;
+    const containerRatio = canvasWidth / canvasHeight;
+
+    if (canvas.width !== canvasWidth || canvas.height !== canvasHeight) {
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+    }
 
     let drawWidth, drawHeight, drawX, drawY;
 
     if (imgRatio > containerRatio) {
-        // Image is wider than canvas, fit to height to cover.
-        drawHeight = canvas.height;
-        drawWidth = drawHeight * imgRatio;
+      drawHeight = canvasHeight;
+      drawWidth = drawHeight * imgRatio;
     } else {
-        // Image is taller than canvas, fit to width to cover.
-        drawWidth = canvas.width;
-        drawHeight = drawWidth / imgRatio;
+      drawWidth = canvasWidth;
+      drawHeight = drawWidth / imgRatio;
     }
 
-    // Center the image
-    drawX = (canvas.width - drawWidth) / 2;
-    drawY = (canvas.height - drawHeight) / 2;
+    drawX = (canvasWidth - drawWidth) / 2;
+    drawY = (canvasHeight - drawHeight) / 2;
 
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.clearRect(0, 0, canvasWidth, canvasHeight);
     context.drawImage(image, drawX, drawY, drawWidth, drawHeight);
 }, [frames]);
 
@@ -252,7 +250,7 @@ const ScrollSequence: React.FC = () => {
       </AnimatePresence>
       <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className="relative w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
-           <div className="absolute inset-0 z-20 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 50% 40%, transparent 30%, black 80%)' }} />
+           <div className="absolute inset-0 z-20 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 50% 65%, transparent 35%, black 80%)' }} />
           <canvas ref={canvasRef} className="absolute z-10" />
           
           {!loading && storyBeats.map((overlay) => (
