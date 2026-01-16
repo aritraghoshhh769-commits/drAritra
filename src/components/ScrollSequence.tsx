@@ -247,8 +247,9 @@ const ScrollSequence: React.FC = () => {
         )}
       </AnimatePresence>
       <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className="relative w-full">
-        <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
-          <canvas ref={canvasRef} className="absolute" />
+        <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
+           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/70 z-20 pointer-events-none"/>
+          <canvas ref={canvasRef} className="absolute z-10" />
           
           {!loading && storyBeats.map((overlay) => (
             <TextOverlayContent key={overlay.title} overlay={overlay} scrollYProgress={scrollYProgress}/>
