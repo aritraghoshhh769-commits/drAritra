@@ -66,28 +66,27 @@ const About = () => {
     >
       <div className="container mx-auto max-w-7xl px-4">
         <motion.div 
-          className="bg-white/90 backdrop-blur-md rounded-2xl lg:rounded-[24px] p-5 md:p-8 lg:p-12 shadow-[0_20px_40px_rgba(0,0,0,0.06)] border border-white/60 flex items-center md:min-h-[560px]"
+          className="bg-white/90 backdrop-blur-md rounded-2xl lg:rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.06)] border border-white/60 flex md:min-h-[560px] overflow-hidden"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={containerVariants}
         >
-          <div className="grid grid-cols-1 md:grid-cols-[1.2fr_0.8fr] gap-8 md:gap-12 w-full items-center">
+          <div className="grid grid-cols-1 md:grid-cols-10 w-full">
             
-            <motion.div variants={itemVariants} className="relative md:order-2 flex justify-center items-center">
+            <motion.div variants={itemVariants} className="relative md:col-span-4 min-h-[480px] md:min-h-0">
               {doctorImage && (
                 <Image
                   src={doctorImage.imageUrl}
                   alt={doctorImage.description}
-                  width={360}
-                  height={480}
-                  className="rounded-2xl object-cover shadow-lg aspect-[3/4]"
+                  fill
+                  className="object-cover"
                   data-ai-hint={doctorImage.imageHint}
                 />
               )}
             </motion.div>
 
-            <div className="md:order-1 flex flex-col justify-center items-center md:items-start text-center md:text-left space-y-3 md:space-y-5">
+            <div className="md:col-span-6 flex flex-col justify-center items-center md:items-start text-center md:text-left space-y-3 md:space-y-5 p-5 md:p-8 lg:p-12">
               <motion.h2 
                 id="about-dr-aritra"
                 variants={itemVariants}
