@@ -74,7 +74,7 @@ const Services = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-primary">Our Clinical Services</h2>
             <p className="text-lg text-foreground/80 mt-2">Dedicated to your oral health and beautiful smile.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
             {services.map((service, index) => (
               <motion.div
                 key={index}
