@@ -173,18 +173,14 @@ const ScrollSequence: React.FC = () => {
 
     let drawWidth, drawHeight, drawX, drawY;
 
-    // This is 'contain' logic
+    // This is 'cover' logic to fill the container
     if (imgRatio > containerRatio) {
-      drawWidth = canvasWidth;
-      drawHeight = drawWidth / imgRatio;
-    } else {
       drawHeight = canvasHeight;
       drawWidth = drawHeight * imgRatio;
+    } else {
+      drawWidth = canvasWidth;
+      drawHeight = drawWidth / imgRatio;
     }
-    
-    const zoomOutFactor = 0.7;
-    drawWidth *= zoomOutFactor;
-    drawHeight *= zoomOutFactor;
     
     drawX = (canvasWidth - drawWidth) / 2;
     drawY = (canvasHeight - drawHeight) / 2;
@@ -215,8 +211,9 @@ const ScrollSequence: React.FC = () => {
         currentFrame.current = lerp(currentFrame.current, targetFrame.current, 0.1);
 
         const roundedFrame = Math.round(currentFrame.current);
-        if(frames[roundedFrame]) {
+        if(frames[roundedFrame] && roundedFrame !== lastDrawnFrame.current) {
             drawFrame(roundedFrame);
+            lastDrawnFrame.current = roundedFrame;
         }
       }
       rafId.current = requestAnimationFrame(animateFrame);
@@ -259,7 +256,7 @@ const ScrollSequence: React.FC = () => {
            <div 
             className="absolute inset-0 z-20 pointer-events-none" 
             style={{ 
-                background: 'radial-gradient(ellipse 95% 85% at 50% 45%, transparent 40%, black 90%)'
+                background: 'radial-gradient(ellipse 85% 75% at 50% 45%, transparent 40%, black 95%)'
             }} 
           />
           <canvas ref={canvasRef} className="absolute z-10" />
