@@ -166,21 +166,21 @@ const ScrollSequence: React.FC = () => {
     const canvasRatio = canvasWidth / canvasHeight;
     const imgRatio = imgWidth / imgHeight;
 
-    let scale = 1;
+    let sx = 0, sy = 0, sWidth = imgWidth, sHeight = imgHeight;
+
+    // This implements object-fit: cover for the canvas
     if (imgRatio > canvasRatio) {
-      scale = canvasWidth / imgWidth;
+        // image is wider than canvas, crop horizontally
+        sWidth = imgHeight * canvasRatio;
+        sx = (imgWidth - sWidth) / 2;
     } else {
-      scale = canvasHeight / imgHeight;
+        // image is taller than canvas, crop vertically
+        sHeight = imgWidth / canvasRatio;
+        sy = (imgHeight - sHeight) / 2;
     }
 
-    const scaledWidth = imgWidth * scale;
-    const scaledHeight = imgHeight * scale;
-
-    const x = (canvasWidth - scaledWidth) / 2;
-    const y = (canvasHeight - scaledHeight) / 2;
-
     context.clearRect(0, 0, canvasWidth, canvasHeight);
-    context.drawImage(image, x, y, scaledWidth, scaledHeight);
+    context.drawImage(image, sx, sy, sWidth, sHeight, 0, 0, canvasWidth, canvasHeight);
   }, [frames]);
 
 
