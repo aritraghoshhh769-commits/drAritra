@@ -48,41 +48,77 @@ const Credentials = () => {
             A commitment to continuous learning and excellence.
           </p>
         </div>
-        <Carousel
-          className="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto"
-          opts={{
-            align: 'start',
-            loop: true,
-          }}
-        >
-          <CarouselContent>
-            {credentials.map((cred) => {
-              const image = PlaceHolderImages.find((img) => img.id === cred.id);
-              return (
-                <CarouselItem key={cred.id}>
-                  <div className="p-1">
-                    <Card>
-                      <CardContent className="flex aspect-[4/3] items-center justify-center p-2">
-                        {image && (
-                          <Image
-                            src={image.imageUrl}
-                            alt={image.description}
-                            width={cred.width}
-                            height={cred.height}
-                            className="rounded-lg shadow-lg object-contain h-full w-auto"
-                            data-ai-hint={image.imageHint}
-                          />
-                        )}
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              );
-            })}
-          </CarouselContent>
-          <CarouselPrevious className="inline-flex left-4 sm:left-auto" />
-          <CarouselNext className="inline-flex right-4 sm:right-auto" />
-        </Carousel>
+        
+        {/* Mobile Carousel */}
+        <div className="md:hidden">
+          <Carousel
+            className="w-full max-w-xs sm:max-w-sm mx-auto"
+            opts={{
+              align: 'start',
+              loop: true,
+            }}
+          >
+            <CarouselContent>
+              {credentials.map((cred) => {
+                const image = PlaceHolderImages.find((img) => img.id === cred.id);
+                return (
+                  <CarouselItem key={cred.id}>
+                    <div className="p-1">
+                      <Card>
+                        <CardContent className="flex aspect-[4/3] items-center justify-center p-2">
+                          {image && (
+                            <Image
+                              src={image.imageUrl}
+                              alt={image.description}
+                              width={cred.width}
+                              height={cred.height}
+                              className="rounded-lg shadow-lg object-contain h-full w-auto"
+                              data-ai-hint={image.imageHint}
+                            />
+                          )}
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
+            <CarouselPrevious className="inline-flex left-4 sm:left-auto" />
+            <CarouselNext className="inline-flex right-4 sm:right-auto" />
+          </Carousel>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden md:grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {credentials.map((cred) => {
+            const image = PlaceHolderImages.find((img) => img.id === cred.id);
+            return (
+              <motion.div
+                key={cred.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.5 }}
+                className="h-full"
+              >
+                <Card>
+                  <CardContent className="flex aspect-video items-center justify-center p-4">
+                    {image && (
+                      <Image
+                        src={image.imageUrl}
+                        alt={image.description}
+                        width={cred.width}
+                        height={cred.height}
+                        className="rounded-lg shadow-lg object-contain h-full w-auto"
+                        data-ai-hint={image.imageHint}
+                      />
+                    )}
+                  </CardContent>
+                </Card>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </motion.section>
   );
