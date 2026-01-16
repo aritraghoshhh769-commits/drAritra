@@ -242,21 +242,14 @@ const ScrollSequence: React.FC = () => {
             className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
           >
             <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
-            <p className="mt-4 text-white/60">Loading experience... {Math.round(loadingProgress)}%</p>
+            <p className="mt-4 text-foreground/60">Loading experience... {Math.round(loadingProgress)}%</p>
           </motion.div>
         )}
       </AnimatePresence>
       <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className="relative w-full">
-        <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#1C262D]">
+        <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
           <canvas ref={canvasRef} className="absolute" />
           
-          <div
-            className="absolute inset-0"
-            style={{
-              background: 'radial-gradient(ellipse at center, transparent 40%, #1C262D 100%), linear-gradient(to right, #1C262D 0%, transparent 20%, transparent 80%, #1C262D 100%), linear-gradient(to right, #1C262D 0%, transparent 40%, transparent 60%, #1C262D 100%)',
-            }}
-          />
-
           {!loading && storyBeats.map((overlay) => (
             <TextOverlayContent key={overlay.title} overlay={overlay} scrollYProgress={scrollYProgress}/>
           ))}
