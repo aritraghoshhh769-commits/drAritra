@@ -54,7 +54,7 @@ const DentalIssues = () => {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.6 }}
     >
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">

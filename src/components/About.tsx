@@ -15,7 +15,7 @@ const About = () => {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.6 }}
     >
       <div className="absolute top-0 left-0 w-full h-full opacity-30" style={{backgroundImage: 'radial-gradient(circle at top left, hsl(var(--primary)), transparent 60%)'}}></div>
       <div className="absolute bottom-0 right-0 w-full h-full opacity-30" style={{backgroundImage: 'radial-gradient(circle at bottom right, hsl(var(--accent)), transparent 70%)'}}></div>

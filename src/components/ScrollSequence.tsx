@@ -202,7 +202,7 @@ const ScrollSequence: React.FC = () => {
   useEffect(() => {
     const animateFrame = () => {
       if (!loading && frames.length > 0) {
-        currentFrame.current = lerp(currentFrame.current, targetFrame.current, 0.1);
+        currentFrame.current = lerp(currentFrame.current, targetFrame.current, 0.12);
 
         const roundedFrame = Math.round(currentFrame.current);
         if(frames[roundedFrame]) {
