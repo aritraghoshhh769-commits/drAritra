@@ -39,9 +39,9 @@ const Header = () => {
       )}
     >
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-16 md:h-20">
           <Link href="/" className={cn(
-            "text-xl font-bold transition-colors",
+            "text-lg md:text-xl font-bold transition-colors",
             "text-white"
           )}>
             Dr. Aritra Ghosh

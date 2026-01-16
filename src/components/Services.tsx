@@ -3,6 +3,13 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import ServiceDetailModal from './ServiceDetailModal';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 
 const services = [
   {
@@ -45,36 +52,60 @@ const services = [
 
 type Service = (typeof services)[0];
 
+const ServiceCard = ({ service, onCtaClick }: { service: Service; onCtaClick: () => void }) => (
+  <div
+    className="group flex h-full flex-col bg-[#DFF6F8] rounded-2xl p-6 shadow-[0px_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg"
+  >
+    <h3 className="text-base font-semibold text-[#1F2A37] uppercase mb-3 tracking-wider">{service.title}</h3>
+    <p className="text-sm text-[#6B7280] leading-relaxed mb-5 flex-grow">{service.description}</p>
+
+    <div className="mt-auto">
+      <Button
+        className="bg-white text-[#1F2A37] rounded-full px-6 h-auto py-2.5 text-sm font-medium shadow-sm hover:bg-gray-100"
+        onClick={onCtaClick}
+      >
+        {service.ctaText}
+      </Button>
+    </div>
+  </div>
+);
+
 const Services = () => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
-
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith('#') && href.length > 1) {
-      e.preventDefault();
-      const targetId = href.substring(1);
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
 
   return (
     <>
       <motion.section
         id="services"
-        className="py-20 sm:py-32 bg-background"
+        className="py-16 md:py-24 bg-background"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.5 }}
       >
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-primary">Our Clinical Services</h2>
-            <p className="text-lg text-foreground/80 mt-2">Dedicated to your oral health and beautiful smile.</p>
+            <p className="text-base md:text-lg text-foreground/80 mt-2">Dedicated to your oral health and beautiful smile.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+          
+          {/* Mobile Carousel */}
+          <div className="md:hidden -mx-4">
+             <Carousel opts={{ align: "start", loop: true }} className="w-full">
+              <CarouselContent>
+                {services.map((service, index) => (
+                  <CarouselItem key={index} className="basis-4/5">
+                    <div className="p-2">
+                      <ServiceCard service={service} onCtaClick={() => setSelectedService(service)} />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          </div>
+
+          {/* Desktop Grid */}
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {services.map((service, index) => (
               <motion.div
                 key={index}
@@ -82,19 +113,8 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group flex h-full flex-col bg-[#DFF6F8] rounded-2xl p-8 shadow-[0px_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg"
               >
-                <h3 className="text-lg font-semibold text-[#1F2A37] uppercase mb-4 tracking-wider">{service.title}</h3>
-                <p className="text-sm text-[#6B7280] leading-relaxed mb-6 flex-grow">{service.description}</p>
-
-                <div className="mt-auto">
-                  <Button
-                    className="bg-white text-[#1F2A37] rounded-full px-6 h-auto py-2.5 text-sm font-medium shadow-sm hover:bg-gray-100"
-                    onClick={() => setSelectedService(service)}
-                  >
-                    {service.ctaText}
-                  </Button>
-                </div>
+                <ServiceCard service={service} onCtaClick={() => setSelectedService(service)} />
               </motion.div>
             ))}
           </div>

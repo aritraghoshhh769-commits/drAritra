@@ -50,7 +50,7 @@ const DentalIssues = () => {
   return (
     <motion.section 
         id="dental-issues" 
-        className="py-20 sm:py-32 bg-background"
+        className="py-16 md:py-24 bg-background"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -59,10 +59,10 @@ const DentalIssues = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-primary">Common Dental Issues</h2>
-            <p className="text-lg text-foreground/80 mt-2">Spin the globe to explore common dental problems we treat.</p>
+            <p className="text-base md:text-lg text-foreground/80 mt-2">Spin the globe to explore common dental problems we treat.</p>
         </div>
         <ClientOnly>
-          <div style={{ height: '600px', position: 'relative' }}>
+          <div className="h-[500px] md:h-[600px] relative">
             <InfiniteMenu items={items}/>
           </div>
         </ClientOnly>

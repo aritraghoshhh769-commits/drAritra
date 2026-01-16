@@ -107,11 +107,11 @@ const TextOverlayContent: React.FC<{ overlay: TextOverlay, scrollYProgress: any 
   return (
     <motion.div
       style={{ opacity, y }}
-      className={`absolute inset-0 h-full w-full flex flex-col justify-center p-8 md:p-16 pointer-events-none z-30 ${positionClasses[overlay.position]}`}
+      className={`absolute inset-0 h-full w-full flex flex-col justify-center p-6 sm:p-8 md:p-16 pointer-events-none z-30 ${positionClasses[overlay.position]}`}
     >
       <div className="max-w-md">
-        <h2 className="text-4xl md:text-6xl font-bold text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.title}</h2>
-        {overlay.subtitle && <p className="mt-4 text-lg md:text-xl text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.subtitle}</p>}
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.title}</h2>
+        {overlay.subtitle && <p className="mt-4 text-base sm:text-lg md:text-xl text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.subtitle}</p>}
       </div>
     </motion.div>
   );
@@ -202,7 +202,7 @@ const ScrollSequence: React.FC = () => {
   useEffect(() => {
     const animateFrame = () => {
       if (!loading && frames.length > 0) {
-        currentFrame.current = lerp(currentFrame.current, targetFrame.current, 0.12);
+        currentFrame.current = lerp(currentFrame.current, targetFrame.current, 0.1);
 
         const roundedFrame = Math.round(currentFrame.current);
         if(frames[roundedFrame]) {
@@ -236,7 +236,7 @@ const ScrollSequence: React.FC = () => {
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1.5 }}
+            transition={{ duration: 1.0 }}
             className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
           >
             <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>

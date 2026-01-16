@@ -8,7 +8,7 @@ const Booking = () => {
   return (
     <motion.section 
         id="contact-us" 
-        className="py-20 sm:py-32 bg-background"
+        className="py-16 md:py-24 bg-background"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -17,7 +17,7 @@ const Booking = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-primary">Get in Touch</h2>
-            <p className="text-lg text-foreground/80 mt-4">
+            <p className="text-base md:text-lg text-foreground/80 mt-4">
               We are here to assist you with all your dental needs. Whether you have a question, need to schedule a routine check-up, or require urgent care, our team is ready to help. Reaching out is the first step towards a healthier, brighter smile.
             </p>
         </div>

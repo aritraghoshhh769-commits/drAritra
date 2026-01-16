@@ -1,8 +1,15 @@
 'use client';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
+import { Card, CardContent } from '@/components/ui/card';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 
 const credentials = [
   {
@@ -24,38 +31,58 @@ const credentials = [
 
 const Credentials = () => {
   return (
-    <motion.section 
-        id="credentials" 
-        className="py-20 sm:py-32 bg-background"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.8 }}
+    <motion.section
+      id="credentials"
+      className="py-16 md:py-24 bg-background"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8 }}
     >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary">Recognitions & Professional Credentials</h2>
-          <p className="text-lg text-foreground/80 mt-2">A commitment to continuous learning and excellence.</p>
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary">
+            Recognitions & Professional Credentials
+          </h2>
+          <p className="text-base md:text-lg text-foreground/80 mt-2">
+            A commitment to continuous learning and excellence.
+          </p>
         </div>
-        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
-          {credentials.map((cred) => {
-            const image = PlaceHolderImages.find(img => img.id === cred.id);
-            return (
-              <div key={cred.id} className="relative transition-all duration-300 hover:z-10 hover:scale-105">
-                {image && (
-                    <Image
-                      src={image.imageUrl}
-                      alt={image.description}
-                      width={cred.width}
-                      height={cred.height}
-                      className="rounded-lg shadow-lg"
-                      data-ai-hint={image.imageHint}
-                    />
-                )}
-              </div>
-            );
-          })}
-        </div>
+        <Carousel
+          className="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto"
+          opts={{
+            align: 'start',
+            loop: true,
+          }}
+        >
+          <CarouselContent>
+            {credentials.map((cred) => {
+              const image = PlaceHolderImages.find((img) => img.id === cred.id);
+              return (
+                <CarouselItem key={cred.id}>
+                  <div className="p-1">
+                    <Card>
+                      <CardContent className="flex aspect-[4/3] items-center justify-center p-2">
+                        {image && (
+                          <Image
+                            src={image.imageUrl}
+                            alt={image.description}
+                            width={cred.width}
+                            height={cred.height}
+                            className="rounded-lg shadow-lg object-contain h-full w-auto"
+                            data-ai-hint={image.imageHint}
+                          />
+                        )}
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              );
+            })}
+          </CarouselContent>
+          <CarouselPrevious className="hidden sm:inline-flex" />
+          <CarouselNext className="hidden sm:inline-flex" />
+        </Carousel>
       </div>
     </motion.section>
   );

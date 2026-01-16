@@ -11,7 +11,7 @@ const About = () => {
   return (
     <motion.section 
         id="about" 
-        className="py-20 sm:py-32 bg-background relative overflow-hidden"
+        className="py-16 md:py-24 bg-background relative overflow-hidden"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -21,8 +21,8 @@ const About = () => {
       <div className="absolute bottom-0 right-0 w-full h-full opacity-30" style={{backgroundImage: 'radial-gradient(circle at bottom right, hsl(var(--accent)), transparent 70%)'}}></div>
       
       <div className="container mx-auto px-4 relative">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="relative rounded-lg overflow-hidden shadow-2xl bg-white/5 backdrop-blur-sm p-2 aspect-[3/4]">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="relative rounded-lg overflow-hidden shadow-2xl bg-white/5 backdrop-blur-sm aspect-[4/3] md:aspect-[3/4] w-full max-w-sm md:max-w-none mx-auto">
             {doctorImage && (
               <Image
                 src={doctorImage.imageUrl}
@@ -36,10 +36,10 @@ const About = () => {
           </div>
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">About Dr. Aritra Ghosh</h2>
-            <p className="text-lg text-foreground/80 mb-6">
+            <p className="text-base md:text-lg text-foreground/80 mb-6">
               A dedicated Dental Surgeon (BDS) committed to providing exceptional care through clinical precision and continuous medical education. With a strong foundation in community service and a passion for ethical practice, Dr. Ghosh ensures every patient receives personalized and effective treatment.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-3">
               <Badge variant="secondary" className="text-sm py-2 px-4 rounded-full flex items-center gap-2 bg-primary/10 text-primary-foreground border border-primary/20">
                 <CheckCircle className="h-4 w-4 text-primary" /> BDS Qualified
               </Badge>
