@@ -165,15 +165,15 @@ const ScrollSequence: React.FC = () => {
 
     let drawWidth, drawHeight, drawX, drawY;
 
-    // "cover" logic
+    // "contain" logic to zoom out
     if (canvasRatio > imgRatio) {
-        drawWidth = canvasWidth;
-        drawHeight = drawWidth / imgRatio;
+        drawHeight = canvasHeight;
+        drawWidth = drawHeight * imgRatio;
         drawX = (canvasWidth - drawWidth) / 2;
         drawY = 0;
     } else {
-        drawHeight = canvasHeight;
-        drawWidth = drawHeight * imgRatio;
+        drawWidth = canvasWidth;
+        drawHeight = drawWidth / imgRatio;
         drawX = 0;
         drawY = (canvasHeight - drawHeight) / 2;
     }
@@ -226,14 +226,8 @@ const ScrollSequence: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <div ref={targetRef} className="relative w-full h-[300vh]">
+      <div ref={targetRef} className="relative w-full h-[400vh]">
         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
-           <div 
-            className="absolute inset-0 z-20 pointer-events-none" 
-            style={{
-              background: 'radial-gradient(ellipse at 50% 40%, transparent 40%, rgba(0,0,0,0.7) 80%)',
-            }} 
-          />
           <canvas ref={canvasRef} className="absolute z-10" />
           
           {!loading && storyBeats.map((overlay) => (
