@@ -64,7 +64,7 @@ const About = () => {
         background: 'linear-gradient(135deg, #eaf7fb 0%, #f8fdff 100%)'
       }}
     >
-      <div className="container mx-auto max-w-7xl px-4">
+      <div className="container mx-auto max-w-5xl md:max-w-7xl px-4">
         <motion.div 
           className="bg-white/90 backdrop-blur-md rounded-2xl lg:rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.06)] border border-white/60 flex overflow-hidden"
           initial="hidden"
@@ -93,11 +93,11 @@ const About = () => {
               )}
             </motion.div>
 
-            <div className="col-span-7 flex flex-col justify-center items-start text-left space-y-1 p-2 sm:space-y-2 sm:p-4 md:space-y-5 md:p-8 lg:p-12">
+            <div className="col-span-7 flex flex-col justify-center items-start text-left space-y-1 p-2 sm:p-4 md:space-y-5 md:p-8 lg:p-12">
               <motion.h2 
                 id="about-dr-aritra"
                 variants={itemVariants}
-                className="text-sm sm:text-base md:text-[36px] font-bold tracking-tight md:tracking-[-0.5px]" 
+                className="text-[11px] sm:text-base md:text-[36px] font-bold tracking-tight md:tracking-[-0.5px]" 
                 style={{ color: '#2f9aa0' }}
               >
                 About Dr. Aritra Ghosh
@@ -105,26 +105,26 @@ const About = () => {
 
               <motion.p 
                 variants={itemVariants}
-                className="text-[10px] leading-snug sm:text-xs sm:leading-normal md:text-base max-w-[520px]"
-                style={{ color: '#4a5d66', lineHeight: 1.7 }}
+                className="text-[8px] leading-snug sm:text-xs md:text-base max-w-[520px]"
+                style={{ color: '#4a5d66', lineHeight: 1.6 }}
               >
                 A dedicated Dental Surgeon (BDS) committed to providing exceptional care through clinical precision and continuous medical education. With a strong foundation in community service and a passion for ethical practice, Dr. Ghosh ensures every patient receives personalized and effective treatment.
               </motion.p>
               
               <motion.div 
-                className="grid grid-cols-2 gap-2 md:gap-4 w-full max-w-lg"
+                className="grid grid-cols-2 gap-1.5 md:gap-4 w-full max-w-lg"
                 variants={badgeContainerVariants}
               >
                 {badges.map((badge) => (
                   <motion.div
                     key={badge.text}
                     variants={badgeItemVariants}
-                    className="flex items-center h-7 md:h-[44px] px-2 md:px-[18px] rounded-full border shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]"
+                    className="flex items-center p-2 rounded-lg border shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] md:px-4 md:py-3"
                     style={{ background: '#e6f6f8', borderColor: '#bfe6ea'}}
                     whileHover={{ y: -4, boxShadow: '0 8px 16px rgba(0,0,0,0.1)', transition: { duration: 0.2 } }}
                   >
-                    <badge.icon className="h-3 w-3 md:h-5 md:w-5 mr-1.5 md:mr-3 shrink-0" style={{ color: '#2f9aa0' }} />
-                    <span className="font-semibold text-[8px] sm:text-[10px] md:text-sm" style={{ color: '#2f9aa0' }}>{badge.text}</span>
+                    <badge.icon className="h-3 w-3 md:h-5 md:w-5 mr-2 shrink-0" style={{ color: '#2f9aa0' }} />
+                    <span className="font-semibold text-[9px] sm:text-[10px] md:text-sm leading-normal" style={{ color: '#2f9aa0' }}>{badge.text}</span>
                   </motion.div>
                 ))}
               </motion.div>
