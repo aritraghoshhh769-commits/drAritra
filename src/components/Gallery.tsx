@@ -24,12 +24,12 @@ const Gallery = () => {
             A clean, modern, and welcoming environment.
           </p>
         </motion.div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
           {galleryImages.map((image, index) => (
             image && (
                 <motion.div
                     key={image.id}
-                    className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-lg group"
+                    className="relative aspect-[4/3] overflow-hidden shadow-lg group"
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, amount: 0.5 }}
