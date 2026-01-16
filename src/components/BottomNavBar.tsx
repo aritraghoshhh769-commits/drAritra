@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -59,15 +58,15 @@ const BottomNavBar = () => {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-sm border-t border-border/50 md:hidden">
-      <div className="p-3 border-b border-border/50">
-        <Button asChild className="w-full font-semibold">
+      <div className="p-2 border-b border-border/50">
+        <Button asChild className="w-full font-semibold" size="sm">
             <Link href="/appointment" target="_blank">
               Book an Appointment
             </Link>
         </Button>
       </div>
       <nav>
-        <div className="flex justify-around items-center h-16">
+        <div className="flex justify-around items-center h-14">
           {navItems.map((item) => (
             <a
               key={item.label}
