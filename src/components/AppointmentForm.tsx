@@ -62,7 +62,9 @@ hi! doctor
   for (let totalMinutes = 12 * 60; totalMinutes < 19 * 60; totalMinutes += 30) {
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
-    timeSlots.push(`${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`);
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const displayHours = hours % 12 === 0 ? 12 : hours % 12;
+    timeSlots.push(`${String(displayHours).padStart(2, '0')}:${String(minutes).padStart(2, '0')} ${period}`);
   }
 
   const today = new Date();
