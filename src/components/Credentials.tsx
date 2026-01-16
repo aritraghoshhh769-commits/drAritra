@@ -2,7 +2,6 @@
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { motion } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
 import {
   Carousel,
   CarouselContent,
@@ -63,21 +62,17 @@ const Credentials = () => {
                 const image = PlaceHolderImages.find((img) => img.id === cred.id);
                 return (
                   <CarouselItem key={cred.id}>
-                    <div className="p-1">
-                      <Card>
-                        <CardContent className="flex aspect-[4/3] items-center justify-center p-2">
-                          {image && (
-                            <Image
-                              src={image.imageUrl}
-                              alt={image.description}
-                              width={cred.width}
-                              height={cred.height}
-                              className="rounded-lg shadow-lg object-contain h-full w-auto"
-                              data-ai-hint={image.imageHint}
-                            />
-                          )}
-                        </CardContent>
-                      </Card>
+                    <div className="p-1 flex items-center justify-center aspect-[4/3]">
+                      {image && (
+                        <Image
+                          src={image.imageUrl}
+                          alt={image.description}
+                          width={cred.width}
+                          height={cred.height}
+                          className="rounded-lg shadow-lg object-contain h-full w-auto"
+                          data-ai-hint={image.imageHint}
+                        />
+                      )}
                     </div>
                   </CarouselItem>
                 );
@@ -89,7 +84,7 @@ const Credentials = () => {
         </div>
 
         {/* Desktop Grid */}
-        <div className="hidden md:grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="hidden md:grid md:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
           {credentials.map((cred) => {
             const image = PlaceHolderImages.find((img) => img.id === cred.id);
             return (
@@ -99,22 +94,18 @@ const Credentials = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5 }}
-                className="h-full"
+                className="flex items-center justify-center"
               >
-                <Card>
-                  <CardContent className="flex aspect-video items-center justify-center p-4">
-                    {image && (
-                      <Image
-                        src={image.imageUrl}
-                        alt={image.description}
-                        width={cred.width}
-                        height={cred.height}
-                        className="rounded-lg shadow-lg object-contain h-full w-auto"
-                        data-ai-hint={image.imageHint}
-                      />
-                    )}
-                  </CardContent>
-                </Card>
+                {image && (
+                  <Image
+                    src={image.imageUrl}
+                    alt={image.description}
+                    width={cred.width}
+                    height={cred.height}
+                    className="rounded-lg shadow-lg object-contain h-auto w-full max-h-[293px]"
+                    data-ai-hint={image.imageHint}
+                  />
+                )}
               </motion.div>
             );
           })}
