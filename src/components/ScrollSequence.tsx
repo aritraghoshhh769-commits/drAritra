@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
@@ -172,17 +173,16 @@ const ScrollSequence: React.FC = () => {
 
     let drawWidth, drawHeight, drawX, drawY;
 
+    // This is 'contain' logic
     if (imgRatio > containerRatio) {
-      // Image is wider than container, so width is the constraint
       drawWidth = canvasWidth;
       drawHeight = drawWidth / imgRatio;
     } else {
-      // Image is taller than container, so height is the constraint
       drawHeight = canvasHeight;
       drawWidth = drawHeight * imgRatio;
     }
-
-    const zoomOutFactor = 0.9;
+    
+    const zoomOutFactor = 0.8;
     drawWidth *= zoomOutFactor;
     drawHeight *= zoomOutFactor;
     
@@ -256,10 +256,10 @@ const ScrollSequence: React.FC = () => {
       </AnimatePresence>
       <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className="relative w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
-          <div 
+           <div 
             className="absolute inset-0 z-20 pointer-events-none" 
             style={{ 
-              background: 'radial-gradient(ellipse 100% 80% at 50% 50%, transparent 60%, black 100%)'
+                background: 'radial-gradient(ellipse 90% 65% at 50% 45%, transparent 50%, black 100%)'
             }} 
           />
           <canvas ref={canvasRef} className="absolute z-10" />
