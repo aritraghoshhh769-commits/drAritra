@@ -7,18 +7,18 @@ import { motion } from 'framer-motion';
 const credentials = [
   {
     id: 'cert-nss',
-    width: 1080,
-    height: 764,
+    width: 270,
+    height: 191,
   },
   {
     id: 'cert-guinness',
-    width: 829,
-    height: 1170,
+    width: 207,
+    height: 293,
   },
   {
     id: 'cert-rcp',
-    width: 1080,
-    height: 764,
+    width: 270,
+    height: 191,
   },
 ];
 
@@ -46,8 +46,8 @@ const Credentials = () => {
                     <Image
                       src={image.imageUrl}
                       alt={image.description}
-                      width={cred.width / 4}
-                      height={cred.height / 4}
+                      width={cred.width}
+                      height={cred.height}
                       className="rounded-lg shadow-lg"
                       data-ai-hint={image.imageHint}
                     />
