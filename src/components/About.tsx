@@ -3,6 +3,8 @@ import { GraduationCap, CheckCircle, Shield, Trophy, Calendar } from 'lucide-rea
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const About = () => {
   const containerVariants = {
@@ -51,6 +53,8 @@ const About = () => {
      visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
   }
 
+  const doctorImage = PlaceHolderImages.find(img => img.id === 'doctor-portrait');
+
   return (
     <section 
       id="about" 
@@ -68,10 +72,22 @@ const About = () => {
           viewport={{ once: true, amount: 0.2 }}
           variants={containerVariants}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full items-center">
-            <div className="hidden md:block"></div>
+          <div className="grid grid-cols-1 md:grid-cols-[1.2fr_0.8fr] gap-8 md:gap-12 w-full items-center">
             
-            <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left space-y-3 md:space-y-5">
+            <motion.div variants={itemVariants} className="relative md:order-2 flex justify-center items-center">
+              {doctorImage && (
+                <Image
+                  src={doctorImage.imageUrl}
+                  alt={doctorImage.description}
+                  width={360}
+                  height={480}
+                  className="rounded-2xl object-cover shadow-lg aspect-[3/4]"
+                  data-ai-hint={doctorImage.imageHint}
+                />
+              )}
+            </motion.div>
+
+            <div className="md:order-1 flex flex-col justify-center items-center md:items-start text-center md:text-left space-y-3 md:space-y-5">
               <motion.h2 
                 id="about-dr-aritra"
                 variants={itemVariants}
