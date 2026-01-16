@@ -110,8 +110,8 @@ const TextOverlayContent: React.FC<{ overlay: TextOverlay, scrollYProgress: any 
       className={`absolute inset-0 h-full w-full flex flex-col justify-center p-4 sm:p-8 md:p-16 pointer-events-none z-30 ${positionClasses[overlay.position]}`}
     >
       <div className="max-w-md">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.title}</h2>
-        {overlay.subtitle && <p className="mt-1 sm:mt-2 text-sm sm:text-base md:text-lg text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.subtitle}</p>}
+        <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.title}</h2>
+        {overlay.subtitle && <p className="mt-1 sm:mt-2 text-sm sm:text-base md:text-xl text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.subtitle}</p>}
       </div>
     </motion.div>
   );
@@ -252,7 +252,7 @@ const ScrollSequence: React.FC = () => {
       </AnimatePresence>
       <div ref={scrollRef} style={{ height: SCROLL_HEIGHT }} className="relative w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
-           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/70 z-20 pointer-events-none"/>
+           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,black)] z-20 pointer-events-none"/>
           <canvas ref={canvasRef} className="absolute z-10" />
           
           {!loading && storyBeats.map((overlay) => (
