@@ -157,32 +157,36 @@ const ScrollSequence: React.FC = () => {
     const dpr = window.devicePixelRatio;
     const containerRect = container.getBoundingClientRect();
     
+    if (canvas.width !== containerRect.width * dpr || canvas.height !== containerRect.height * dpr) {
+        canvas.width = containerRect.width * dpr;
+        canvas.height = containerRect.height * dpr;
+        canvas.style.width = `${containerRect.width}px`;
+        canvas.style.height = `${containerRect.height}px`;
+    }
+
     const imgWidth = image.naturalWidth;
     const imgHeight = image.naturalHeight;
     const imgRatio = imgWidth / imgHeight;
-    const containerRatio = containerRect.width / containerRect.height;
-    
-    let canvasDisplayWidth, canvasDisplayHeight;
+    const containerRatio = canvas.width / canvas.height;
+
+    let drawWidth, drawHeight, drawX, drawY;
 
     if (imgRatio > containerRatio) {
-        // Image is wider than container, fit to container width
-        canvasDisplayWidth = containerRect.width;
-        canvasDisplayHeight = containerRect.width / imgRatio;
+        // Image is wider than canvas, fit to height
+        drawHeight = canvas.height;
+        drawWidth = drawHeight * imgRatio;
+        drawX = (canvas.width - drawWidth) / 2;
+        drawY = 0;
     } else {
-        // Image is taller than container, fit to container height
-        canvasDisplayHeight = containerRect.height;
-        canvasDisplayWidth = containerRect.height * imgRatio;
-    }
-
-    if (canvas.width !== canvasDisplayWidth * dpr || canvas.height !== canvasDisplayHeight * dpr) {
-        canvas.width = canvasDisplayWidth * dpr;
-        canvas.height = canvasDisplayHeight * dpr;
-        canvas.style.width = `${canvasDisplayWidth}px`;
-        canvas.style.height = `${canvasDisplayHeight}px`;
+        // Image is taller than canvas, fit to width
+        drawWidth = canvas.width;
+        drawHeight = drawWidth / imgRatio;
+        drawY = (canvas.height - drawHeight) / 2;
+        drawX = 0;
     }
 
     context.clearRect(0, 0, canvas.width, canvas.height);
-    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+    context.drawImage(image, drawX, drawY, drawWidth, drawHeight);
 }, [frames]);
 
 
