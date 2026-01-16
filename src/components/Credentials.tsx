@@ -50,10 +50,6 @@ const Credentials = () => {
                       height={cred.height / 4}
                       className="rounded-lg shadow-lg"
                       data-ai-hint={image.imageHint}
-                      style={{
-                        maxWidth: '100%',
-                        height: 'auto',
-                      }}
                     />
                 )}
               </div>
