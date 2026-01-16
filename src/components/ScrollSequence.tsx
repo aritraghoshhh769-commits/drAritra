@@ -136,7 +136,6 @@ const ScrollSequence: React.FC = () => {
       const controls = animate(autoplayProgress, 1, {
         duration: duration,
         ease: 'linear',
-        repeat: Infinity,
       });
       return () => controls.stop();
     }
@@ -173,14 +172,14 @@ const ScrollSequence: React.FC = () => {
 
     let drawWidth, drawHeight, drawX, drawY;
 
-    if (imgRatio < canvasRatio) {
-      drawWidth = canvasWidth;
-      drawHeight = drawWidth / imgRatio;
-    } else {
-      drawHeight = canvasHeight;
-      drawWidth = drawHeight * imgRatio;
+    if (imgRatio > canvasRatio) { // Image is wider than canvas, letterbox
+        drawHeight = canvasHeight;
+        drawWidth = drawHeight * imgRatio;
+    } else { // Image is taller or same ratio, pillarbox
+        drawWidth = canvasWidth;
+        drawHeight = drawWidth / imgRatio;
     }
-
+    
     drawX = (canvasWidth - drawWidth) / 2;
     drawY = (canvasHeight - drawHeight) / 2;
 
@@ -237,7 +236,7 @@ const ScrollSequence: React.FC = () => {
            <div 
             className="absolute inset-0 z-20 pointer-events-none" 
             style={{
-              background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%)',
+              background: 'radial-gradient(ellipse at 50% 40%, transparent 60%, rgba(0,0,0,0.5) 100%)',
             }} 
           />
           <canvas ref={canvasRef} className="absolute z-10" />
