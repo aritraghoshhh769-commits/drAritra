@@ -79,10 +79,6 @@ const About = () => {
             <motion.div className="lg:col-span-5" variants={itemVariants}>
               <div 
                 className="relative w-full aspect-[3/4] rounded-[20px] shadow-[0_30px_60px_rgba(0,0,0,0.12)] overflow-hidden"
-                style={{
-                  maskImage: 'linear-gradient(to right, black 60%, transparent 100%)',
-                  WebkitMaskImage: 'linear-gradient(to right, black 60%, transparent 100%)',
-                }}
               >
                 {doctorImage && (
                   <Image
@@ -92,6 +88,10 @@ const About = () => {
                     className="object-cover"
                     data-ai-hint={doctorImage.imageHint}
                     sizes="(max-width: 1023px) 100vw, 45vw"
+                    style={{
+                      maskImage: 'linear-gradient(to left, black 60%, transparent 100%)',
+                      WebkitMaskImage: 'linear-gradient(to left, black 60%, transparent 100%)',
+                    }}
                   />
                 )}
               </div>
