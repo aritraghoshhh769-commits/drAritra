@@ -1,10 +1,14 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const Booking = () => {
+  const mapImage = PlaceHolderImages.find(img => img.id === 'map-placeholder');
+
   return (
     <motion.section 
         id="contact-us" 
@@ -25,13 +29,24 @@ const Booking = () => {
             <p className="text-lg text-foreground/80">Dr. Aritra Ghosh Dental Clinic</p>
             <p className="text-foreground/70 mt-2">Mondal Apartment,<br />M. Sarkar Para, Near Nabin Club,<br />Doctor Para, Rampurhat</p>
             <p className="text-lg text-foreground/80 mt-4 font-semibold">
-              <a href="tel:+919002694838" className="flex items-center gap-2 hover:text-primary">
+              <a href="tel:+919002694838" className="flex items-center justify-center lg:justify-start gap-2 hover:text-primary">
                 <Phone className="h-5 w-5" /> +91 90026 94838
               </a>
             </p>
           </div>
-          <div className="flex items-center justify-center">
-              <Button asChild size="lg">
+          <div className="flex flex-col items-center justify-center gap-6">
+              {mapImage && (
+                <div className="w-full aspect-video rounded-lg overflow-hidden shadow-lg relative">
+                  <Image 
+                    src={mapImage.imageUrl} 
+                    alt={mapImage.description}
+                    data-ai-hint={mapImage.imageHint}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              )}
+              <Button asChild size="lg" className="w-full max-w-sm">
                   <Link href="/appointment" target="_blank">Book an Appointment</Link>
               </Button>
           </div>
