@@ -165,17 +165,19 @@ const ScrollSequence: React.FC = () => {
 
     let drawWidth, drawHeight, drawX, drawY;
 
+    // "cover" logic
     if (canvasRatio > imgRatio) {
         drawWidth = canvasWidth;
         drawHeight = drawWidth / imgRatio;
+        drawX = (canvasWidth - drawWidth) / 2;
+        drawY = 0;
     } else {
         drawHeight = canvasHeight;
         drawWidth = drawHeight * imgRatio;
+        drawX = 0;
+        drawY = (canvasHeight - drawHeight) / 2;
     }
     
-    drawX = (canvasWidth - drawWidth) / 2;
-    drawY = (canvasHeight - drawHeight) / 2;
-
     context.clearRect(0, 0, canvasWidth, canvasHeight);
     context.drawImage(image, drawX, drawY, drawWidth, drawHeight);
 }, [frames]);
@@ -224,12 +226,12 @@ const ScrollSequence: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <div ref={targetRef} className="relative w-full h-[200vh]">
+      <div ref={targetRef} className="relative w-full h-[300vh]">
         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
            <div 
             className="absolute inset-0 z-20 pointer-events-none" 
             style={{
-              background: 'radial-gradient(ellipse at 50% 40%, transparent 65%, rgba(0,0,0,0.5) 100%)',
+              background: 'radial-gradient(ellipse at 50% 40%, transparent 40%, rgba(0,0,0,0.7) 80%)',
             }} 
           />
           <canvas ref={canvasRef} className="absolute z-10" />
