@@ -160,25 +160,31 @@ const ScrollSequence: React.FC = () => {
       canvas.height = canvasHeight;
     }
     
-    // This is the logic to make the animation cover the screen to remove black bars
-    const imgRatio = imgWidth / imgHeight;
-    const canvasRatio = canvasWidth / canvasHeight;
+    const nav = document.querySelector('header');
+    const navHeight = nav ? nav.getBoundingClientRect().height : 0;
+    
+    // Treat the viewport as the area below the navbar
+    const viewPortHeight = (window.innerHeight - navHeight) * dpr;
+    const viewPortWidth = window.innerWidth * dpr;
+    
+    const viewportRatio = viewPortWidth / viewPortHeight;
+    const imageRatio = imgWidth / imgHeight;
 
     let drawWidth, drawHeight, drawX, drawY;
 
-    if (canvasRatio > imgRatio) {
-      // Canvas is wider than image, so fit to canvas width and crop vertically.
-      drawWidth = canvasWidth;
-      drawHeight = canvasWidth / imgRatio;
-      drawX = 0;
-      drawY = (canvasHeight - drawHeight) / 2;
+    if (imageRatio > viewportRatio) {
+      // Image is wider than viewport, fit to width
+      drawWidth = viewPortWidth;
+      drawHeight = drawWidth / imageRatio;
     } else {
-      // Canvas is taller than image, so fit to canvas height and crop horizontally.
-      drawHeight = canvasHeight;
-      drawWidth = canvasHeight * imgRatio;
-      drawX = (canvasWidth - drawWidth) / 2;
-      drawY = 0;
+      // Image is taller than viewport, fit to height
+      drawHeight = viewPortHeight;
+      drawWidth = drawHeight * imageRatio;
     }
+
+    drawX = (canvasWidth - drawWidth) / 2;
+    // Position it vertically considering the navbar
+    drawY = (navHeight * dpr) + ((viewPortHeight - drawHeight) / 2);
     
     context.clearRect(0, 0, canvasWidth, canvasHeight);
     context.drawImage(image, drawX, drawY, drawWidth, drawHeight);
@@ -229,7 +235,10 @@ const ScrollSequence: React.FC = () => {
         )}
       </AnimatePresence>
       <div ref={targetRef} className="relative w-full h-[600vh]">
-        <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
+        <div 
+          className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center"
+          style={{ background: 'radial-gradient(ellipse at center, #1a202c 0%, #000000 70%)' }}
+        >
           <canvas ref={canvasRef} className="absolute z-10" />
           
           {!loading && storyBeats.map((overlay) => (
