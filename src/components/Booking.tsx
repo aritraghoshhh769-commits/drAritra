@@ -1,8 +1,7 @@
-
 'use client';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Phone } from 'lucide-react';
+import { Phone, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Booking = () => {
@@ -29,13 +28,20 @@ const Booking = () => {
               Our clinic is conveniently located in the heart of Doctor Para, inside Mondal Apartment. We are situated near the well-known Nabin Club, making us easy to find. We've created a calm and welcoming environment to ensure your visit is as comfortable as possible.
             </p>
             <p className="text-foreground/80 mt-2">Mondal Apartment,<br />M. Sarkar Para, Near Nabin Club,<br />Doctor Para, Rampurhat</p>
-            <p className="text-lg text-foreground/80 mt-6 font-semibold">
-              <a href="tel:+919002694838" className="flex items-center justify-center gap-2 hover:text-primary transition-colors">
-                <Phone className="h-5 w-5" /> +91 90026 94838
-              </a>
-            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mt-6">
+              <p className="text-lg text-foreground/80 font-semibold">
+                <a href="tel:+919002694838" className="flex items-center justify-center gap-2 hover:text-primary transition-colors">
+                  <Phone className="h-5 w-5" /> +91 90026 94838
+                </a>
+              </p>
+              <p className="text-lg text-foreground/80 font-semibold">
+                <a href="mailto:Aritroghosh2013@gmail.com" className="flex items-center justify-center gap-2 hover:text-primary transition-colors">
+                  <Mail className="h-5 w-5" /> Aritroghosh2013@gmail.com
+                </a>
+              </p>
+            </div>
             <p className="text-foreground/70 mt-8">
-              You can reach us by phone during clinic hours or use our convenient online booking system to request an appointment at any time. Clicking the button below will take you to our appointment form where you can select a preferred date and time.
+              You can reach us by phone or email, or use our convenient online booking system to request an appointment at any time. Clicking the button below will take you to our appointment form where you can select a preferred date and time.
             </p>
             <div className="mt-8">
               <Button asChild>
