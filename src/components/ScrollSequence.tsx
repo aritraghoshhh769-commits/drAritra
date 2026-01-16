@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { useTransform, motion, AnimatePresence, useMotionValue, animate } from 'framer-motion';
+import { useScroll, useTransform, motion, AnimatePresence } from 'framer-motion';
 
 // --- Configuration Constants ---
 const TOTAL_FRAMES = 120;
@@ -18,28 +18,28 @@ type TextOverlay = {
 const storyBeats: TextOverlay[] = [
   {
     start: 0.1,
-    end: 0.4,
+    end: 0.3,
     position: 'center',
     title: 'Dr. Aritra Ghosh',
     subtitle: 'Oral & Dental Surgeon',
   },
   {
-    start: 0.45,
-    end: 0.6,
+    start: 0.35,
+    end: 0.5,
     position: 'left',
     title: '5+ Years of Experience',
     subtitle: 'Dedicated to providing comprehensive dental care with a gentle touch.',
   },
   {
-    start: 0.65,
-    end: 0.8,
+    start: 0.55,
+    end: 0.7,
     position: 'right',
     title: 'Advanced Clinical Practice',
     subtitle: 'Utilizing modern techniques for pain-free and effective treatments.',
   },
   {
-    start: 0.85,
-    end: 0.95,
+    start: 0.75,
+    end: 0.9,
     position: 'center',
     title: 'Your Smile, Our Priority',
     subtitle: 'Book a consultation today.',
@@ -115,13 +115,18 @@ const TextOverlayContent: React.FC<{ overlay: TextOverlay, progress: any }> = ({
 // --- Main Scroll Sequence Component ---
 const ScrollSequence: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const targetRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [frames, setFrames] = useState<HTMLImageElement[]>([]);
   const lastDrawnFrame = useRef(-1);
 
-  const autoplayProgress = useMotionValue(0);
-  const frameIndex = useTransform(autoplayProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start start", "end end"]
+  });
+
+  const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
 
   useEffect(() => {
     preloadImages(setLoadingProgress, (loadedFrames) => {
@@ -129,18 +134,6 @@ const ScrollSequence: React.FC = () => {
       setLoading(false);
     });
   }, []);
-
-  useEffect(() => {
-    if (!loading && frames.length > 0) {
-      const duration = 12; // 12 seconds for the full animation loop
-      const controls = animate(autoplayProgress, 1, {
-        duration: duration,
-        ease: 'linear',
-      });
-      return () => controls.stop();
-    }
-  }, [loading, frames.length, autoplayProgress]);
-
 
   const drawFrame = useCallback((frameIdx: number) => {
     const canvas = canvasRef.current;
@@ -172,12 +165,12 @@ const ScrollSequence: React.FC = () => {
 
     let drawWidth, drawHeight, drawX, drawY;
 
-    if (imgRatio > canvasRatio) { // Image is wider than canvas, letterbox
-        drawHeight = canvasHeight;
-        drawWidth = drawHeight * imgRatio;
-    } else { // Image is taller or same ratio, pillarbox
+    if (canvasRatio > imgRatio) {
         drawWidth = canvasWidth;
         drawHeight = drawWidth / imgRatio;
+    } else {
+        drawHeight = canvasHeight;
+        drawWidth = drawHeight * imgRatio;
     }
     
     drawX = (canvasWidth - drawWidth) / 2;
@@ -231,18 +224,18 @@ const ScrollSequence: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <div className="relative w-full h-screen">
-        <div className="h-screen w-full overflow-hidden flex items-center justify-center bg-black">
+      <div ref={targetRef} className="relative w-full h-[200vh]">
+        <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
            <div 
             className="absolute inset-0 z-20 pointer-events-none" 
             style={{
-              background: 'radial-gradient(ellipse at 50% 40%, transparent 60%, rgba(0,0,0,0.5) 100%)',
+              background: 'radial-gradient(ellipse at 50% 40%, transparent 65%, rgba(0,0,0,0.5) 100%)',
             }} 
           />
           <canvas ref={canvasRef} className="absolute z-10" />
           
           {!loading && storyBeats.map((overlay) => (
-            <TextOverlayContent key={overlay.title} overlay={overlay} progress={autoplayProgress}/>
+            <TextOverlayContent key={overlay.title} overlay={overlay} progress={scrollYProgress}/>
           ))}
         </div>
       </div>
