@@ -75,7 +75,7 @@ const About = () => {
           <div className="grid grid-cols-1 lg:grid-cols-11 gap-8 items-center w-full">
             
             {/* Image Column */}
-            <motion.div className="lg:col-span-5 w-full lg:order-last" variants={itemVariants}>
+            <motion.div className="lg:col-span-4 w-full lg:order-last" variants={itemVariants}>
               <div 
                 className="relative w-full aspect-[3/4] rounded-[20px] shadow-[0_30px_60px_rgba(0,0,0,0.12)] overflow-hidden"
               >
@@ -86,7 +86,7 @@ const About = () => {
                     fill
                     className="object-cover"
                     data-ai-hint={doctorImage.imageHint}
-                    sizes="(max-width: 1023px) 100vw, 40vw"
+                    sizes="(max-width: 1023px) 100vw, 36vw"
                     style={{
                       maskImage: 'linear-gradient(to right, transparent 0%, black 30%)',
                       WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 30%)',
@@ -97,7 +97,7 @@ const About = () => {
             </motion.div>
 
             {/* Text Content Column */}
-            <div className="lg:col-span-6 flex flex-col justify-center items-start space-y-4 md:space-y-6">
+            <div className="lg:col-span-7 flex flex-col justify-center items-start space-y-4 md:space-y-6">
               <motion.h2 
                 id="about-dr-aritra"
                 variants={itemVariants}
