@@ -57,8 +57,8 @@ const BottomNavBar = () => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-sm border-t border-border/50 md:hidden">
-      <div className="p-2 border-b border-border/50">
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-black/90 backdrop-blur-sm border-t border-white/20 md:hidden">
+      <div className="p-2 border-b border-white/20">
         <Button asChild className="w-full font-semibold" size="sm">
             <Link href="/appointment" target="_blank">
               Book an Appointment
@@ -74,7 +74,7 @@ const BottomNavBar = () => {
               onClick={(e) => handleLinkClick(e, item.href)}
               className={cn(
                 'flex flex-col items-center justify-center text-xs w-full h-full transition-colors',
-                activeSection === item.href.substring(1) ? 'text-primary' : 'text-foreground/60 hover:text-foreground'
+                activeSection === item.href.substring(1) ? 'text-primary' : 'text-white/70 hover:text-white'
               )}
             >
               <item.icon className="h-5 w-5 mb-1" />
