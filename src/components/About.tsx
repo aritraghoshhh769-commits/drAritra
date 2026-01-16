@@ -10,13 +10,14 @@ const About = () => {
   const doctorImage = PlaceHolderImages.find(img => img.id === 'doctor-portrait');
 
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, y: 8 },
     visible: {
       opacity: 1,
+      y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.48,
         ease: "easeOut",
-        staggerChildren: 0.2,
+        staggerChildren: 0.08,
       },
     },
   };
@@ -58,6 +59,7 @@ const About = () => {
   return (
     <section 
       id="about" 
+      aria-labelledby="about-dr-aritra"
       className="w-full py-16 md:py-24"
       style={{
         background: 'linear-gradient(135deg, #eaf7fb 0%, #f8fdff 100%)'
@@ -80,7 +82,7 @@ const About = () => {
                 {doctorImage && (
                   <Image
                     src={doctorImage.imageUrl}
-                    alt={doctorImage.description}
+                    alt="Dr. Aritra Ghosh portrait in clinic"
                     fill
                     className="object-cover"
                     data-ai-hint={doctorImage.imageHint}
@@ -94,6 +96,7 @@ const About = () => {
             {/* Right Column - Text Content */}
             <div className="lg:col-span-6 flex flex-col justify-center items-start space-y-6 md:space-y-8">
               <motion.h2 
+                id="about-dr-aritra"
                 variants={itemVariants}
                 className="text-3xl md:text-5xl font-bold tracking-[-0.5px]" 
                 style={{ color: '#2f9aa0' }}
@@ -134,7 +137,7 @@ const About = () => {
                      background: 'linear-gradient(135deg, #2f9aa0 0%, #5fc2c7 100%)'
                    }}
                  >
-                   <Link href="/appointment">
+                   <Link href="/appointment" aria-label="Book appointment with Dr Aritra Ghosh">
                      <Calendar className="mr-2 h-5 w-5" />
                      Book Appointment
                    </Link>
