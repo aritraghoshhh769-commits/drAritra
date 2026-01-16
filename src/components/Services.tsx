@@ -54,14 +54,14 @@ type Service = (typeof services)[0];
 
 const ServiceCard = ({ service, onCtaClick }: { service: Service; onCtaClick: () => void }) => (
   <div
-    className="group flex h-full flex-col bg-[#DFF6F8] rounded-2xl p-4 md:p-6 shadow-[0px_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg"
+    className="group flex h-full flex-col bg-[#DFF6F8] rounded-2xl p-3 md:p-6 shadow-[0px_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg"
   >
-    <h3 className="text-sm md:text-base font-semibold text-[#1F2A37] uppercase mb-2 md:mb-3 tracking-wider">{service.title}</h3>
-    <p className="text-xs md:text-sm text-[#6B7280] leading-relaxed mb-4 md:mb-5 flex-grow">{service.description}</p>
+    <h3 className="text-xs md:text-base font-semibold text-[#1F2A37] uppercase mb-2 md:mb-3 tracking-wider">{service.title}</h3>
+    <p className="text-[11px] md:text-sm text-[#6B7280] leading-relaxed mb-3 md:mb-5 flex-grow">{service.description}</p>
 
     <div className="mt-auto">
       <Button
-        className="bg-white text-[#1F2A37] rounded-full px-4 md:px-6 h-auto py-2 md:py-2.5 text-xs md:text-sm font-medium shadow-sm hover:bg-gray-100"
+        className="bg-white text-[#1F2A37] rounded-full px-3 md:px-6 h-auto py-1.5 md:py-2.5 text-[11px] md:text-sm font-medium shadow-sm hover:bg-gray-100"
         onClick={onCtaClick}
       >
         {service.ctaText}
