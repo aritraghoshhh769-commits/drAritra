@@ -57,8 +57,8 @@ const BottomNavBar = () => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-black/90 backdrop-blur-sm border-t border-white/20 md:hidden">
-      <div className="p-2 border-b border-white/20">
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-black/80 backdrop-blur-sm border-t border-white/20 md:hidden">
+      <div className="p-1 border-b border-white/20">
         <Button asChild className="w-full font-semibold" size="sm">
             <Link href="/appointment" target="_blank">
               Book an Appointment
@@ -66,7 +66,7 @@ const BottomNavBar = () => {
         </Button>
       </div>
       <nav>
-        <div className="flex justify-around items-center h-14">
+        <div className="flex justify-around items-center h-12">
           {navItems.map((item) => (
             <a
               key={item.label}
@@ -77,7 +77,7 @@ const BottomNavBar = () => {
                 activeSection === item.href.substring(1) ? 'text-primary' : 'text-white/70 hover:text-white'
               )}
             >
-              <item.icon className="h-5 w-5 mb-1" />
+              <item.icon className="h-5 w-5 mb-0.5" />
               <span className="truncate">{item.label}</span>
             </a>
           ))}
