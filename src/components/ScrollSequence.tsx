@@ -146,7 +146,7 @@ const ScrollSequence: React.FC = () => {
     const container = canvas.parentElement;
     if (!container) return;
 
-    const dpr = window.devicePixelRatio;
+    const dpr = window.devicePixelRatio || 1;
     const containerRect = container.getBoundingClientRect();
     
     const imgWidth = image.naturalWidth;
@@ -159,23 +159,30 @@ const ScrollSequence: React.FC = () => {
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
     }
+    
+    const navBarHeight = 80 * dpr; // Approximate height of the navbar in physical pixels
 
-    const canvasRatio = canvasWidth / canvasHeight;
+    const availableWidth = canvasWidth;
+    const availableHeight = canvasHeight - navBarHeight;
+    
     const imgRatio = imgWidth / imgHeight;
+    const availableRatio = availableWidth / availableHeight;
 
     let drawWidth, drawHeight, drawX, drawY;
 
-    // "contain" logic to zoom out
-    if (canvasRatio > imgRatio) {
-        drawHeight = canvasHeight;
-        drawWidth = drawHeight * imgRatio;
-        drawX = (canvasWidth - drawWidth) / 2;
-        drawY = 0;
+    if (availableRatio > imgRatio) {
+      // Available space is wider than the image, so height is the constraint
+      drawHeight = availableHeight;
+      drawWidth = drawHeight * imgRatio;
+      drawX = (availableWidth - drawWidth) / 2;
+      drawY = navBarHeight;
     } else {
-        drawWidth = canvasWidth;
-        drawHeight = drawWidth / imgRatio;
-        drawX = 0;
-        drawY = (canvasHeight - drawHeight) / 2;
+      // Available space is taller than the image, so width is the constraint
+      drawWidth = availableWidth;
+      drawHeight = drawWidth / imgRatio;
+      drawX = 0;
+      // Center it vertically within the available space below the navbar
+      drawY = navBarHeight + (availableHeight - drawHeight) / 2;
     }
     
     context.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -226,7 +233,7 @@ const ScrollSequence: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <div ref={targetRef} className="relative w-full h-[400vh]">
+      <div ref={targetRef} className="relative w-full h-[600vh]">
         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
           <canvas ref={canvasRef} className="absolute z-10" />
           
