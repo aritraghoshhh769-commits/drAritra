@@ -23,7 +23,6 @@ const Booking = () => {
         </div>
         <div className="grid grid-cols-1 gap-12 items-center">
             <div className="flex flex-col justify-center items-center text-center max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-primary mb-4">Clinic Details & Location</h3>
             <p className="text-lg text-foreground/80 font-semibold">Dr. Aritra Ghosh Dental Clinic</p>
             <p className="text-foreground/70 mt-4 leading-relaxed">
               Our clinic is conveniently located in the heart of Doctor Para, inside Mondal Apartment. We are situated near the well-known Nabin Club, making us easy to find. We've created a calm and welcoming environment to ensure your visit is as comfortable as possible.
