@@ -28,22 +28,10 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const aboutSection = document.getElementById('about');
-      if (aboutSection) {
-        const headerHeight = 80; // Corresponds to md:h-20
-        const aboutSectionTop = aboutSection.getBoundingClientRect().top;
-
-        if (aboutSectionTop <= headerHeight) {
-          setIsScrolled(true);
-        } else {
-          setIsScrolled(false);
-        }
-      }
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check on initial load to set the correct state
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   
@@ -51,7 +39,7 @@ const Header = () => {
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled ? 'bg-background shadow-md' : 'bg-black/20'
+        isScrolled ? 'bg-background shadow-md' : 'bg-transparent'
       )}
     >
       <div className="container mx-auto px-4">
