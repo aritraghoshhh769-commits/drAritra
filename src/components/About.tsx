@@ -74,7 +74,14 @@ const About = () => {
         >
           <div className="grid grid-cols-1 md:grid-cols-10 w-full">
             
-            <motion.div variants={itemVariants} className="relative md:col-span-4 min-h-[480px] md:min-h-0">
+            <motion.div 
+              variants={itemVariants} 
+              className="relative md:col-span-4 min-h-[480px] md:min-h-0"
+              style={{
+                maskImage: 'linear-gradient(to right, black 70%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to right, black 70%, transparent 100%)'
+              }}
+            >
               {doctorImage && (
                 <Image
                   src={doctorImage.imageUrl}
@@ -86,7 +93,7 @@ const About = () => {
               )}
             </motion.div>
 
-            <div className="md:col-span-6 flex flex-col justify-center items-center md:items-start text-center md:text-left space-y-3 md:space-y-5 p-5 md:p-8 lg:p-12">
+            <div className="md:col-span-6 flex flex-col justify-center items-start text-left space-y-3 md:space-y-5 p-5 md:p-8 lg:p-12">
               <motion.h2 
                 id="about-dr-aritra"
                 variants={itemVariants}
