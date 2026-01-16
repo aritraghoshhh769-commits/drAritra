@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Award, CheckCircle, Shield, Trophy, Calendar } from 'lucide-react';
+import { GraduationCap, CheckCircle, Shield, Trophy, Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -35,7 +35,7 @@ const About = () => {
 
   const badges = [
     { icon: CheckCircle, text: "BDS Qualified" },
-    { icon: Award, text: "CME Certified (UK)" },
+    { icon: GraduationCap, text: "CME Certified (UK)" },
     { icon: Shield, text: "NSS Volunteer" },
     { icon: Trophy, text: "Guinness World Records Participant" },
   ];
@@ -66,17 +66,16 @@ const About = () => {
     >
       <div className="container mx-auto max-w-7xl px-4">
         <motion.div 
-          className="bg-white/90 backdrop-blur-md rounded-2xl lg:rounded-[24px] p-5 md:p-8 lg:p-12 shadow-[0_20px_40px_rgba(0,0,0,0.06)] border border-white/60"
-          style={{minHeight: 'auto', md: {minHeight: '720px'}}}
+          className="bg-white/90 backdrop-blur-md rounded-2xl lg:rounded-[24px] p-5 md:p-8 lg:p-12 shadow-[0_20px_40px_rgba(0,0,0,0.06)] border border-white/60 flex items-center md:min-h-[720px]"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={containerVariants}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-11 gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-11 gap-8 items-center w-full">
             
             {/* Left Column - Image */}
-            <motion.div className="lg:col-span-5" variants={itemVariants}>
+            <motion.div className="lg:col-span-5 w-full" variants={itemVariants}>
               <div 
                 className="relative w-full aspect-[3/4] rounded-[20px] shadow-[0_30px_60px_rgba(0,0,0,0.12)] overflow-hidden"
               >
@@ -87,10 +86,10 @@ const About = () => {
                     fill
                     className="object-cover"
                     data-ai-hint={doctorImage.imageHint}
-                    sizes="(max-width: 1023px) 100vw, 45vw"
+                    sizes="(max-width: 1023px) 100vw, 40vw"
                     style={{
-                      maskImage: 'linear-gradient(to left, black 60%, transparent 100%)',
-                      WebkitMaskImage: 'linear-gradient(to left, black 60%, transparent 100%)',
+                      maskImage: 'linear-gradient(to right, black 70%, transparent 100%)',
+                      WebkitMaskImage: 'linear-gradient(to right, black 70%, transparent 100%)',
                     }}
                   />
                 )}
@@ -110,7 +109,7 @@ const About = () => {
 
               <motion.p 
                 variants={itemVariants}
-                className="text-[15px] md:text-[16px] lg:text-[18px] max-w-[520px]"
+                className="text-[15px] md:text-[18px] max-w-[520px]"
                 style={{ color: '#4a5d66', lineHeight: 1.7 }}
               >
                 A dedicated Dental Surgeon (BDS) committed to providing exceptional care through clinical precision and continuous medical education. With a strong foundation in community service and a passion for ethical practice, Dr. Ghosh ensures every patient receives personalized and effective treatment.
