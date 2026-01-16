@@ -72,11 +72,11 @@ const About = () => {
           viewport={{ once: true, amount: 0.2 }}
           variants={containerVariants}
         >
-          <div className="grid grid-cols-10 w-full">
+          <div className="grid grid-cols-12 w-full">
             
             <motion.div 
               variants={itemVariants} 
-              className="relative col-span-4"
+              className="relative col-span-5"
               style={{
                 maskImage: 'linear-gradient(to right, black 70%, transparent 100%)',
                 WebkitMaskImage: 'linear-gradient(to right, black 70%, transparent 100%)'
@@ -93,11 +93,11 @@ const About = () => {
               )}
             </motion.div>
 
-            <div className="col-span-6 flex flex-col justify-center items-start text-left space-y-2 p-4 md:space-y-5 md:p-8 lg:p-12">
+            <div className="col-span-7 flex flex-col justify-center items-start text-left space-y-1 p-2 sm:space-y-2 sm:p-4 md:space-y-5 md:p-8 lg:p-12">
               <motion.h2 
                 id="about-dr-aritra"
                 variants={itemVariants}
-                className="text-lg md:text-[36px] font-bold tracking-tight md:tracking-[-0.5px]" 
+                className="text-sm sm:text-base md:text-[36px] font-bold tracking-tight md:tracking-[-0.5px]" 
                 style={{ color: '#2f9aa0' }}
               >
                 About Dr. Aritra Ghosh
@@ -105,7 +105,7 @@ const About = () => {
 
               <motion.p 
                 variants={itemVariants}
-                className="text-xs md:text-base max-w-[520px]"
+                className="text-[10px] leading-snug sm:text-xs sm:leading-normal md:text-base max-w-[520px]"
                 style={{ color: '#4a5d66', lineHeight: 1.7 }}
               >
                 A dedicated Dental Surgeon (BDS) committed to providing exceptional care through clinical precision and continuous medical education. With a strong foundation in community service and a passion for ethical practice, Dr. Ghosh ensures every patient receives personalized and effective treatment.
@@ -119,12 +119,12 @@ const About = () => {
                   <motion.div
                     key={badge.text}
                     variants={badgeItemVariants}
-                    className="flex items-center h-8 md:h-[44px] px-2 md:px-[18px] rounded-full border shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]"
+                    className="flex items-center h-7 md:h-[44px] px-2 md:px-[18px] rounded-full border shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]"
                     style={{ background: '#e6f6f8', borderColor: '#bfe6ea'}}
                     whileHover={{ y: -4, boxShadow: '0 8px 16px rgba(0,0,0,0.1)', transition: { duration: 0.2 } }}
                   >
                     <badge.icon className="h-3 w-3 md:h-5 md:w-5 mr-1.5 md:mr-3 shrink-0" style={{ color: '#2f9aa0' }} />
-                    <span className="font-semibold text-[10px] md:text-sm" style={{ color: '#2f9aa0' }}>{badge.text}</span>
+                    <span className="font-semibold text-[8px] sm:text-[10px] md:text-sm" style={{ color: '#2f9aa0' }}>{badge.text}</span>
                   </motion.div>
                 ))}
               </motion.div>
@@ -132,13 +132,13 @@ const About = () => {
               <motion.div variants={itemVariants} className="pt-1 md:pt-3">
                  <Button 
                    asChild 
-                   className="w-full md:w-[280px] h-10 md:h-[56px] text-xs md:text-base font-semibold text-white rounded-lg md:rounded-[14px] shadow-[0_8px_20px_rgba(47,154,160,0.3)] md:shadow-[0_12px_30px_rgba(47,154,160,0.35)] transition-all duration-300 hover:scale-[1.03] hover:shadow-xl"
+                   className="w-full md:w-[280px] h-9 md:h-[56px] text-[10px] md:text-base font-semibold text-white rounded-lg md:rounded-[14px] shadow-[0_8px_20px_rgba(47,154,160,0.3)] md:shadow-[0_12px_30px_rgba(47,154,160,0.35)] transition-all duration-300 hover:scale-[1.03] hover:shadow-xl"
                    style={{
                      background: 'linear-gradient(135deg, #2f9aa0 0%, #5fc2c7 100%)'
                    }}
                  >
                    <Link href="/appointment" aria-label="Book appointment with Dr Aritra Ghosh">
-                     <Calendar className="mr-2 h-4 w-4 md:h-5 md:w-5" />
+                     <Calendar className="mr-1 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 md:h-5 md:w-5" />
                      Book Appointment
                    </Link>
                  </Button>
