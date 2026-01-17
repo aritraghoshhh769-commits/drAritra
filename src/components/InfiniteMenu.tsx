@@ -976,8 +976,6 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
       {state.faces.map((face) => {
         const item = items[face.index % items.length];
         if (!item) return null;
-        
-        const isCentered = face.index === state.activeItemIndex;
 
         return (
           <div
@@ -1001,8 +999,6 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
               <p
                 className="face-description"
                 style={{
-                  opacity: isCentered ? 1 : 0,
-                  transition: 'opacity 0.3s ease-in-out',
                   color: '#FFFFFF'
                 }}
               >
