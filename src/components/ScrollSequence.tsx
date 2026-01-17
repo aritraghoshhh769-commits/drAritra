@@ -163,10 +163,10 @@ const ScrollSequence: React.FC = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: 'easeOut', delay: 0.5 }}
-                    className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20 pointer-events-none translate-y-16"
+                    className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20 pointer-events-none translate-y-32"
                   >
                       <div className="flex items-start gap-4 md:gap-5">
-                          <div className="w-0.5 h-20 md:h-28 bg-white/50 rounded-full" />
+                          <div className="w-0.5 h-28 bg-white/50 rounded-full" />
                           <div>
                               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
                                   Dr. Aritra Ghosh
