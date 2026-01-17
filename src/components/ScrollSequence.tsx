@@ -227,8 +227,10 @@ const ScrollSequence: React.FC = () => {
         )}
       </AnimatePresence>
       <div ref={targetRef} className="relative w-full h-[600vh]">
-        <section className="sticky top-0 h-screen w-full overflow-hidden">
-            {/* The canvas now covers the entire section, removing the need for a separate background element. */}
+        <section className="sticky top-0 md:top-20 h-screen md:h-[calc(100vh-5rem)] w-full overflow-hidden">
+            <div className="absolute inset-0 bg-background" style={{
+              background: 'radial-gradient(circle, #30484c 50%, black 100%)',
+            }}/>
             <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
             
             {!loading && storyBeats.map((overlay) => (
