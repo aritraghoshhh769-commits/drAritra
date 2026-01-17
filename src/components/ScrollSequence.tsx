@@ -162,17 +162,17 @@ const ScrollSequence: React.FC = () => {
 
     let drawWidth, drawHeight, drawX, drawY;
 
-    // This is 'cover' logic to fill the container
+    // This is 'contain' logic to fit the image inside the container
     if (imageRatio > canvasRatio) {
-        drawHeight = canvas.height;
-        drawWidth = drawHeight * imageRatio;
-        drawX = (canvas.width - drawWidth) / 2;
-        drawY = 0;
-    } else {
         drawWidth = canvas.width;
         drawHeight = drawWidth / imageRatio;
         drawX = 0;
         drawY = (canvas.height - drawHeight) / 2;
+    } else {
+        drawHeight = canvas.height;
+        drawWidth = drawHeight * imageRatio;
+        drawX = (canvas.width - drawWidth) / 2;
+        drawY = 0;
     }
     
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -225,7 +225,17 @@ const ScrollSequence: React.FC = () => {
       </AnimatePresence>
       <div ref={targetRef} className="relative w-full h-[600vh]">
         <section className="sticky top-0 h-screen w-full">
-            <canvas ref={canvasRef} className="absolute inset-0 h-full w-full bg-black" />
+            <div className="absolute inset-0 h-full w-full bg-[#30484c]">
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    background: 'radial-gradient(circle, rgba(48, 72, 76, 0) 0%, #30484c 70%)'
+                }} />
+            </div>
+            <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
             
             {!loading && storyBeats.map((overlay) => (
                 <TextOverlayContent key={overlay.title} overlay={overlay} progress={scrollYProgress}/>
