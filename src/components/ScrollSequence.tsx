@@ -83,7 +83,7 @@ const HeroContent = () => {
                         <p className="mt-2 text-base md:text-xl lg:text-2xl text-white/80 font-light tracking-wide">
                             Oral & Dental Surgeon
                         </p>
-                        <div className="mt-8 pointer-events-auto">
+                        <div className="mt-8 pointer-events-auto hidden md:block">
                             <Button asChild variant="outline" className="border-white/80 bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black">
                             <Link href="/appointment">Book Appointment</Link>
                             </Button>
@@ -195,7 +195,7 @@ const ScrollSequence: React.FC = () => {
   }, [loading, frames, drawFrame, isMobile]);
 
   if (!hasMounted) {
-    return <div className="h-screen" />; // Render nothing until mounted on client
+    return <div id="home" className="h-screen" />; // Render nothing until mounted on client
   }
 
   if (isMobile) {
