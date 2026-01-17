@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useScroll, useTransform, motion, AnimatePresence } from 'framer-motion';
@@ -144,31 +144,31 @@ const ScrollSequence: React.FC = () => {
               
               {!loading && (
                 <>
-                  <div className="absolute bottom-8 right-8 z-20 flex flex-col items-end gap-3">
-                    <div className="flex items-center gap-4">
-                        <a href="#" aria-label="Facebook" className="text-white/70 hover:text-white transition-colors">
-                        <Facebook className="h-5 w-5" />
-                        </a>
-                        <a href="#" aria-label="X" className="text-white/70 hover:text-white transition-colors">
-                        <Twitter className="h-5 w-5" />
-                        </a>
-                        <a href="#" aria-label="Instagram" className="text-white/70 hover:text-white transition-colors">
-                        <Instagram className="h-5 w-5" />
-                        </a>
-                    </div>
+                  <div className="absolute top-8 right-8 z-20 flex items-center gap-4">
+                    <a href="#" aria-label="Facebook" className="text-white/70 hover:text-white transition-colors">
+                    <Facebook className="h-5 w-5" />
+                    </a>
+                    <a href="#" aria-label="X" className="text-white/70 hover:text-white transition-colors">
+                    <Twitter className="h-5 w-5" />
+                    </a>
+                    <a href="#" aria-label="Instagram" className="text-white/70 hover:text-white transition-colors">
+                    <Instagram className="h-5 w-5" />
+                    </a>
+                  </div>
+                  <div className="absolute bottom-4 right-4 z-20">
                     <div className="bg-black/20 backdrop-blur-sm rounded-md px-3 py-1.5">
                         <a href="#contact-us" onClick={(e) => handleLinkClick(e, '#contact-us')} className="text-xs text-white/70 hover:text-white transition-colors font-light">
                             Clinic Info
                         </a>
                     </div>
                   </div>
-                  <div className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20 pointer-events-none">
-                      <motion.div
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
-                          className="flex items-center gap-4 md:gap-5"
-                      >
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, ease: 'easeOut', delay: 0.5 }}
+                    className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20 pointer-events-none"
+                  >
+                      <div className="flex items-center gap-4 md:gap-5">
                           <div className="w-0.5 h-20 md:h-28 bg-white/50 rounded-full" />
                           <div>
                               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
@@ -178,8 +178,8 @@ const ScrollSequence: React.FC = () => {
                                   Oral & Dental Surgeon
                               </p>
                           </div>
-                      </motion.div>
-                  </div>
+                      </div>
+                  </motion.div>
                 </>
               )}
             </section>
