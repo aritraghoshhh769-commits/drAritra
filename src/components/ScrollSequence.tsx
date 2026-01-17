@@ -72,7 +72,7 @@ const HeroContent = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: 'easeOut', delay: 0.5 }}
-                className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20 pointer-events-none translate-y-52"
+                className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20 pointer-events-none"
             >
                 <div className="flex items-start gap-4 md:gap-5">
                     <div className="w-0.5 h-28 bg-white/50 rounded-full" />
@@ -202,7 +202,7 @@ const ScrollSequence: React.FC = () => {
       return (
         <section id="home" className="relative h-screen w-full">
             <Image
-                src="https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/aritro/ezgif-frame-240.jpg"
+                src="https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/aritro/ezgif-frame-120.jpg"
                 alt="Dr. Aritra Ghosh providing dental care"
                 fill
                 className="object-cover"
