@@ -50,20 +50,20 @@ const Booking = () => {
         </div>
         
         <div className="hidden md:grid grid-cols-1 gap-12 items-center">
-            <div className="flex flex-col justify-center items-center text-center max-w-2xl mx-auto">
+            <div className="flex flex-col justify-center items-start text-left max-w-2xl mx-auto">
             <p className="text-lg text-foreground/80 font-semibold">Dr. Aritra Ghosh Dental Clinic</p>
             <p className="text-foreground/70 mt-4 leading-relaxed">
               Our clinic is conveniently located in the heart of Doctor Para, inside Mondal Apartment. We are situated near the well-known Nabin Club, making us easy to find. We've created a calm and welcoming environment to ensure your visit is as comfortable as possible.
             </p>
             <p className="text-foreground/80 mt-2">Mondal Apartment,<br />M. Sarkar Para, Near Nabin Club,<br />Doctor Para, Rampurhat</p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mt-6">
+            <div className="flex flex-col sm:flex-row items-center justify-start gap-4 sm:gap-8 mt-6">
               <p className="text-lg text-foreground/80 font-semibold">
-                <a href="tel:+919002694838" className="flex items-center justify-center gap-2 hover:text-primary transition-colors">
+                <a href="tel:+919002694838" className="flex items-center justify-start gap-2 hover:text-primary transition-colors">
                   <Phone className="h-5 w-5" /> +91 90026 94838
                 </a>
               </p>
               <p className="text-lg text-foreground/80 font-semibold">
-                <a href="mailto:Aritroghosh2013@gmail.com" className="flex items-center justify-center gap-2 hover:text-primary transition-colors">
+                <a href="mailto:Aritroghosh2013@gmail.com" className="flex items-center justify-start gap-2 hover:text-primary transition-colors">
                   <Mail className="h-5 w-5" /> Aritroghosh2013@gmail.com
                 </a>
               </p>
