@@ -978,11 +978,6 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
         
         const isCenterAndIdle = face.index === state.activeItemIndex && !state.isMoving;
 
-        // Only show content for the single, centered, and idle item
-        if (!isCenterAndIdle) {
-            return null;
-        }
-
         return (
           <div
             key={face.index}
@@ -991,7 +986,7 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
               position: 'absolute',
               top: `${face.y}px`,
               left: `${face.x}px`,
-              opacity: 1,
+              opacity: face.opacity,
               transform: `translate(-50%, -50%) scale(${face.scale})`,
               transition: 'opacity 0.2s ease-out',
               pointerEvents: 'none',
@@ -1001,7 +996,9 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
           >
             <div className="face-text-wrapper">
               <h3 className="face-title">{item.title}</h3>
-              <p className="face-description">{item.description}</p>
+              {isCenterAndIdle && (
+                <p className="face-description">{item.description}</p>
+              )}
             </div>
           </div>
         );
