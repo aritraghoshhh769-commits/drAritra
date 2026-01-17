@@ -6,46 +6,6 @@ import { useScroll, useTransform, motion, AnimatePresence } from 'framer-motion'
 // --- Configuration Constants ---
 const TOTAL_FRAMES = 120;
 
-type TextOverlay = {
-  start: number;
-  end: number;
-  position: 'left' | 'center' | 'right';
-  title: string;
-  subtitle?: string;
-};
-
-// --- Story Beats Configuration ---
-const storyBeats: TextOverlay[] = [
-  {
-    start: 0.1,
-    end: 0.3,
-    position: 'center',
-    title: 'Dr. Aritra Ghosh',
-    subtitle: 'Oral & Dental Surgeon',
-  },
-  {
-    start: 0.35,
-    end: 0.5,
-    position: 'left',
-    title: '5+ Years of Experience',
-    subtitle: 'Dedicated to providing comprehensive dental care with a gentle touch.',
-  },
-  {
-    start: 0.55,
-    end: 0.7,
-    position: 'right',
-    title: 'Advanced Clinical Practice',
-    subtitle: 'Utilizing modern techniques for pain-free and effective treatments.',
-  },
-  {
-    start: 0.75,
-    end: 0.9,
-    position: 'center',
-    title: 'Your Smile, Our Priority',
-    subtitle: 'Book a consultation today.',
-  },
-];
-
 // --- Helper Functions ---
 const getFramePath = (frame: number): string => {
   const frameNumber = String(frame + 1).padStart(3, '0');
@@ -75,41 +35,6 @@ const preloadImages = (onProgress: (progress: number) => void, onComplete: (imag
   }
 
   Promise.all(imagePromises).then(onComplete).catch(err => console.error("Error preloading images:", err));
-};
-
-// --- Text Overlay Component ---
-const TextOverlayContent: React.FC<{ overlay: TextOverlay, progress: any }> = ({ overlay, progress }) => {
-  const FADE_DURATION = 0.05;
-
-  const opacity = useTransform(
-    progress,
-    [overlay.start, overlay.start + FADE_DURATION, overlay.end - FADE_DURATION, overlay.end],
-    [0, 1, 1, 0]
-  );
-  
-  const y = useTransform(
-    progress,
-    [overlay.start, overlay.start + FADE_DURATION],
-    ['20px', '0px']
-  );
-
-  const positionClasses = {
-    left: 'items-start text-left',
-    center: 'items-center text-center',
-    right: 'items-end text-right',
-  };
-
-  return (
-    <motion.div
-      style={{ opacity, y }}
-      className={`absolute inset-0 h-full w-full flex flex-col justify-center p-4 sm:p-8 md:p-16 pointer-events-none z-30 ${positionClasses[overlay.position]}`}
-    >
-      <div className="max-w-md">
-        <h2 className="text-xl sm:text-2xl md:text-4xl font-bold text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.title}</h2>
-        {overlay.subtitle && <p className="mt-1 sm:mt-2 text-xs sm:text-sm md:text-lg text-white/90 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">{overlay.subtitle}</p>}
-      </div>
-    </motion.div>
-  );
 };
 
 // --- Main Scroll Sequence Component ---
@@ -204,9 +129,27 @@ const ScrollSequence: React.FC = () => {
               <div className="hero-stage">
                   <canvas ref={canvasRef} />
               </div>
-              {!loading && storyBeats.map((overlay) => (
-                  <TextOverlayContent key={overlay.title} overlay={overlay} progress={scrollYProgress}/>
-              ))}
+              
+              {!loading && (
+                <div className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20 pointer-events-none">
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.4, ease: 'easeOut', delay: 0.2 }}
+                        className="flex items-center gap-4 md:gap-5"
+                    >
+                        <div className="w-0.5 h-20 md:h-28 bg-white/50 rounded-full" />
+                        <div>
+                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
+                                Dr. Aritra Ghosh
+                            </h1>
+                            <p className="mt-2 text-base md:text-xl lg:text-2xl text-white/80 font-light tracking-wide">
+                                Oral & Dental Surgeon
+                            </p>
+                        </div>
+                    </motion.div>
+                </div>
+              )}
             </section>
         </div>
       </div>
