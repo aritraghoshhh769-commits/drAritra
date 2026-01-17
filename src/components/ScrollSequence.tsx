@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useScroll, useTransform, motion, AnimatePresence } from 'framer-motion';
+import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 
 // --- Configuration Constants ---
 const TOTAL_FRAMES = 120;
@@ -145,12 +146,21 @@ const ScrollSequence: React.FC = () => {
                 <>
                   <div className="absolute bottom-0 right-0 z-20">
                     <div 
-                      className="backdrop-blur-sm px-16 py-2"
-                      style={{ background: 'linear-gradient(to left, rgba(0,0,0,0.25), transparent)' }}
+                      className="flex items-center"
+                      style={{
+                        background: 'linear-gradient(to left, rgba(0, 0, 0, 0.35) 60%, transparent 100%)',
+                        padding: '0.75rem 2rem 0.75rem 8rem'
+                      }}
                     >
-                        <a href="#contact-us" onClick={(e) => handleLinkClick(e, '#contact-us')} className="text-xs text-white/70 hover:text-white transition-colors font-light">
-                            Clinic Info
-                        </a>
+                      <div className="flex items-center gap-3">
+                        <a href="#" aria-label="Facebook" className="text-white/60 hover:text-white transition-colors"><Facebook className="h-4 w-4" /></a>
+                        <a href="#" aria-label="Twitter" className="text-white/60 hover:text-white transition-colors"><Twitter className="h-4 w-4" /></a>
+                        <a href="#" aria-label="LinkedIn" className="text-white/60 hover:text-white transition-colors"><Linkedin className="h-4 w-4" /></a>
+                        <a href="#" aria-label="Instagram" className="text-white/60 hover:text-white transition-colors"><Instagram className="h-4 w-4" /></a>
+                      </div>
+                      <a href="#contact-us" onClick={(e) => handleLinkClick(e, '#contact-us')} className="ml-5 text-xs text-white/60 hover:text-white transition-colors font-light">
+                          Clinic Info
+                      </a>
                     </div>
                   </div>
                   <motion.div
