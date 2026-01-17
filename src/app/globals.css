@@ -111,10 +111,10 @@
   background:
     linear-gradient(
       90deg,
-      var(--edge-dark) 25%,
+      var(--edge-dark) 35%,
       transparent 50%,
       transparent 50%,
-      var(--edge-dark) 75%
+      var(--edge-dark) 65%
     ),
     radial-gradient(
       180% 120% at center,
