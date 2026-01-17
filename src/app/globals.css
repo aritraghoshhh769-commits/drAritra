@@ -131,10 +131,5 @@
       transparent 50%,
       rgba(44,65,70,0.0) 82%,
       rgba(44,65,70,1) 100%
-    ),
-    linear-gradient(
-      to top,
-      var(--edge-dark) 0%,
-      transparent 5%
     );
 }
