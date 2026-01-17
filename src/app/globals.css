@@ -109,6 +109,15 @@
   pointer-events: none;
 
   background:
+    linear-gradient(
+      90deg,
+      var(--edge-dark) 0%,
+      rgba(44,65,70,1) 30%,
+      rgba(44,65,70,0) 45%,
+      rgba(44,65,70,0) 55%,
+      rgba(44,65,70,1) 70%,
+      var(--edge-dark) 100%
+    ),
     radial-gradient(
       180% 120% at center,
       transparent 50%,
@@ -123,14 +132,4 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(
-      90deg,
-      var(--edge-dark) 0%,
-      rgba(44,65,70,1) 25%,
-      rgba(44,65,70,0) 40%,
-      rgba(44,65,70,0) 60%,
-      rgba(44,65,70,1) 75%,
-      var(--edge-dark) 100%
-    );
 }
