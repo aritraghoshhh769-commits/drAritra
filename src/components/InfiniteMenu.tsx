@@ -582,12 +582,11 @@ class InfiniteGridMenu {
   smoothRotationVelocity = 0;
   scaleFactor = 1.0;
   movementActive = false;
-  onPositionsUpdate: (dots: any[]) => void = () => {};
+  onActiveItemChange: (index: number) => void = () => {};
+  onMovementChange: (isMoving: boolean) => void = () => {};
 
   canvas: HTMLCanvasElement;
   items: { image: string, link: string, title: string, description: string }[];
-  onActiveItemChange: (index: number) => void;
-  onMovementChange: (isMoving: boolean) => void;
   gl!: WebGL2RenderingContext;
   viewportSize!: vec2;
   drawBufferSize!: vec2;
@@ -607,8 +606,8 @@ class InfiniteGridMenu {
   constructor(canvas: HTMLCanvasElement, items: any[], onActiveItemChange: (index: number) => void, onMovementChange: (isMoving: boolean) => void, onInit: ((sketch: InfiniteGridMenu) => void) | null = null, scale = 1.0) {
     this.canvas = canvas;
     this.items = items || [];
-    this.onActiveItemChange = onActiveItemChange || (() => {});
-    this.onMovementChange = onMovementChange || (() => {});
+    this.onActiveItemChange = onActiveItemChange;
+    this.onMovementChange = onMovementChange;
     this.scaleFactor = scale;
     this.camera.position[2] = 3 * scale;
     this.#init(onInit);
@@ -752,44 +751,6 @@ class InfiniteGridMenu {
     gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
     this.smoothRotationVelocity = this.control.rotationVelocity;
-
-    const mvp = mat4.create();
-    mat4.multiply(mvp, this.camera.matrices.projection, this.camera.matrices.view);
-    
-    const dotsInfo = positions.map((p, index) => {
-        const cameraToPoint = vec3.subtract(vec3.create(), p, this.camera.position);
-        if (vec3.dot(cameraToPoint, p) > 0.1) {
-            return { index, visible: false };
-        }
-
-        const clipPos = vec4.fromValues(p[0], p[1], p[2], 1.0);
-        vec4.transformMat4(clipPos, clipPos, mvp);
-        
-        const w = clipPos[3];
-        if (w < 0.1) { 
-            return { index, visible: false };
-        }
-
-        const ndc = vec3.fromValues(clipPos[0] / w, clipPos[1] / w, clipPos[2] / w);
-        
-        const x = (ndc[0] + 1.0) / 2.0 * this.canvas.clientWidth;
-        const y = (1.0 - ndc[1]) / 2.0 * this.canvas.clientHeight;
-        
-        const distanceToCamera = vec3.length(cameraToPoint);
-        const alpha = Math.max(0, 1.0 - (distanceToCamera - (this.camera.position[2] - this.SPHERE_RADIUS)) / (this.SPHERE_RADIUS * 0.8));
-        const textScale = Math.max(0, 3 / distanceToCamera);
-
-        return {
-            x,
-            y,
-            visible: true,
-            alpha: alpha * alpha,
-            scale: textScale,
-            index
-        };
-    });
-
-    this.onPositionsUpdate(dotsInfo);
   }
 
   #render() {
@@ -866,6 +827,12 @@ class InfiniteGridMenu {
     let cameraTargetZ = 3 * this.scaleFactor;
 
     const isPointerDown = this.control.isPointerDown;
+    const isMoving = this.control.rotationVelocity > 0.001 || isPointerDown;
+
+    if (isMoving !== this.movementActive) {
+      this.movementActive = isMoving;
+      this.onMovementChange(isMoving);
+    }
 
     if (isPointerDown) {
       this.control.snapTargetDirection = undefined;
@@ -874,6 +841,9 @@ class InfiniteGridMenu {
       const nearestVertexIndex = this.#findNearestVertexIndex();
       if (nearestVertexIndex !== null) {
         this.nearestVertexIndex = nearestVertexIndex;
+        if (!isMoving) {
+          this.onActiveItemChange(nearestVertexIndex);
+        }
         const snapDirection = vec3.normalize(vec3.create(), this.#getVertexWorldPosition(nearestVertexIndex));
         this.control.snapTargetDirection = snapDirection;
       }
@@ -935,7 +905,8 @@ interface InfiniteMenuProps {
 
 export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [dots, setDots] = useState<any[]>([]);
+  const [activeItemIndex, setActiveItemIndex] = useState<number | null>(0);
+  const [isMoving, setIsMoving] = useState(true);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -945,12 +916,11 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
       sketch = new InfiniteGridMenu(
         canvas,
         items.length ? items : defaultItems,
-        () => {},
-        () => {},
+        setActiveItemIndex,
+        setIsMoving,
         (sk) => sk.run(),
         scale
       );
-      sketch.onPositionsUpdate = setDots;
     }
 
     const handleResize = () => {
@@ -967,42 +937,21 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
     };
   }, [items, scale]);
 
+  const activeItem = activeItemIndex !== null ? items[activeItemIndex % items.length] : null;
+
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
       <canvas id="infinite-grid-menu-canvas" ref={canvasRef} />
-
-      {dots.map((dot) => {
-        if (!dot.visible) {
-          return null;
-        }
-        const item = items[dot.index % items.length];
-        if (!item) {
-          return null;
-        }
-
-        return (
-          <div
-            key={dot.index}
-            style={{
-              position: 'absolute',
-              left: `${dot.x}px`,
-              top: `${dot.y}px`,
-              opacity: dot.alpha,
-              transform: `translate(-50%, -50%) scale(${dot.scale})`,
-              pointerEvents: 'none',
-              color: 'white',
-              textAlign: 'center',
-              textShadow: '0 1px 3px rgba(0, 0, 0, 0.7)',
-              fontSize: '0.75rem',
-              fontWeight: 'bold',
-              width: '8rem',
-              transition: 'opacity 0.2s'
-            }}
-          >
-            {item.title}
+      <div
+        className={`face-content ${isMoving || !activeItem ? 'inactive' : 'active'}`}
+      >
+        {activeItem && (
+          <div className="face-text-wrapper">
+            <h3 className="face-title">{activeItem.title}</h3>
+            <p className="face-description">{activeItem.description}</p>
           </div>
-        );
-      })}
+        )}
+      </div>
     </div>
   );
 }

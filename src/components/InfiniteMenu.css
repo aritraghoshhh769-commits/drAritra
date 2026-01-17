@@ -1,3 +1,4 @@
+
 #infinite-grid-menu-canvas {
   position: absolute;
   top: 0;
@@ -27,66 +28,24 @@
 }
 
 .face-title {
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   font-size: 1.4rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
 
 .face-description {
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   font-size: 0.85rem;
   opacity: 0.9;
   line-height: 1.4;
 }
 
-.action-button {
-  position: absolute;
-  left: 50%;
-  bottom: 10%;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  text-align: center;
-  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-  font-family: 'Inter', sans-serif;
-  pointer-events: auto;
-}
-
-.action-button-icon {
-  font-size: 2rem;
-  color: white;
-  transform: rotate(-45deg);
-}
-
-.face-content.inactive,
-.action-button.inactive {
+.face-content.inactive {
   opacity: 0;
   pointer-events: none;
-}
-
-.face-content.inactive {
-    transform: translate(-50%, calc(-50% + 20px));
-}
-
-.action-button.inactive {
-    transform: translate(-50%, 20px);
+  transform: translate(-50%, calc(-50% + 20px));
 }
 
 .face-content.active {
   opacity: 1;
   transform: translate(-50%, -50%);
-}
-
-.action-button.active {
-  opacity: 1;
-  transform: translateX(-50%);
 }
