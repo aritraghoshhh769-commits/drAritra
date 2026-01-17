@@ -237,7 +237,7 @@ const ScrollSequence: React.FC = () => {
       <div ref={targetRef} className="relative w-full h-[600vh]">
         <div 
           className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center"
-          style={{ background: 'radial-gradient(ellipse at center, #1a202c 0%, #000000 70%)' }}
+          style={{ background: 'radial-gradient(ellipse at center, #476162 0%, #000000 70%)' }}
         >
           <canvas ref={canvasRef} className="absolute z-10" />
           
