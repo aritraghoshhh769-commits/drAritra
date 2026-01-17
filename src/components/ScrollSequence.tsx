@@ -148,8 +148,10 @@ const ScrollSequence: React.FC = () => {
                     <div 
                       className="flex items-center"
                       style={{
-                        background: 'linear-gradient(to left, rgba(0, 0, 0, 0.35) 60%, transparent 100%)',
-                        padding: '0.75rem 2rem 0.75rem 8rem'
+                        background: 'linear-gradient(to left, rgba(0, 0, 0, 0.25) 60%, transparent 100%)',
+                        padding: '0.75rem 2rem 0.75rem 8rem',
+                        backdropFilter: 'blur(4px)',
+                        WebkitBackdropFilter: 'blur(4px)',
                       }}
                     >
                       <div className="flex items-center gap-3">
