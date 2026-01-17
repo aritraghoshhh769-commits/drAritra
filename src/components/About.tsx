@@ -92,7 +92,7 @@ const About = () => {
             )}
             <div 
               className="absolute inset-0" 
-              style={{ background: 'linear-gradient(to right, transparent 60%, rgba(255, 255, 255, 0.7))' }} 
+              style={{ background: 'linear-gradient(to right, transparent 40%, rgba(255, 255, 255, 0.9) 80%)' }} 
             />
           </motion.div>
 
