@@ -109,20 +109,23 @@
   pointer-events: none;
 
   background:
-    linear-gradient(to top, transparent 92%, var(--edge-dark) 100%),
-    linear-gradient(to right, var(--edge-dark) 0%, transparent 40%, transparent 60%, var(--edge-dark) 100%),
+    /* A very subtle top gradient to avoid the top edge of the character */
+    linear-gradient(to top, transparent 95%, var(--edge-dark) 100%),
+    /* Aggressive side gradients for pillarboxing */
+    linear-gradient(to right, var(--edge-dark) 0%, transparent 30%, transparent 70%, var(--edge-dark) 100%),
+    /* A strong vignette that keeps the center clear */
     radial-gradient(
-      180% 120% at center,
-      transparent 65%,
-      var(--edge-dark) 90%
+      ellipse at center,
+      transparent 40%,
+      var(--edge-dark) 75%
     );
 }
 
-/* OPTIONAL: SOFT SIDE DARKENING (REMOVES PILLAR FEEL) */
+/* Gradient to hide watermark at the bottom */
 .hero-scroll::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(to top, var(--edge-dark) 0%, transparent 15%);
+  background: linear-gradient(to top, var(--edge-dark) 0%, transparent 20%);
 }
