@@ -54,6 +54,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
                         />
                         )}
                     </div>
+                    <div className="absolute inset-0 bg-gradient-to-l from-card to-transparent" />
                      <Button
                         variant="ghost"
                         size="icon"
