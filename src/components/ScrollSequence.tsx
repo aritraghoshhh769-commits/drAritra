@@ -226,7 +226,7 @@ const ScrollSequence: React.FC = () => {
       <div ref={targetRef} className="relative w-full h-[600vh]">
         <section className="sticky top-0 h-screen w-full">
             <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" style={{
-                background: 'radial-gradient(circle, #476162 0%, black 100%)',
+                background: 'radial-gradient(circle, #30484c 0%, black 100%)',
             }}/>
             
             {!loading && storyBeats.map((overlay) => (
