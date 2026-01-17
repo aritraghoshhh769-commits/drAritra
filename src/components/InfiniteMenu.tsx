@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -875,34 +876,45 @@ class InfiniteGridMenu {
 
     if (this.isAutoRotating) {
         if (this.isWaitingForNext) {
-            // Keep snapping to the current point to stay stable
+            // We are at a stop, waiting.
             const snapDirection = vec3.normalize(vec3.create(), this.#getVertexWorldPosition(this.currentSnapIndex));
             this.control.snapTargetDirection = snapDirection;
 
             this.autoRotateTimer += deltaTime;
             if (this.autoRotateTimer > this.autoRotateInterval) {
                 this.autoRotateTimer = 0;
-                this.isWaitingForNext = false;
-                // Move to next target
+                this.isWaitingForNext = false; // End of wait, start rotation.
+                
+                // Move to next target index.
                 this.currentSnapIndex = (this.currentSnapIndex + 1) % this.instancePositions.length;
+                
+                // --- SIMULATE THE FLICK ---
+                const invOrientation = quat.conjugate(quat.create(), this.control.orientation);
+                const currentFrontVec = vec3.transformQuat(vec3.create(), this.control.snapDirection, invOrientation);
+                const nextTargetVec = this.instancePositions[this.currentSnapIndex];
+                
+                const flickQuat = quat.create();
+                this.control.quatFromVectors(currentFrontVec, nextTargetVec, flickQuat);
+
+                // Reduce the rotation to a flick by slerping towards identity
+                quat.slerp(flickQuat, this.control.IDENTITY_QUAT, flickQuat, 0.2); 
+                
+                // Apply the flick to the momentum quaternion
+                quat.multiply(this.control.pointerRotation, flickQuat, this.control.pointerRotation);
             }
         } else { // Rotating to the next target
+            // While rotating, gently guide it to the destination.
             const snapDirection = vec3.normalize(vec3.create(), this.#getVertexWorldPosition(this.currentSnapIndex));
             this.control.snapTargetDirection = snapDirection;
 
             const nearestIndex = this.#findNearestVertexIndex();
-            // Check if we have arrived at the target index and rotation has mostly stopped
+            
+            // If we're close to the target and have slowed down enough, stop and wait.
             if (nearestIndex === this.currentSnapIndex && this.control.rotationVelocity < 0.001) {
-                this.isWaitingForNext = true; // Arrived, start waiting.
+                this.isWaitingForNext = true; // Arrived.
                 this.autoRotateTimer = 0;
             }
         }
-    }
-
-    const nearestVertexIndex = this.#findNearestVertexIndex();
-    if (nearestVertexIndex !== null) {
-        const itemIndex = nearestVertexIndex % Math.max(1, this.items.length);
-        this.onActiveItemChange(itemIndex);
     }
     
     if (isPointerDown) {
