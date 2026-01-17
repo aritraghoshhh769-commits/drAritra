@@ -61,7 +61,7 @@ const Gallery = () => {
             { isMobile === undefined ? (
                 <div className="h-[75vh]" /> // Fallback for SSR to prevent layout shift
             ) : isMobile ? (
-				<div className="mt-8 md:hidden">
+				<div className="mt-8 px-14 md:hidden">
 					<Carousel
 						className="w-full max-w-md mx-auto"
 						opts={{
@@ -86,8 +86,8 @@ const Gallery = () => {
 							);
 						})}
 						</CarouselContent>
-						<CarouselPrevious className="inline-flex left-0" />
-						<CarouselNext className="inline-flex right-0" />
+						<CarouselPrevious />
+						<CarouselNext />
 					</Carousel>
 				</div>
 			) : (
