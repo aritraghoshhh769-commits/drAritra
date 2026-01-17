@@ -143,52 +143,40 @@ const ScrollSequence: React.FC = () => {
     const context = canvas.getContext('2d');
     if (!context) return;
     
-    const container = canvas.parentElement;
-    if (!container) return;
-
     const dpr = window.devicePixelRatio || 1;
-    const containerRect = container.getBoundingClientRect();
     
-    const imgWidth = image.naturalWidth;
-    const imgHeight = image.naturalHeight;
-
-    const canvasWidth = containerRect.width * dpr;
-    const canvasHeight = containerRect.height * dpr;
+    const rect = canvas.getBoundingClientRect();
+    const canvasWidth = rect.width * dpr;
+    const canvasHeight = rect.height * dpr;
 
     if (canvas.width !== canvasWidth || canvas.height !== canvasHeight) {
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
     }
     
-    const nav = document.querySelector('header');
-    const navHeight = nav ? nav.getBoundingClientRect().height : 0;
-    
-    // Treat the viewport as the area below the navbar
-    const viewPortHeight = (window.innerHeight - navHeight) * dpr;
-    const viewPortWidth = window.innerWidth * dpr;
-    
-    const viewportRatio = viewPortWidth / viewPortHeight;
+    const imgWidth = image.naturalWidth;
+    const imgHeight = image.naturalHeight;
+
+    const canvasRatio = canvas.width / canvas.height;
     const imageRatio = imgWidth / imgHeight;
 
     let drawWidth, drawHeight, drawX, drawY;
 
-    if (imageRatio > viewportRatio) {
-      // Image is wider than viewport, fit to width
-      drawWidth = viewPortWidth;
-      drawHeight = drawWidth / imageRatio;
-    } else {
-      // Image is taller than viewport, fit to height
-      drawHeight = viewPortHeight;
+    if (imageRatio > canvasRatio) {
+      drawHeight = canvas.height;
       drawWidth = drawHeight * imageRatio;
+      drawX = (canvas.width - drawWidth) / 2;
+      drawY = 0;
+    } else {
+      drawWidth = canvas.width;
+      drawHeight = drawWidth / imageRatio;
+      drawX = 0;
+      drawY = (canvas.height - drawHeight) / 2;
     }
-
-    drawX = (canvasWidth - drawWidth) / 2;
-    // Position it vertically considering the navbar
-    drawY = (navHeight * dpr) + ((viewPortHeight - drawHeight) / 2);
     
-    context.clearRect(0, 0, canvasWidth, canvasHeight);
+    context.clearRect(0, 0, canvas.width, canvas.height);
     context.drawImage(image, drawX, drawY, drawWidth, drawHeight);
-}, [frames]);
+  }, [frames]);
 
 
   useEffect(() => {
@@ -235,16 +223,15 @@ const ScrollSequence: React.FC = () => {
         )}
       </AnimatePresence>
       <div ref={targetRef} className="relative w-full h-[600vh]">
-        <div 
-          className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center"
-          style={{ background: 'radial-gradient(ellipse at center, #476162 0%, #000000 70%)' }}
-        >
-          <canvas ref={canvasRef} className="absolute z-10" />
+        <section className="sticky top-0 hero-section">
+          <div className="animation-container">
+            <canvas ref={canvasRef} />
+          </div>
           
           {!loading && storyBeats.map((overlay) => (
             <TextOverlayContent key={overlay.title} overlay={overlay} progress={scrollYProgress}/>
           ))}
-        </div>
+        </section>
       </div>
     </>
   );
