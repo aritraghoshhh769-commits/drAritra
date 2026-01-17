@@ -5,7 +5,6 @@ import { useScroll, useTransform, motion, AnimatePresence } from 'framer-motion'
 import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
 
 // --- Configuration Constants ---
 const TOTAL_FRAMES = 120;
@@ -58,15 +57,10 @@ const ScrollSequence: React.FC = () => {
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
 
   useEffect(() => {
-    // Only preload for desktop
-    if (window.innerWidth >= 768) {
-        preloadImages(setLoadingProgress, (loadedFrames) => {
-            setFrames(loadedFrames);
-            setLoading(false);
-        });
-    } else {
+    preloadImages(setLoadingProgress, (loadedFrames) => {
+        setFrames(loadedFrames);
         setLoading(false);
-    }
+    });
   }, []);
 
   const drawFrame = useCallback((frameIdx: number) => {
@@ -77,16 +71,36 @@ const ScrollSequence: React.FC = () => {
     const context = canvas.getContext('2d');
     if (!context) return;
     
-    const imgWidth = image.naturalWidth;
-    const imgHeight = image.naturalHeight;
+    // Set canvas drawing surface size to its display size
+    const canvasWidth = canvas.clientWidth;
+    const canvasHeight = canvas.clientHeight;
+    if (canvas.width !== canvasWidth || canvas.height !== canvasHeight) {
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+    }
 
-    if (canvas.width !== imgWidth || canvas.height !== imgHeight) {
-        canvas.width = imgWidth;
-        canvas.height = imgHeight;
+    const imgAspectRatio = image.naturalWidth / image.naturalHeight;
+    const canvasAspectRatio = canvasWidth / canvasHeight;
+
+    let renderWidth, renderHeight, x, y;
+
+    // This is 'object-fit: cover' logic
+    if (imgAspectRatio > canvasAspectRatio) {
+        // image is wider than canvas, so height is the constraining dimension
+        renderHeight = canvasHeight;
+        renderWidth = renderHeight * imgAspectRatio;
+        x = (canvasWidth - renderWidth) / 2; // center horizontally
+        y = 0;
+    } else {
+        // image is taller than canvas, so width is the constraining dimension
+        renderWidth = canvasWidth;
+        renderHeight = renderWidth / imgAspectRatio;
+        x = 0;
+        y = (canvasHeight - renderHeight) / 2; // center vertically
     }
     
     context.clearRect(0, 0, canvas.width, canvas.height);
-    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+    context.drawImage(image, x, y, renderWidth, renderHeight);
   }, [frames]);
 
 
@@ -130,8 +144,7 @@ const ScrollSequence: React.FC = () => {
 
   return (
     <>
-      {/* Desktop Hero */}
-      <div className="hidden md:block">
+      <div>
         <AnimatePresence>
             {loading && (
             <motion.div
@@ -149,12 +162,12 @@ const ScrollSequence: React.FC = () => {
             <div className="sticky top-0 h-screen w-full">
                 <section className="hero-scroll">
                 <div className="hero-stage">
-                    <canvas ref={canvasRef} />
+                    <canvas ref={canvasRef} className="w-full h-full" />
                 </div>
                 
                 {!loading && (
                     <>
-                    <div className="absolute bottom-0 right-0 z-20">
+                    <div className="absolute bottom-0 right-0 z-20 hidden md:block">
                         <div className="utility-panel flex items-center py-3 pr-8 pl-48">
                         <div className="flex items-center gap-3">
                             <a href="#" aria-label="Facebook" className="text-white/60 hover:text-white transition-colors"><Facebook className="h-4 w-4" /></a>
@@ -195,35 +208,6 @@ const ScrollSequence: React.FC = () => {
                 </section>
             </div>
         </div>
-      </div>
-
-      {/* Mobile Hero */}
-      <div className="md:hidden">
-        <section className="relative w-full aspect-[4/5]">
-            <Image
-                src="https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/aritro/ezgif-frame-240.jpg"
-                alt="Dr. Aritra Ghosh"
-                fill
-                className="object-cover object-center"
-                data-ai-hint="doctor portrait"
-                priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                <div className="absolute inset-0 p-6 flex items-end">
-                    <div className="flex justify-between items-end w-full">
-                        <div>
-                            <h1 className="text-3xl font-bold text-white">Dr. Aritra Ghosh</h1>
-                            <p className="text-lg text-white">Oral & Dental Surgeon</p>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <a href="#" aria-label="Facebook" className="text-white/80 hover:text-white transition-colors"><Facebook className="h-5 w-5" /></a>
-                            <a href="#" aria-label="Twitter" className="text-white/80 hover:text-white transition-colors"><Twitter className="h-5 w-5" /></a>
-                            <a href="#" aria-label="Instagram" className="text-white/80 hover:text-white transition-colors"><Instagram className="h-5 w-5" /></a>
-                            <a href="#" aria-label="LinkedIn" className="text-white/80 hover:text-white transition-colors"><Linkedin className="h-5 w-5" /></a>
-                        </div>
-                    </div>
-                </div>
-        </section>
       </div>
     </>
   );
