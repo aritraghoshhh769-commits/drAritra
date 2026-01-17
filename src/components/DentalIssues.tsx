@@ -34,6 +34,26 @@ const dentalIssues = [
     id: 'wisdom-teeth',
     title: 'Wisdom Teeth',
     description: "Third molars at the back of the mouth that don't have enough room to emerge or develop normally.",
+  },
+  {
+    id: 'tooth-erosion',
+    title: 'Tooth Erosion',
+    description: 'Loss of tooth structure due to acid attacking the enamel, often from acidic foods and drinks.',
+  },
+  {
+    id: 'bruxism',
+    title: 'Bruxism',
+    description: 'Involuntary grinding, gnashing, or clenching of teeth, often during sleep, which can lead to damage.',
+  },
+  {
+    id: 'dry-mouth',
+    title: 'Dry Mouth',
+    description: 'Also known as Xerostomia, a condition where salivary glands don’t produce enough saliva to keep the mouth wet.',
+  },
+  {
+    id: 'oral-thrush',
+    title: 'Oral Thrush',
+    description: 'A condition in which the fungus Candida albicans accumulates on the lining of your mouth, causing white lesions.',
   }
 ];
 
