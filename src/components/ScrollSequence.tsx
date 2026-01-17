@@ -1,8 +1,8 @@
-
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useScroll, useTransform, motion, AnimatePresence } from 'framer-motion';
+import { Facebook, Twitter, Instagram } from 'lucide-react';
 
 // --- Configuration Constants ---
 const TOTAL_FRAMES = 120;
@@ -132,24 +132,37 @@ const ScrollSequence: React.FC = () => {
               </div>
               
               {!loading && (
-                <div className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20 pointer-events-none">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
-                        className="flex items-center gap-4 md:gap-5"
-                    >
-                        <div className="w-0.5 h-20 md:h-28 bg-white/50 rounded-full" />
-                        <div>
-                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
-                                Dr. Aritra Ghosh
-                            </h1>
-                            <p className="mt-2 text-base md:text-xl lg:text-2xl text-white/80 font-light tracking-wide">
-                                Oral & Dental Surgeon
-                            </p>
-                        </div>
-                    </motion.div>
-                </div>
+                <>
+                  <div className="absolute top-8 right-8 z-20 flex items-center gap-6">
+                    <a href="#" aria-label="Facebook" className="text-white/80 hover:text-white transition-colors">
+                      <Facebook className="h-5 w-5" />
+                    </a>
+                    <a href="#" aria-label="X" className="text-white/80 hover:text-white transition-colors">
+                      <Twitter className="h-5 w-5" />
+                    </a>
+                    <a href="#" aria-label="Instagram" className="text-white/80 hover:text-white transition-colors">
+                      <Instagram className="h-5 w-5" />
+                    </a>
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20 pointer-events-none">
+                      <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
+                          className="flex items-center gap-4 md:gap-5"
+                      >
+                          <div className="w-0.5 h-20 md:h-28 bg-white/50 rounded-full" />
+                          <div>
+                              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
+                                  Dr. Aritra Ghosh
+                              </h1>
+                              <p className="mt-2 text-base md:text-xl lg:text-2xl text-white/80 font-light tracking-wide">
+                                  Oral & Dental Surgeon
+                              </p>
+                          </div>
+                      </motion.div>
+                  </div>
+                </>
               )}
             </section>
         </div>
