@@ -76,7 +76,7 @@ const BottomNavBar = () => {
               onClick={(e) => handleLinkClick(e, item.href)}
               className={cn(
                 'flex flex-col items-center justify-center text-xs w-full h-full transition-colors',
-                activeSection === item.href.substring(1) ? 'text-primary' : 'text-foreground/70 hover:text-foreground'
+                activeSection === item.href.substring(1) ? 'text-accent' : 'text-foreground/70 hover:text-foreground'
               )}
             >
               <item.icon className="h-5 w-5 mb-0.5" />
