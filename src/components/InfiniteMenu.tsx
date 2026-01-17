@@ -995,7 +995,7 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
             }}
           >
             <div className="face-text-wrapper">
-              <h3 className="face-title" style={{ transition: 'opacity 0.3s' }}>
+              <h3 className="face-title">
                 {item.title}
               </h3>
               <p
