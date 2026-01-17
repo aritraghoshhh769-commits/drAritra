@@ -126,9 +126,11 @@
   background:
     linear-gradient(
       90deg,
-      var(--edge-dark) 0%, 
-      rgba(44,65,70,0) 20%, 
-      rgba(44,65,70,0) 80%, 
+      var(--edge-dark) 0%,
+      rgba(44,65,70,1) 5%,
+      rgba(44,65,70,0) 30%,
+      rgba(44,65,70,0) 70%,
+      rgba(44,65,70,1) 95%,
       var(--edge-dark) 100%
     );
 }
