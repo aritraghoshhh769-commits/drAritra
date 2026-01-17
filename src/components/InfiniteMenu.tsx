@@ -977,7 +977,7 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
         const item = items[face.index % items.length];
         if (!item) return null;
         
-        const isCenterAndIdle = face.index === state.activeItemIndex && !state.isMoving;
+        const isCentered = face.index === state.activeItemIndex;
 
         return (
           <div
@@ -995,14 +995,15 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
             }}
           >
             <div className="face-text-wrapper">
-              <h3 className="face-title">
+              <h3 className="face-title" style={{ color: '#FFFFFF' }}>
                 {item.title}
               </h3>
               <p
                 className="face-description"
                 style={{
-                  opacity: isCenterAndIdle ? 1 : 0,
+                  opacity: isCentered ? 1 : 0,
                   transition: 'opacity 0.3s ease-in-out',
+                  color: '#FFFFFF'
                 }}
               >
                 {item.description}
