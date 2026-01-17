@@ -592,6 +592,9 @@ class InfiniteGridMenu {
   autoRotateTimer = 0;
   autoRotateInterval = 3000; // 3 seconds
   currentSnapIndex = -1;
+  isAutoRotating = false;
+  isWaitingForNext = false;
+
 
   canvas: HTMLCanvasElement;
   items: { image: string, link: string, title: string, description: string }[];
@@ -844,32 +847,58 @@ class InfiniteGridMenu {
       this.movementActive = isMoving;
       this.onMovementChange(isMoving);
     }
-    
+
     if (isPointerDown) {
+      this.isAutoRotating = false;
       this.autoRotateTimer = 0;
-      this.currentSnapIndex = -1;
+      this.control.snapTargetDirection = undefined;
     } else {
       if (this.control.inactivityTimer > this.control.inactivityThreshold) {
-        this.autoRotateTimer += deltaTime;
-        if (this.autoRotateTimer > this.autoRotateInterval) {
-          this.autoRotateTimer = 0;
-          const nearestVertexIndex = this.#findNearestVertexIndex();
-          if (nearestVertexIndex !== null) {
-            this.currentSnapIndex = (nearestVertexIndex + 1) % this.instancePositions.length;
-            const snapDirection = vec3.normalize(vec3.create(), this.#getVertexWorldPosition(this.currentSnapIndex));
-            this.control.snapTargetDirection = snapDirection;
-          }
+        if (!this.isAutoRotating) {
+            this.isAutoRotating = true;
+            this.isWaitingForNext = true; // Start by waiting
+            this.autoRotateTimer = 0;
+            const nearestIndex = this.#findNearestVertexIndex();
+            this.currentSnapIndex = nearestIndex ?? 0;
         }
       } else {
+        // Still active from user inertia. Snap to nearest.
+        this.isAutoRotating = false;
         this.autoRotateTimer = 0;
-        this.currentSnapIndex = this.#findNearestVertexIndex();
-        if (this.currentSnapIndex !== null) {
-          const snapDirection = vec3.normalize(vec3.create(), this.#getVertexWorldPosition(this.currentSnapIndex));
+        const nearestVertexIndex = this.#findNearestVertexIndex();
+        if (nearestVertexIndex !== null) {
+          const snapDirection = vec3.normalize(vec3.create(), this.#getVertexWorldPosition(nearestVertexIndex));
           this.control.snapTargetDirection = snapDirection;
         }
       }
     }
-    
+
+    if (this.isAutoRotating) {
+        if (this.isWaitingForNext) {
+            // Keep snapping to the current point to stay stable
+            const snapDirection = vec3.normalize(vec3.create(), this.#getVertexWorldPosition(this.currentSnapIndex));
+            this.control.snapTargetDirection = snapDirection;
+
+            this.autoRotateTimer += deltaTime;
+            if (this.autoRotateTimer > this.autoRotateInterval) {
+                this.autoRotateTimer = 0;
+                this.isWaitingForNext = false;
+                // Move to next target
+                this.currentSnapIndex = (this.currentSnapIndex + 1) % this.instancePositions.length;
+            }
+        } else { // Rotating to the next target
+            const snapDirection = vec3.normalize(vec3.create(), this.#getVertexWorldPosition(this.currentSnapIndex));
+            this.control.snapTargetDirection = snapDirection;
+
+            const nearestIndex = this.#findNearestVertexIndex();
+            // Check if we have arrived at the target index and rotation has mostly stopped
+            if (nearestIndex === this.currentSnapIndex && this.control.rotationVelocity < 0.001) {
+                this.isWaitingForNext = true; // Arrived, start waiting.
+                this.autoRotateTimer = 0;
+            }
+        }
+    }
+
     const nearestVertexIndex = this.#findNearestVertexIndex();
     if (nearestVertexIndex !== null) {
         const itemIndex = nearestVertexIndex % Math.max(1, this.items.length);
