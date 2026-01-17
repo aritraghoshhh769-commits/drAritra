@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -986,17 +987,26 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
               position: 'absolute',
               top: `${face.y}px`,
               left: `${face.x}px`,
-              opacity: isCenterAndIdle ? 1 : 0,
+              opacity: face.opacity,
               transform: `translate(-50%, -50%) scale(${face.scale})`,
               pointerEvents: 'none',
               width: '12rem',
               textAlign: 'center',
-              transition: 'opacity 0.3s ease-in-out',
             }}
           >
             <div className="face-text-wrapper">
-              <h3 className="face-title">{item.title}</h3>
-              <p className="face-description">{item.description}</p>
+              <h3 className="face-title" style={{ transition: 'opacity 0.3s' }}>
+                {item.title}
+              </h3>
+              <p
+                className="face-description"
+                style={{
+                  opacity: isCenterAndIdle ? 1 : 0,
+                  transition: 'opacity 0.3s ease-in-out',
+                }}
+              >
+                {item.description}
+              </p>
             </div>
           </div>
         );
