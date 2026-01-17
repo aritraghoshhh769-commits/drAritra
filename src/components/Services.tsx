@@ -3,13 +3,6 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import ServiceDetailModal from './ServiceDetailModal';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
 
 const services = [
   {
@@ -89,19 +82,20 @@ const Services = () => {
             <p className="text-base md:text-lg text-foreground/80 mt-2">Dedicated to your oral health and beautiful smile.</p>
           </div>
           
-          {/* Mobile Carousel */}
-          <div className="md:hidden -mx-4">
-             <Carousel opts={{ align: "start", loop: true }} className="w-full">
-              <CarouselContent className="items-stretch">
-                {services.map((service, index) => (
-                  <CarouselItem key={index} className="basis-2/5">
-                    <div className="p-2 h-full">
-                      <ServiceCard service={service} onCtaClick={() => setSelectedService(service)} />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
+          {/* Mobile Grid */}
+          <div className="grid grid-cols-3 gap-2 md:hidden">
+            {services.map((service, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="h-full"
+              >
+                <ServiceCard service={service} onCtaClick={() => setSelectedService(service)} />
+              </motion.div>
+            ))}
           </div>
 
           {/* Desktop Grid */}
