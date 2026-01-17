@@ -162,16 +162,17 @@ const ScrollSequence: React.FC = () => {
 
     let drawWidth, drawHeight, drawX, drawY;
 
+    // This is 'contain' logic
     if (imageRatio > canvasRatio) {
-      drawHeight = canvas.height;
-      drawWidth = drawHeight * imageRatio;
-      drawX = (canvas.width - drawWidth) / 2;
-      drawY = 0;
-    } else {
       drawWidth = canvas.width;
       drawHeight = drawWidth / imageRatio;
       drawX = 0;
       drawY = (canvas.height - drawHeight) / 2;
+    } else {
+      drawHeight = canvas.height;
+      drawWidth = drawHeight * imageRatio;
+      drawX = (canvas.width - drawWidth) / 2;
+      drawY = 0;
     }
     
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -223,14 +224,14 @@ const ScrollSequence: React.FC = () => {
         )}
       </AnimatePresence>
       <div ref={targetRef} className="relative w-full h-[600vh]">
-        <section className="sticky top-0 hero-section">
-          <div className="animation-container">
-            <canvas ref={canvasRef} />
-          </div>
-          
-          {!loading && storyBeats.map((overlay) => (
-            <TextOverlayContent key={overlay.title} overlay={overlay} progress={scrollYProgress}/>
-          ))}
+        <section className="sticky top-0 h-screen w-full">
+            <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" style={{
+                background: 'radial-gradient(circle, #476162 0%, black 100%)',
+            }}/>
+            
+            {!loading && storyBeats.map((overlay) => (
+                <TextOverlayContent key={overlay.title} overlay={overlay} progress={scrollYProgress}/>
+            ))}
         </section>
       </div>
     </>
