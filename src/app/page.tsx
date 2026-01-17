@@ -35,7 +35,7 @@ export default function Home() {
       </main>
       <Footer />
       <ClientOnly>
-        {/* <BottomNavBar /> */}
+        <BottomNavBar />
       </ClientOnly>
     </>
   );

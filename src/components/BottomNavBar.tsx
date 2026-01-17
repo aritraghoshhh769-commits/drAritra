@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { User, BriefcaseMedical, Orbit, Phone, GalleryHorizontal } from 'lucide-react';
+import { Home, User, BriefcaseMedical, Orbit, Phone, GalleryHorizontal } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 const navItems = [
+  { href: '#home', label: 'Home', icon: Home },
   { href: '#about', label: 'About', icon: User },
   { href: '#services', label: 'Services', icon: BriefcaseMedical },
   { href: '#gallery', label: 'Gallery', icon: GalleryHorizontal },
@@ -15,7 +16,7 @@ const navItems = [
 ];
 
 const BottomNavBar = () => {
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const sectionIds = navItems.map(item => item.href.substring(1));

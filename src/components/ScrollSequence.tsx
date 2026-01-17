@@ -110,7 +110,6 @@ const ScrollSequence: React.FC = () => {
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "end end"],
-    disabled: isMobile,
   });
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
@@ -201,7 +200,7 @@ const ScrollSequence: React.FC = () => {
 
   if (isMobile) {
       return (
-        <section className="relative h-screen w-full">
+        <section id="home" className="relative h-screen w-full">
             <Image
                 src="https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/aritro/ezgif-frame-240.jpg"
                 alt="Dr. Aritra Ghosh providing dental care"
@@ -230,7 +229,7 @@ const ScrollSequence: React.FC = () => {
             </motion.div>
             )}
         </AnimatePresence>
-        <div ref={targetRef} className="relative w-full h-[600vh]">
+        <div id="home" ref={targetRef} className="relative w-full h-[600vh]">
             <div className="sticky top-0 h-screen w-full">
                 <section className="hero-scroll">
                 <div className="hero-stage">
