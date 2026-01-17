@@ -30,20 +30,20 @@ const Booking = () => {
         
         <div className="md:hidden">
             <ClientOnly>
-                <div className="flex flex-col items-center text-center space-y-8">
-                    <Button asChild className="w-full max-w-sm">
+                <div className="flex flex-col items-center space-y-8 max-w-sm mx-auto">
+                    <Button asChild className="w-full">
                         <Link href="/appointment" target="_blank">Book an Appointment</Link>
                     </Button>
-                    <div className="space-y-4 text-sm text-foreground/80">
-                        <p className="flex items-center justify-center gap-2">
+                    <div className="space-y-4 text-sm text-foreground/80 w-full">
+                        <p className="flex items-center justify-start gap-2">
                           <MapPin className="h-4 w-4 text-primary" />
                           <span>Mondal Apartment, Near Nabin Club, Rampurhat</span>
                         </p>
-                         <a href="tel:+919002694838" className="flex items-center justify-center gap-2 hover:text-primary transition-colors">
+                         <a href="tel:+919002694838" className="flex items-center justify-start gap-2 hover:text-primary transition-colors">
                           <Phone className="h-4 w-4 text-primary" />
                           <span>+91 90026 94838</span>
                         </a>
-                        <a href="mailto:Aritroghosh2013@gmail.com" className="flex items-center justify-center gap-2 hover:text-primary transition-colors">
+                        <a href="mailto:Aritroghosh2013@gmail.com" className="flex items-center justify-start gap-2 hover:text-primary transition-colors">
                           <Mail className="h-4 w-4 text-primary" />
                           <span>Aritroghosh2013@gmail.com</span>
                         </a>
