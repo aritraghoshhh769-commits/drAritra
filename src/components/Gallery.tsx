@@ -21,6 +21,7 @@ const images = galleryImageIds
   .map(image => ({
     src: image!.imageUrl,
     alt: image!.description,
+    objectPosition: image!.id === 'doctor-portrait' ? 'object-top' : undefined,
   }));
 
 

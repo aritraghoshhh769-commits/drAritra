@@ -2,10 +2,12 @@
 
 import { useScroll, useTransform, motion } from 'framer-motion';
 import { useRef } from 'react';
+import { cn } from '@/lib/utils';
 
 interface Image {
 	src: string;
 	alt?: string;
+	objectPosition?: string;
 }
 
 interface ZoomParallaxProps {
@@ -31,7 +33,8 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 	return (
 		<div ref={container} className="relative h-[300vh]">
 			<div className="sticky top-0 h-screen overflow-hidden">
-				{images.map(({ src, alt }, index) => {
+				{images.map((image, index) => {
+					const { src, alt, objectPosition } = image;
 					const scale = scales[index % scales.length];
 
 					return (
@@ -44,7 +47,7 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 								<img
 									src={src || '/placeholder.svg'}
 									alt={alt || `Parallax image ${index + 1}`}
-									className="h-full w-full object-cover"
+									className={cn("h-full w-full object-cover", objectPosition)}
 								/>
 							</div>
 						</motion.div>
