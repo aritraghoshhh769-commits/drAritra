@@ -9,9 +9,10 @@
 }
 
 .face-content {
-  color: hsl(var(--foreground));
+  color: #FFFFFF;
   font-family: 'Inter', sans-serif;
   pointer-events: none;
+  text-shadow: none;
 }
 
 .face-text-wrapper {
@@ -22,12 +23,9 @@
   font-size: 1.1rem;
   font-weight: bold;
   margin-bottom: 0.25rem;
-  color: hsl(var(--primary-foreground));
-  text-shadow: 0 1px 3px hsla(var(--foreground) / 0.1);
 }
 
 .face-description {
   font-size: 0.85rem;
   line-height: 1.4;
-  color: hsl(var(--primary-foreground) / 0.8);
 }

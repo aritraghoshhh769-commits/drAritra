@@ -978,7 +978,8 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
         if (!item) return null;
         
         const isCenterAndIdle = face.index === state.activeItemIndex && !state.isMoving;
-        const finalOpacity = isCenterAndIdle ? 1 : face.opacity * 0.7;
+        const isVisible = face.opacity > 0.1;
+        const finalOpacity = isCenterAndIdle ? 1 : isVisible ? face.opacity * 0.7 : 0;
 
         return (
           <div
