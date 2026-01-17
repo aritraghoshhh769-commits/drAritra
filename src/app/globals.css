@@ -87,11 +87,12 @@
   content: '';
   position: absolute;
   inset: 0;
-  z-index: 10; /* Sits on top of the canvas, but below text overlays */
+  z-index: 10;
   pointer-events: none;
   background:
-    /* This radial gradient is anchored to the bottom to keep the top clear. */
-    radial-gradient(ellipse 80% 70% at 50% 100%, transparent 30%, var(--edge-dark) 80%);
+    linear-gradient(to right, var(--edge-dark) 0%, transparent 25%),
+    linear-gradient(to left, var(--edge-dark) 0%, transparent 25%),
+    linear-gradient(to top, var(--edge-dark) 0%, transparent 20%);
 }
 
 /* STAGE THAT HOLDS THE ANIMATION */
