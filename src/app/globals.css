@@ -135,6 +135,6 @@
     linear-gradient(
       to top,
       var(--edge-dark) 0%,
-      transparent 8%
+      transparent 5%
     );
 }
