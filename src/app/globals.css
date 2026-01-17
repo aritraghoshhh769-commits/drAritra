@@ -109,7 +109,7 @@
   pointer-events: none;
 
   background:
-    linear-gradient(to right, var(--edge-dark), transparent 30%, transparent 70%, var(--edge-dark)),
+    linear-gradient(to right, var(--edge-dark) 0%, transparent 35%, transparent 65%, var(--edge-dark) 100%),
     radial-gradient(
       180% 120% at center,
       transparent 65%,
