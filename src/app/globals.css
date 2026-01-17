@@ -68,92 +68,68 @@
   }
 }
 
-/* ===== CONFIG (tweak if needed) ===== */
-:root{
-  --edge-color: #2c4146;        /* your required dark corner color (already set) */
-  --center-color: #eaf3f2;      /* center color to blend with animation — tweak to match */
-  --edge-width: 7vw;            /* how wide the dark corner gradient is */
-  --corner-darkness: 0.45;      /* extra vignette darkness (0..1) */
+:root {
+  --edge-dark: #2c4146;
 }
 
-/* ===== HERO LAYOUT (do not touch behavior of inner animation) ===== */
-.scroll-hero{
+/* HERO CONTAINER */
+.hero-scroll {
   position: relative;
   width: 100%;
   height: 100vh;
   overflow: hidden;
+
+  /* Base color so black never appears */
+  background-color: var(--edge-dark);
+}
+
+/* STAGE THAT HOLDS THE ANIMATION */
+.hero-stage {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  /* Primary blend background:
-     - dark edges -> center color -> dark edges
-     - this removes black pillarboxes by replacing them with matched gradient */
-  background:
-    linear-gradient(
-      90deg,
-      var(--edge-color) 0%,
-      var(--edge-color) calc(var(--edge-width) - 0.1px),
-      var(--center-color) 50%,
-      var(--edge-color) calc(100% - var(--edge-width) + 0.1px),
-      var(--edge-color) 100%
-    );
 }
 
-/* subtle softening layer to visually melt the edges into the animation
-   (this keeps the seam imperceptible even if the animation has a slight border) */
-.scroll-hero::before {
+/* DO NOT SCALE / DO NOT FIT */
+.hero-stage > * {
+  width: auto;
+  height: auto;
+  max-height: 100vh;
+  max-width: 100%;
+}
+
+/* EDGE BLENDING — THIS IS THE MAGIC */
+.hero-scroll::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
+
   background:
-    radial-gradient(1200px 600px at 50% 50%,
-                    rgba(255,255,255,0) 55%,
-                    rgba(0,0,0,var(--corner-darkness)) 100%);
-  mix-blend-mode: overlay;
-  opacity: 0.14; /* tweak smaller if too dark */
-  transition: opacity .25s ease;
+    radial-gradient(
+      120% 80% at center,
+      transparent 55%,
+      rgba(44,65,70,0.55) 78%,
+      rgba(44,65,70,1) 100%
+    );
 }
 
-/* center container that holds the animation. The animation itself remains unchanged.
-   We center it and allow it to keep its original rendering & scroll mapping. */
-.scroll-blend {
+/* OPTIONAL: SOFT SIDE DARKENING (REMOVES PILLAR FEEL) */
+.hero-scroll::after {
+  content: "";
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: visible; /* keep scroll-driven drawing intact */
-  pointer-events: auto;
-}
+  pointer-events: none;
 
-/* IMPORTANT: Do NOT use object-fit or transforms on the animation element.
-   These rules only center it and ensure it keeps its native size/behavior. */
-.scroll-blend .animation-shell {
-  display: block;
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  margin: 0 auto;
-  pointer-events: none; /* keep scroll interaction handled by your script */
-}
-
-/* If your animation element is a video/canvas/iframe/lottie root, ensure it is not forced to stretch:
-   (this selector is intentionally conservative — it will not 'cover' or 'zoom') */
-.scroll-blend > * {
-  display: block;
-  margin: 0 auto;
-  /* do NOT set width:100% or object-fit here (that would zoom or crop) */
-}
-
-/* ===== RESPONSIVENESS (keeps blend stable across devices) ===== */
-@media (max-width: 900px){
-  :root{ --edge-width: 9vw; }
-  .scroll-hero::before{ opacity: 0.10; }
-}
-@media (max-width: 480px){
-  :root{ --edge-width: 12vw; }
-  .scroll-hero::before{ opacity: 0.08; }
+  background:
+    linear-gradient(
+      90deg,
+      rgba(44,65,70,1) 0%,
+      rgba(44,65,70,0.0) 18%,
+      transparent 50%,
+      rgba(44,65,70,0.0) 82%,
+      rgba(44,65,70,1) 100%
+    );
 }

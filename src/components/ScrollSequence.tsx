@@ -143,48 +143,21 @@ const ScrollSequence: React.FC = () => {
     const context = canvas.getContext('2d');
     if (!context) return;
     
-    const dpr = window.devicePixelRatio || 1;
-    
-    const rect = canvas.getBoundingClientRect();
-    const canvasWidth = rect.width * dpr;
-    const canvasHeight = rect.height * dpr;
-
-    if (canvas.width !== canvasWidth || canvas.height !== canvasHeight) {
-      canvas.width = canvasWidth;
-      canvas.height = canvasHeight;
-    }
-    
     const imgWidth = image.naturalWidth;
     const imgHeight = image.naturalHeight;
 
-    const canvasRatio = canvas.width / canvas.height;
-    const imageRatio = imgWidth / imgHeight;
-
-    let drawWidth, drawHeight, drawX, drawY;
-
-    // This is 'contain' logic. It ensures the entire image fits within the canvas.
-    if (imageRatio > canvasRatio) {
-        // Image is wider than canvas, so fit to width and center vertically.
-        drawWidth = canvas.width;
-        drawHeight = drawWidth / imageRatio;
-        drawX = 0;
-        drawY = (canvas.height - drawHeight) / 2;
-    } else {
-        // Image is taller than canvas, so fit to height and center horizontally.
-        drawHeight = canvas.height;
-        drawWidth = drawHeight * imageRatio;
-        drawX = (canvas.width - drawWidth) / 2;
-        drawY = 0;
+    if (canvas.width !== imgWidth || canvas.height !== imgHeight) {
+        canvas.width = imgWidth;
+        canvas.height = imgHeight;
     }
     
     context.clearRect(0, 0, canvas.width, canvas.height);
-    context.drawImage(image, drawX, drawY, drawWidth, drawHeight);
+    context.drawImage(image, 0, 0, canvas.width, canvas.height);
   }, [frames]);
 
 
   useEffect(() => {
     const handleResize = () => {
-      lastDrawnFrame.current = -1; // Force redraw on resize
       if (frames.length > 0) {
         drawFrame(Math.round(frameIndex.get()));
       }
@@ -227,15 +200,13 @@ const ScrollSequence: React.FC = () => {
       </AnimatePresence>
       <div ref={targetRef} className="relative w-full h-[600vh]">
         <div className="sticky top-0 h-screen w-full">
-            <section className="scroll-hero">
-                <div className="scroll-blend">
-                    <div className="animation-shell">
-                        <canvas ref={canvasRef} />
-                    </div>
-                </div>
-                {!loading && storyBeats.map((overlay) => (
-                    <TextOverlayContent key={overlay.title} overlay={overlay} progress={scrollYProgress}/>
-                ))}
+            <section className="hero-scroll">
+              <div className="hero-stage">
+                  <canvas ref={canvasRef} />
+              </div>
+              {!loading && storyBeats.map((overlay) => (
+                  <TextOverlayContent key={overlay.title} overlay={overlay} progress={scrollYProgress}/>
+              ))}
             </section>
         </div>
       </div>
