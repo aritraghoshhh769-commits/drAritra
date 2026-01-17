@@ -92,7 +92,7 @@
   background:
     linear-gradient(to right, var(--edge-dark) 0%, transparent 25%),
     linear-gradient(to left, var(--edge-dark) 0%, transparent 25%),
-    linear-gradient(to top, var(--edge-dark) 0%, transparent 5%);
+    linear-gradient(to top, var(--edge-dark) 0%, transparent 2%);
 }
 
 /* STAGE THAT HOLDS THE ANIMATION */
