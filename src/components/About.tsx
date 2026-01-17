@@ -1,5 +1,5 @@
 'use client';
-import { GraduationCap, CheckCircle, Shield, Trophy, Calendar } from 'lucide-react';
+import { GraduationCap, CheckCircle, Shield, Trophy, ArrowDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -54,6 +54,15 @@ const About = () => {
   }
 
   const doctorImage = PlaceHolderImages.find(img => img.id === 'doctor-portrait');
+
+  const handleScrollClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.substring(1);
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <section 
@@ -137,9 +146,9 @@ const About = () => {
                      background: 'linear-gradient(135deg, #2f9aa0 0%, #5fc2c7 100%)'
                    }}
                  >
-                   <Link href="/appointment" aria-label="Book appointment with Dr Aritra Ghosh">
-                     <Calendar className="mr-1 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 md:h-5 md:w-5" />
-                     Book Appointment
+                   <Link href="#services" onClick={(e) => handleScrollClick(e, '#services')} aria-label="View our services">
+                     <ArrowDown className="mr-1 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 md:h-5 md:w-5" />
+                     View Our Services
                    </Link>
                  </Button>
               </motion.div>
