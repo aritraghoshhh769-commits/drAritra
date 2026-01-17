@@ -125,6 +125,7 @@
   pointer-events: none;
 
   background:
+    linear-gradient(to top, var(--edge-dark) 0%, transparent 10%),
     linear-gradient(
       90deg,
       rgba(44,65,70,1) 0%,
