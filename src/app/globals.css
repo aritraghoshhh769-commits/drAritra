@@ -100,30 +100,3 @@
   max-height: 100vh;
   max-width: 100%;
 }
-
-/* EDGE BLENDING — THIS IS THE MAGIC */
-.hero-scroll::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-
-  background:
-    /* Aggressive side gradients for pillarboxing */
-    linear-gradient(to right, var(--edge-dark) 0%, transparent 30%, transparent 70%, var(--edge-dark) 100%),
-    /* A strong vignette that keeps the center clear */
-    radial-gradient(
-      ellipse at center,
-      transparent 40%,
-      var(--edge-dark) 75%
-    );
-}
-
-/* Gradient to hide watermark at the bottom */
-.hero-scroll::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(to top, var(--edge-dark) 0%, transparent 20%);
-}
