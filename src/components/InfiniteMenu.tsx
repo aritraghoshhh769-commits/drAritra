@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -978,8 +977,11 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
         if (!item) return null;
         
         const isCenterAndIdle = face.index === state.activeItemIndex && !state.isMoving;
-        const isVisible = face.opacity > 0.1;
-        const finalOpacity = isCenterAndIdle ? 1 : isVisible ? face.opacity * 0.7 : 0;
+
+        // Only show content for the single, centered, and idle item
+        if (!isCenterAndIdle) {
+            return null;
+        }
 
         return (
           <div
@@ -989,7 +991,7 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
               position: 'absolute',
               top: `${face.y}px`,
               left: `${face.x}px`,
-              opacity: finalOpacity,
+              opacity: 1,
               transform: `translate(-50%, -50%) scale(${face.scale})`,
               transition: 'opacity 0.2s ease-out',
               pointerEvents: 'none',
@@ -999,9 +1001,7 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
           >
             <div className="face-text-wrapper">
               <h3 className="face-title">{item.title}</h3>
-              {isCenterAndIdle &&
-                <p className="face-description">{item.description}</p>
-              }
+              <p className="face-description">{item.description}</p>
             </div>
           </div>
         );
