@@ -227,7 +227,7 @@ const ScrollSequence: React.FC = () => {
       </AnimatePresence>
       <div ref={targetRef} className="relative w-full h-[600vh]">
         <section className="sticky top-0 h-screen w-full overflow-hidden">
-            <div className="absolute inset-0 bg-background" style={{
+            <div className="absolute inset-0" style={{
               background: 'radial-gradient(circle, #30484c 50%, black 100%)',
             }}/>
             <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
