@@ -47,7 +47,7 @@ type Service = (typeof services)[0];
 
 const ServiceCard = ({ service, onCtaClick }: { service: Service; onCtaClick: () => void }) => (
   <div
-    className="group flex h-full flex-col bg-[#DFF6F8] rounded-2xl p-3 md:p-6 shadow-[0px_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg"
+    className="group flex flex-col bg-[#DFF6F8] rounded-2xl p-3 md:p-6 shadow-[0px_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg aspect-[3/4] md:aspect-auto md:h-full"
   >
     <h3 className="text-xs font-semibold text-[#1F2A37] uppercase mb-2 tracking-wider md:text-base md:mb-3">{service.title}</h3>
     <p className="text-[11px] text-[#6B7280] leading-relaxed mb-3 flex-grow md:text-sm md:mb-5">{service.description}</p>
@@ -91,7 +91,6 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="h-full"
               >
                 <ServiceCard service={service} onCtaClick={() => setSelectedService(service)} />
               </motion.div>
