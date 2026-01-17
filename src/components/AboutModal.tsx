@@ -41,9 +41,9 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             className="relative w-full max-w-lg m-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <Card className="border-primary/20 bg-card max-h-[90vh] flex flex-col">
-                <CardHeader className="p-4 pb-0">
-                    <div className="relative w-full h-48 rounded-lg overflow-hidden">
+            <Card className="border-primary/20 bg-card max-h-[90vh] flex flex-col overflow-hidden">
+                <CardHeader className="p-0 relative">
+                    <div className="w-full h-48">
                         {doctorImage && (
                         <Image
                             src={doctorImage.imageUrl}
@@ -54,6 +54,15 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
                         />
                         )}
                     </div>
+                     <Button
+                        variant="ghost"
+                        size="icon"
+                        className="absolute top-2 right-2 z-10 text-white/80 bg-black/30 hover:bg-black/50 hover:text-white rounded-full"
+                        onClick={onClose}
+                    >
+                        <X className="h-5 w-5" />
+                        <span className="sr-only">Close</span>
+                    </Button>
                 </CardHeader>
 
               <CardContent className="p-4 flex-grow overflow-y-auto space-y-4">
@@ -91,16 +100,6 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
                  </Link>
                </Button>
               </CardContent>
-
-              <Button
-                variant="ghost"
-                size="icon"
-                className="absolute top-4 right-4 z-10 text-white/80 bg-black/30 hover:bg-black/50 hover:text-white"
-                onClick={onClose}
-              >
-                <X className="h-6 w-6" />
-                <span className="sr-only">Close</span>
-              </Button>
             </Card>
           </motion.div>
         </motion.div>
