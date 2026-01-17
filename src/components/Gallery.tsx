@@ -4,8 +4,6 @@ import Lenis from '@studio-freight/lenis'
 import { ZoomParallax } from "@/components/ui/zoom-parallax";
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
-import { useIsMobile } from '@/hooks/use-mobile';
-import Image from 'next/image';
 
 const galleryImageIds = [
   'gallery-2',
@@ -28,11 +26,8 @@ const images = galleryImageIds
 
 
 const Gallery = () => {
-    const isMobile = useIsMobile();
 
 	React.useEffect( () => {
-        if (isMobile) return;
-
         const lenis = new Lenis()
        
         function raf(time: number) {
@@ -41,12 +36,12 @@ const Gallery = () => {
         }
 
         requestAnimationFrame(raf)
-    },[isMobile])
+    },[])
 
 
 	return (
-		<section id="gallery" className="w-full bg-background md:py-0">
-			<div className="relative flex h-auto md:h-[50vh] items-center justify-center py-16 md:py-0">
+		<section id="gallery" className="w-full bg-background py-16 md:py-0">
+			<div className="relative flex h-auto md:h-[50vh] items-center justify-center">
 				<div
 					aria-hidden="true"
 					className={cn(
@@ -63,27 +58,10 @@ const Gallery = () => {
 				</div>
 			</div>
 
-            {isMobile ? (
-                 <div className="container mx-auto px-4 pb-16">
-                    <div className="grid grid-cols-2 gap-4">
-                        {images.map((image, i) => (
-                            <div key={i} className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-md">
-                                <Image 
-                                    src={image.src}
-                                    alt={image.alt ?? ''}
-                                    fill
-                                    className={cn("object-cover", image.objectPosition)}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            ) : (
-                <>
-                    <ZoomParallax images={images} />
-			        <div className="h-[50vh] bg-background"/>
-                </>
-            )}
+            <>
+                <ZoomParallax images={images} />
+                <div className="h-[50vh] bg-background"/>
+            </>
 		</section>
 	);
 }
