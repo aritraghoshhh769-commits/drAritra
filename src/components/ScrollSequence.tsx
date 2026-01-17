@@ -202,7 +202,7 @@ const ScrollSequence: React.FC = () => {
         <section className="relative bg-background p-4">
             <div className="relative rounded-2xl shadow-lg overflow-hidden aspect-[4/5] w-full">
             <Image
-                src="https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/WhatsApp%20Image%202026-01-13%20at%2016.26.55.jpeg"
+                src="https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/aritro/ezgif-frame-240.jpg"
                 alt="Dr. Aritra Ghosh"
                 fill
                 className="object-cover object-center"
