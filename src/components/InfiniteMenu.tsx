@@ -416,6 +416,9 @@ class ArcballControl {
   snapTargetDirection: vec3 | undefined;
   EPSILON = 0.1;
   IDENTITY_QUAT = quat.create();
+  inactivityTimer = 0;
+  inactivityThreshold = 5000; // 5 seconds
+  autoRotateSpeed = 0.0005;
 
   canvas: HTMLCanvasElement;
   updateCallback: (deltaTime: number) => void;
@@ -438,6 +441,7 @@ class ArcballControl {
       vec2.set(this.pointerPos, e.clientX, e.clientY);
       vec2.copy(this.previousPointerPos, this.pointerPos);
       this.isPointerDown = true;
+      this.inactivityTimer = 0;
     });
     canvas.addEventListener('pointerup', () => {
       this.isPointerDown = false;
@@ -448,6 +452,7 @@ class ArcballControl {
     canvas.addEventListener('pointermove', e => {
       if (this.isPointerDown) {
         vec2.set(this.pointerPos, e.clientX, e.clientY);
+        this.inactivityTimer = 0;
       }
     });
 
@@ -460,6 +465,7 @@ class ArcballControl {
     let snapRotation = quat.create();
 
     if (this.isPointerDown) {
+      this.inactivityTimer = 0;
       const INTENSITY = 0.3 * timeScale;
       const ANGLE_AMPLIFICATION = 5 / timeScale;
 
@@ -483,10 +489,20 @@ class ArcballControl {
         quat.slerp(this.pointerRotation, this.pointerRotation, this.IDENTITY_QUAT, INTENSITY);
       }
     } else {
-      const INTENSITY = 0.1 * timeScale;
-      quat.slerp(this.pointerRotation, this.pointerRotation, this.IDENTITY_QUAT, INTENSITY);
+      this.inactivityTimer += deltaTime;
 
-      if (this.snapTargetDirection) {
+      if (this.inactivityTimer > this.inactivityThreshold) {
+        const autoRotationQuat = quat.create();
+        quat.setAxisAngle(autoRotationQuat, vec3.fromValues(0, 1, 0), this.autoRotateSpeed * timeScale);
+        quat.multiply(this.pointerRotation, autoRotationQuat, this.pointerRotation);
+      }
+      
+      if (this.inactivityTimer <= this.inactivityThreshold) {
+        const INTENSITY = 0.1 * timeScale;
+        quat.slerp(this.pointerRotation, this.pointerRotation, this.IDENTITY_QUAT, INTENSITY);
+      }
+
+      if (this.snapTargetDirection && this.inactivityTimer <= this.inactivityThreshold) {
         const SNAPPING_INTENSITY = 0.2;
         const a = this.snapTargetDirection;
         const b = this.snapDirection;
@@ -551,6 +567,7 @@ class ArcballControl {
     return vec3.fromValues(-x, y, z);
   }
 }
+
 
 class InfiniteGridMenu {
   TARGET_FRAME_DURATION = 1000 / 60;
@@ -824,7 +841,8 @@ class InfiniteGridMenu {
     let damping = 5 / timeScale;
     let cameraTargetZ = 3 * this.scaleFactor;
 
-    const isMoving = this.control.isPointerDown || Math.abs(this.smoothRotationVelocity) > 0.01;
+    const isMoving = this.control.isPointerDown || Math.abs(this.smoothRotationVelocity) > 0.01 || this.control.inactivityTimer > this.control.inactivityThreshold;
+
 
     if (isMoving !== this.movementActive) {
       this.movementActive = isMoving;
@@ -835,7 +853,9 @@ class InfiniteGridMenu {
       const nearestVertexIndex = this.#findNearestVertexIndex();
       if (nearestVertexIndex !== null) {
         const itemIndex = nearestVertexIndex % Math.max(1, this.items.length);
-        this.onActiveItemChange(itemIndex);
+        if (this.control.inactivityTimer <= this.control.inactivityThreshold) {
+            this.onActiveItemChange(itemIndex);
+        }
         const snapDirection = vec3.normalize(vec3.create(), this.#getVertexWorldPosition(nearestVertexIndex));
         this.control.snapTargetDirection = snapDirection;
       }
@@ -896,7 +916,7 @@ interface InfiniteMenuProps {
 export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [activeItem, setActiveItem] = useState<Item | null>(null);
-  const [isMoving, setIsMoving] = useState(false);
+  const [isMoving, setIsMoving] = useState(true);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -926,6 +946,12 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
 
     window.addEventListener('resize', handleResize);
     handleResize();
+
+    // Set initial active item
+    if (items.length > 0) {
+        setActiveItem(items[0]);
+    }
+
 
     return () => {
       window.removeEventListener('resize', handleResize);
