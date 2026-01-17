@@ -110,10 +110,10 @@
 
   background:
     radial-gradient(
-      120% 80% at center,
-      transparent 30%,
-      rgba(44,65,70,1) 60%,
-      var(--edge-dark) 75%
+      180% 120% at center,
+      transparent 50%,
+      rgba(44,65,70,1) 70%,
+      var(--edge-dark) 90%
     );
 }
 
@@ -126,11 +126,11 @@
   background:
     linear-gradient(
       90deg,
-      var(--edge-dark) 0%,
-      rgba(44,65,70,1) 25%,
+      var(--edge-dark) 5%,
+      rgba(44,65,70,1) 30%,
       rgba(44,65,70,0) 45%,
       rgba(44,65,70,0) 55%,
-      rgba(44,65,70,1) 75%,
-      var(--edge-dark) 100%
+      rgba(44,65,70,1) 70%,
+      var(--edge-dark) 95%
     );
 }
