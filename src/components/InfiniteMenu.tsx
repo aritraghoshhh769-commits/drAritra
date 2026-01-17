@@ -418,7 +418,6 @@ class ArcballControl {
   IDENTITY_QUAT = quat.create();
   inactivityTimer = 0;
   inactivityThreshold = 5000; // 5 seconds
-  autoRotateSpeed = 0.0005;
 
   canvas: HTMLCanvasElement;
   updateCallback: (deltaTime: number) => void;
@@ -490,19 +489,11 @@ class ArcballControl {
       }
     } else {
       this.inactivityTimer += deltaTime;
-
-      if (this.inactivityTimer > this.inactivityThreshold) {
-        const autoRotationQuat = quat.create();
-        quat.setAxisAngle(autoRotationQuat, vec3.fromValues(0, 1, 0), this.autoRotateSpeed * timeScale);
-        quat.multiply(this.pointerRotation, autoRotationQuat, this.pointerRotation);
-      }
       
-      if (this.inactivityTimer <= this.inactivityThreshold) {
-        const INTENSITY = 0.1 * timeScale;
-        quat.slerp(this.pointerRotation, this.pointerRotation, this.IDENTITY_QUAT, INTENSITY);
-      }
+      const INTENSITY = 0.1 * timeScale;
+      quat.slerp(this.pointerRotation, this.pointerRotation, this.IDENTITY_QUAT, INTENSITY);
 
-      if (this.snapTargetDirection && this.inactivityTimer <= this.inactivityThreshold) {
+      if (this.snapTargetDirection) {
         const SNAPPING_INTENSITY = 0.2;
         const a = this.snapTargetDirection;
         const b = this.snapDirection;
@@ -597,6 +588,10 @@ class InfiniteGridMenu {
   smoothRotationVelocity = 0;
   scaleFactor = 1.0;
   movementActive = false;
+
+  autoRotateTimer = 0;
+  autoRotateInterval = 3000; // 3 seconds
+  currentSnapIndex = -1;
 
   canvas: HTMLCanvasElement;
   items: { image: string, link: string, title: string, description: string }[];
@@ -841,25 +836,47 @@ class InfiniteGridMenu {
     let damping = 5 / timeScale;
     let cameraTargetZ = 3 * this.scaleFactor;
 
-    const isMoving = this.control.isPointerDown || Math.abs(this.smoothRotationVelocity) > 0.01 || this.control.inactivityTimer > this.control.inactivityThreshold;
-
+    const isPhysicallyMoving = this.control.rotationVelocity > 0.005;
+    const isPointerDown = this.control.isPointerDown;
+    const isMoving = isPointerDown || isPhysicallyMoving;
 
     if (isMoving !== this.movementActive) {
       this.movementActive = isMoving;
       this.onMovementChange(isMoving);
     }
-
-    if (!this.control.isPointerDown) {
-      const nearestVertexIndex = this.#findNearestVertexIndex();
-      if (nearestVertexIndex !== null) {
-        const itemIndex = nearestVertexIndex % Math.max(1, this.items.length);
-        if (this.control.inactivityTimer <= this.control.inactivityThreshold) {
-            this.onActiveItemChange(itemIndex);
-        }
-        const snapDirection = vec3.normalize(vec3.create(), this.#getVertexWorldPosition(nearestVertexIndex));
-        this.control.snapTargetDirection = snapDirection;
-      }
+    
+    if (isPointerDown) {
+      this.autoRotateTimer = 0;
+      this.currentSnapIndex = -1;
     } else {
+      if (this.control.inactivityTimer > this.control.inactivityThreshold) {
+        this.autoRotateTimer += deltaTime;
+        if (this.autoRotateTimer > this.autoRotateInterval) {
+          this.autoRotateTimer = 0;
+          const nearestVertexIndex = this.#findNearestVertexIndex();
+          if (nearestVertexIndex !== null) {
+            this.currentSnapIndex = (nearestVertexIndex + 1) % this.instancePositions.length;
+            const snapDirection = vec3.normalize(vec3.create(), this.#getVertexWorldPosition(this.currentSnapIndex));
+            this.control.snapTargetDirection = snapDirection;
+          }
+        }
+      } else {
+        this.autoRotateTimer = 0;
+        this.currentSnapIndex = this.#findNearestVertexIndex();
+        if (this.currentSnapIndex !== null) {
+          const snapDirection = vec3.normalize(vec3.create(), this.#getVertexWorldPosition(this.currentSnapIndex));
+          this.control.snapTargetDirection = snapDirection;
+        }
+      }
+    }
+    
+    const nearestVertexIndex = this.#findNearestVertexIndex();
+    if (nearestVertexIndex !== null) {
+        const itemIndex = nearestVertexIndex % Math.max(1, this.items.length);
+        this.onActiveItemChange(itemIndex);
+    }
+    
+    if (isPointerDown) {
       cameraTargetZ += this.control.rotationVelocity * 80 + 2.5;
       damping = 7 / timeScale;
     }
