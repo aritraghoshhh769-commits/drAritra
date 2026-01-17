@@ -1,3 +1,4 @@
+
 'use client';
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -47,7 +48,7 @@ type Service = (typeof services)[0];
 
 const ServiceCard = ({ service, onCtaClick }: { service: Service; onCtaClick: () => void }) => (
   <div
-    className="group flex flex-col bg-[#DFF6F8] rounded-2xl p-3 md:p-6 shadow-[0px_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg aspect-[4/5]"
+    className="group flex flex-col bg-[#DFF6F8] rounded-2xl p-3 md:p-6 shadow-[0px_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg h-full"
   >
     <h3 className="text-xs font-semibold text-[#1F2A37] uppercase mb-2 tracking-wider md:text-base md:mb-3">{service.title}</h3>
     <p className="text-[11px] text-[#6B7280] leading-relaxed mb-3 md:text-sm md:mb-5">{service.description}</p>
@@ -83,7 +84,7 @@ const Services = () => {
           </div>
           
           {/* Mobile Grid */}
-          <div className="grid grid-cols-3 gap-2 md:hidden">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-6 md:hidden">
             {services.map((service, index) => (
               <motion.div
                 key={index}
@@ -98,7 +99,7 @@ const Services = () => {
           </div>
 
           {/* Desktop Grid */}
-          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <motion.div
                 key={index}
