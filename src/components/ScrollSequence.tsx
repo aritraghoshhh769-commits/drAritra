@@ -156,7 +156,7 @@ const ScrollSequence: React.FC = () => {
                     </a>
                   </div>
                   <div className="absolute bottom-0 right-0 z-20">
-                    <div className="bg-black/20 backdrop-blur-sm rounded-tl-lg px-4 py-2">
+                    <div className="bg-black/20 backdrop-blur-sm rounded-tl-lg px-8 py-2">
                         <a href="#contact-us" onClick={(e) => handleLinkClick(e, '#contact-us')} className="text-xs text-white/70 hover:text-white transition-colors font-light">
                             Clinic Info
                         </a>
