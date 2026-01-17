@@ -90,12 +90,8 @@
   z-index: 10; /* Sits on top of the canvas, but below text overlays */
   pointer-events: none;
   background:
-    /* This radial gradient creates the central "safe zone" vignette. */
-    /* It's transparent in the middle and fades to dark at the edges. */
-    radial-gradient(ellipse 70% 70% at 50% 65%, transparent 40%, var(--edge-dark) 85%),
-
-    /* This linear gradient handles the bottom watermark, fading up from the bottom. */
-    linear-gradient(to top, var(--edge-dark) 0%, transparent 15%);
+    /* This radial gradient is anchored to the bottom to keep the top clear. */
+    radial-gradient(ellipse 80% 70% at 50% 100%, transparent 30%, var(--edge-dark) 80%);
 }
 
 /* STAGE THAT HOLDS THE ANIMATION */
