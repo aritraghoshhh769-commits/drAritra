@@ -32,7 +32,7 @@ const Credentials = () => {
   return (
     <motion.section
       id="credentials"
-      className="py-16 md:py-24 bg-background"
+      className="py-16 md:py-24 bg-background hidden md:block"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}

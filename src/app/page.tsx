@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Header from '@/components/Header';
 import ScrollSequence from '@/components/ScrollSequence';
 import About from '@/components/About';
@@ -11,8 +12,11 @@ import ClientOnly from '@/components/ClientOnly';
 import BottomNavBar from '@/components/BottomNavBar';
 import Credentials from '@/components/Credentials';
 import Gallery from '@/components/Gallery';
+import CredentialsModal from '@/components/CredentialsModal';
 
 export default function Home() {
+  const [isCredentialsModalOpen, setCredentialsModalOpen] = useState(false);
+
   return (
     <>
       <ClientOnly>
@@ -35,7 +39,13 @@ export default function Home() {
       </main>
       <Footer />
       <ClientOnly>
-        <BottomNavBar />
+        <BottomNavBar onCredentialsClick={() => setCredentialsModalOpen(true)} />
+      </ClientOnly>
+      <ClientOnly>
+        <CredentialsModal
+          isOpen={isCredentialsModalOpen}
+          onClose={() => setCredentialsModalOpen(false)}
+        />
       </ClientOnly>
     </>
   );
