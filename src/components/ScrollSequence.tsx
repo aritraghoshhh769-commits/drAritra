@@ -162,17 +162,20 @@ const ScrollSequence: React.FC = () => {
 
     let drawWidth, drawHeight, drawX, drawY;
 
-    // This is 'contain' logic to fit the image inside the container
+    // This is 'cover' logic, ensuring the image fills the container.
     if (imageRatio > canvasRatio) {
-        drawWidth = canvas.width;
-        drawHeight = drawWidth / imageRatio;
-        drawX = 0;
-        drawY = (canvas.height - drawHeight) / 2;
-    } else {
+        // Image is wider than the canvas, so we fit the height and crop the sides.
         drawHeight = canvas.height;
         drawWidth = drawHeight * imageRatio;
-        drawX = (canvas.width - drawWidth) / 2;
-        drawY = 0;
+        drawX = (canvas.width - drawWidth) / 2; // Center horizontally
+        drawY = 0; // Align to top
+    } else {
+        // Image is taller than or same aspect as the canvas, so we fit the width and crop the top/bottom.
+        drawWidth = canvas.width;
+        drawHeight = drawWidth / imageRatio;
+        drawX = 0; // Align to left
+        // By setting drawY to 0, we align the image to the top, preventing the hairline from being cropped.
+        drawY = 0; 
     }
     
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -224,17 +227,8 @@ const ScrollSequence: React.FC = () => {
         )}
       </AnimatePresence>
       <div ref={targetRef} className="relative w-full h-[600vh]">
-        <section className="sticky top-0 h-screen w-full">
-            <div className="absolute inset-0 h-full w-full bg-[#30484c]">
-                <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    background: 'radial-gradient(circle, rgba(48, 72, 76, 0) 0%, #30484c 70%)'
-                }} />
-            </div>
+        <section className="sticky top-0 h-screen w-full overflow-hidden">
+            {/* The canvas now covers the entire section, removing the need for a separate background element. */}
             <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
             
             {!loading && storyBeats.map((overlay) => (
