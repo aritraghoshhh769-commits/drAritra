@@ -55,8 +55,8 @@ const HeroContent = () => {
     };
     return (
         <>
-            <div className="absolute bottom-0 right-0 z-20 hidden md:block">
-                <div className="utility-panel flex items-center py-3 pr-8 pl-48">
+            <div className="absolute bottom-0 left-0 right-0 z-20 hidden md:block">
+                <div className="utility-panel flex items-center justify-end py-3 px-8">
                 <div className="flex items-center gap-3">
                     <a href="#" aria-label="Facebook" className="text-white/60 hover:text-white transition-colors"><Facebook className="h-4 w-4" /></a>
                     <a href="#" aria-label="Twitter" className="text-white/60 hover:text-white transition-colors"><Twitter className="h-4 w-4" /></a>
