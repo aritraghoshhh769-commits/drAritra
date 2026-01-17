@@ -144,21 +144,23 @@ const ScrollSequence: React.FC = () => {
               
               {!loading && (
                 <>
-                  <div className="absolute bottom-8 right-8 z-20 flex flex-col items-end gap-4">
-                    <div className="flex items-center gap-4">
-                        <a href="#" aria-label="Facebook" className="text-white/70 hover:text-white transition-colors">
-                        <Facebook className="h-5 w-5" />
-                        </a>
-                        <a href="#" aria-label="X" className="text-white/70 hover:text-white transition-colors">
-                        <Twitter className="h-5 w-5" />
-                        </a>
-                        <a href="#" aria-label="Instagram" className="text-white/70 hover:text-white transition-colors">
-                        <Instagram className="h-5 w-5" />
+                  <div className="absolute bottom-8 right-8 z-20">
+                    <div className="bg-black/50 backdrop-blur-sm rounded-lg p-4 flex flex-col items-center gap-3">
+                        <div className="flex items-center gap-4">
+                            <a href="#" aria-label="Facebook" className="text-white/70 hover:text-white transition-colors">
+                            <Facebook className="h-5 w-5" />
+                            </a>
+                            <a href="#" aria-label="X" className="text-white/70 hover:text-white transition-colors">
+                            <Twitter className="h-5 w-5" />
+                            </a>
+                            <a href="#" aria-label="Instagram" className="text-white/70 hover:text-white transition-colors">
+                            <Instagram className="h-5 w-5" />
+                            </a>
+                        </div>
+                        <a href="#contact-us" onClick={(e) => handleLinkClick(e, '#contact-us')} className="text-xs text-white/70 hover:text-white transition-colors font-light">
+                            Clinic Info
                         </a>
                     </div>
-                    <a href="#contact-us" onClick={(e) => handleLinkClick(e, '#contact-us')} className="text-xs text-white/70 hover:text-white transition-colors font-light">
-                        Clinic Info
-                    </a>
                   </div>
                   <div className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20 pointer-events-none">
                       <motion.div
