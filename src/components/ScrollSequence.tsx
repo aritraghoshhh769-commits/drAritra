@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
@@ -133,9 +134,9 @@ const ScrollSequence: React.FC = () => {
               {!loading && (
                 <div className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20 pointer-events-none">
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.4, ease: 'easeOut', delay: 0.2 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
                         className="flex items-center gap-4 md:gap-5"
                     >
                         <div className="w-0.5 h-20 md:h-28 bg-white/50 rounded-full" />
