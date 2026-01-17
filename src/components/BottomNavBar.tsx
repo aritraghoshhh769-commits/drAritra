@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Home, User, BriefcaseMedical, Orbit, Phone, GalleryHorizontal, Award } from 'lucide-react';
+import { Home, User, BriefcaseMedical, Phone, GalleryHorizontal, Award } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -12,7 +12,6 @@ const navItems = [
   { href: '#services', label: 'Services', icon: BriefcaseMedical },
   { href: '#gallery', label: 'Gallery', icon: GalleryHorizontal },
   { href: '#credentials-modal', label: 'Credentials', icon: Award },
-  { href: '#dental-issues', label: 'Dental Issues', icon: Orbit },
   { href: '#contact-us', label: 'Contact', icon: Phone },
 ];
 
@@ -20,22 +19,24 @@ const BottomNavBar = ({ onCredentialsClick }: { onCredentialsClick: () => void }
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const sectionIds = navItems.map(item => item.href.substring(1)).filter(id => id !== 'credentials-modal');
+    const sectionIds = navItems.map(item => item.href.substring(1)).filter(id => id && id !== 'credentials-modal' && id !== 'home');
     const sections = sectionIds.map(id => document.getElementById(id));
+    const homeSection = document.getElementById('home');
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (window.scrollY < 100) {
-          setActiveSection('home');
-          return;
-        }
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
+            // A bit of a hack to prioritize home when near the top
+            if (window.scrollY < window.innerHeight / 2) {
+              setActiveSection('home');
+            } else {
+              setActiveSection(entry.target.id);
+            }
           }
         });
       },
-      { rootMargin: '-50% 0px -50% 0px', threshold: 0 }
+      { rootMargin: '-50% 0px -50% 0px', threshold: [0, 0.5, 1] }
     );
 
     sections.forEach(section => {
@@ -44,12 +45,28 @@ const BottomNavBar = ({ onCredentialsClick }: { onCredentialsClick: () => void }
       }
     });
 
+    const homeObserver = new IntersectionObserver(
+        (entries) => {
+            if(entries[0].isIntersecting) {
+                setActiveSection('home');
+            }
+        }, { threshold: 0.1}
+    );
+
+    if (homeSection) {
+        homeObserver.observe(homeSection)
+    }
+
+
     return () => {
       sections.forEach(section => {
         if (section) {
           observer.unobserve(section);
         }
       });
+      if (homeSection) {
+          homeObserver.unobserve(homeSection);
+      }
     };
   }, []);
 
