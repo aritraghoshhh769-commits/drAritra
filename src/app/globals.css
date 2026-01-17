@@ -111,9 +111,9 @@
   background:
     radial-gradient(
       120% 80% at center,
-      transparent 35%,
-      rgba(44,65,70,1) 65%,
-      var(--edge-dark) 80%
+      transparent 30%,
+      rgba(44,65,70,1) 60%,
+      var(--edge-dark) 75%
     );
 }
 
@@ -127,8 +127,8 @@
     linear-gradient(
       90deg,
       var(--edge-dark) 0%, 
-      rgba(44,65,70,0) 30%, 
-      rgba(44,65,70,0) 70%, 
+      rgba(44,65,70,0) 20%, 
+      rgba(44,65,70,0) 80%, 
       var(--edge-dark) 100%
     );
 }
