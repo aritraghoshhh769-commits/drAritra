@@ -82,7 +82,7 @@ const DentalIssues = () => {
             <p className="text-base md:text-lg text-foreground/80 mt-2">Spin the globe to explore common dental problems we treat.</p>
         </div>
         <ClientOnly>
-          <div className="h-[500px] md:h-[600px] relative">
+          <div className="h-[500px] md:h-[600px] relative overflow-hidden">
             <InfiniteMenu items={items}/>
           </div>
         </ClientOnly>
