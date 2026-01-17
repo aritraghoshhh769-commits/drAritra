@@ -582,8 +582,7 @@ class InfiniteGridMenu {
   smoothRotationVelocity = 0;
   scaleFactor = 1.0;
   movementActive = false;
-  onActiveItemChange: (index: number) => void = () => {};
-  onMovementChange: (isMoving: boolean) => void = () => {};
+  onStateUpdate: (state: { faces: any[], activeItemIndex: number | null, isMoving: boolean }) => void = () => {};
 
   canvas: HTMLCanvasElement;
   items: { image: string, link: string, title: string, description: string }[];
@@ -603,11 +602,10 @@ class InfiniteGridMenu {
   control!: ArcballControl;
 
 
-  constructor(canvas: HTMLCanvasElement, items: any[], onActiveItemChange: (index: number) => void, onMovementChange: (isMoving: boolean) => void, onInit: ((sketch: InfiniteGridMenu) => void) | null = null, scale = 1.0) {
+  constructor(canvas: HTMLCanvasElement, items: any[], onStateUpdate: (state: any) => void, onInit: ((sketch: InfiniteGridMenu) => void) | null = null, scale = 1.0) {
     this.canvas = canvas;
     this.items = items || [];
-    this.onActiveItemChange = onActiveItemChange;
-    this.onMovementChange = onMovementChange;
+    this.onStateUpdate = onStateUpdate;
     this.scaleFactor = scale;
     this.camera.position[2] = 3 * scale;
     this.#init(onInit);
@@ -831,7 +829,6 @@ class InfiniteGridMenu {
 
     if (isMoving !== this.movementActive) {
       this.movementActive = isMoving;
-      this.onMovementChange(isMoving);
     }
 
     if (isPointerDown) {
@@ -841,9 +838,6 @@ class InfiniteGridMenu {
       const nearestVertexIndex = this.#findNearestVertexIndex();
       if (nearestVertexIndex !== null) {
         this.nearestVertexIndex = nearestVertexIndex;
-        if (!isMoving) {
-          this.onActiveItemChange(nearestVertexIndex);
-        }
         const snapDirection = vec3.normalize(vec3.create(), this.#getVertexWorldPosition(nearestVertexIndex));
         this.control.snapTargetDirection = snapDirection;
       }
@@ -856,6 +850,43 @@ class InfiniteGridMenu {
 
     this.camera.position[2] += (cameraTargetZ - this.camera.position[2]) / damping;
     this.#updateCameraMatrix();
+
+    // --- State update logic for React UI ---
+    const facesState: any[] = [];
+    const positions = this.instancePositions.map(p => vec3.transformQuat(vec3.create(), p, this.control.orientation));
+
+    positions.forEach((p, ndx) => {
+      const worldPos4 = vec4.fromValues(p[0], p[1], p[2], 1.0);
+      const viewPos = vec4.transformMat4(vec4.create(), worldPos4, this.camera.matrices.view);
+      const clipPos = vec4.transformMat4(vec4.create(), viewPos, this.camera.matrices.projection);
+      
+      if (clipPos[3] > 0) {
+        const ndcX = clipPos[0] / clipPos[3];
+        const ndcY = clipPos[1] / clipPos[3];
+        
+        const screenX = (ndcX * 0.5 + 0.5) * this.gl.canvas.clientWidth;
+        const screenY = (-ndcY * 0.5 + 0.5) * this.gl.canvas.clientHeight;
+        
+        if (p[2] > 0) { // is in front
+            const opacity = Math.pow(p[2] / this.SPHERE_RADIUS, 1.5);
+            const textScale = 0.8 + 0.4 * (p[2] / this.SPHERE_RADIUS);
+
+            facesState.push({
+                index: ndx,
+                x: screenX,
+                y: screenY,
+                opacity: opacity,
+                scale: textScale,
+            });
+        }
+      }
+    });
+
+    this.onStateUpdate({
+      faces: facesState,
+      activeItemIndex: this.nearestVertexIndex,
+      isMoving: this.movementActive
+    });
   }
 
   #findNearestVertexIndex() {
@@ -905,8 +936,11 @@ interface InfiniteMenuProps {
 
 export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [activeItemIndex, setActiveItemIndex] = useState<number | null>(0);
-  const [isMoving, setIsMoving] = useState(true);
+  const [state, setState] = useState({
+    faces: [] as any[],
+    activeItemIndex: 0,
+    isMoving: true,
+  });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -916,8 +950,7 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
       sketch = new InfiniteGridMenu(
         canvas,
         items.length ? items : defaultItems,
-        setActiveItemIndex,
-        setIsMoving,
+        setState,
         (sk) => sk.run(),
         scale
       );
@@ -937,21 +970,42 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
     };
   }, [items, scale]);
 
-  const activeItem = activeItemIndex !== null ? items[activeItemIndex % items.length] : null;
-
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
       <canvas id="infinite-grid-menu-canvas" ref={canvasRef} />
-      <div
-        className={`face-content ${isMoving || !activeItem ? 'inactive' : 'active'}`}
-      >
-        {activeItem && (
-          <div className="face-text-wrapper">
-            <h3 className="face-title">{activeItem.title}</h3>
-            <p className="face-description">{activeItem.description}</p>
+      {state.faces.map((face) => {
+        const item = items[face.index % items.length];
+        if (!item) return null;
+        
+        const isCenterAndIdle = face.index === state.activeItemIndex && !state.isMoving;
+        const finalOpacity = isCenterAndIdle ? 1 : face.opacity * 0.7;
+
+        return (
+          <div
+            key={face.index}
+            className="face-content"
+            style={{
+              position: 'absolute',
+              top: `${face.y}px`,
+              left: `${face.x}px`,
+              opacity: finalOpacity,
+              transform: `translate(-50%, -50%) scale(${face.scale})`,
+              transition: 'opacity 0.2s ease-out',
+              pointerEvents: 'none',
+              width: '12rem',
+              textAlign: 'center'
+            }}
+          >
+            <div className="face-text-wrapper">
+              <h3 className="face-title">{item.title}</h3>
+              {isCenterAndIdle &&
+                <p className="face-description">{item.description}</p>
+              }
+            </div>
           </div>
-        )}
-      </div>
+        );
+      })}
     </div>
   );
 }
+
