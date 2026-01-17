@@ -90,6 +90,10 @@ const About = () => {
                 data-ai-hint={doctorImage.imageHint}
               />
             )}
+            <div 
+              className="absolute inset-0" 
+              style={{ background: 'linear-gradient(to right, transparent 50%, rgba(255, 255, 255, 0.7))' }} 
+            />
           </motion.div>
 
           <div className="w-full lg:w-7/12 flex flex-col justify-center items-start text-left space-y-4 p-6 md:space-y-5 md:p-8 lg:p-12">
