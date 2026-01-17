@@ -144,19 +144,19 @@ const ScrollSequence: React.FC = () => {
               
               {!loading && (
                 <>
-                  <div className="absolute bottom-8 right-8 z-20">
-                    <div className="bg-black/50 backdrop-blur-sm rounded-lg p-4 flex flex-col items-center gap-3">
-                        <div className="flex items-center gap-4">
-                            <a href="#" aria-label="Facebook" className="text-white/70 hover:text-white transition-colors">
-                            <Facebook className="h-5 w-5" />
-                            </a>
-                            <a href="#" aria-label="X" className="text-white/70 hover:text-white transition-colors">
-                            <Twitter className="h-5 w-5" />
-                            </a>
-                            <a href="#" aria-label="Instagram" className="text-white/70 hover:text-white transition-colors">
-                            <Instagram className="h-5 w-5" />
-                            </a>
-                        </div>
+                  <div className="absolute bottom-8 right-8 z-20 flex flex-col items-end gap-3">
+                    <div className="flex items-center gap-4">
+                        <a href="#" aria-label="Facebook" className="text-white/70 hover:text-white transition-colors">
+                        <Facebook className="h-5 w-5" />
+                        </a>
+                        <a href="#" aria-label="X" className="text-white/70 hover:text-white transition-colors">
+                        <Twitter className="h-5 w-5" />
+                        </a>
+                        <a href="#" aria-label="Instagram" className="text-white/70 hover:text-white transition-colors">
+                        <Instagram className="h-5 w-5" />
+                        </a>
+                    </div>
+                    <div className="bg-black/20 backdrop-blur-sm rounded-md px-3 py-1.5">
                         <a href="#contact-us" onClick={(e) => handleLinkClick(e, '#contact-us')} className="text-xs text-white/70 hover:text-white transition-colors font-light">
                             Clinic Info
                         </a>
