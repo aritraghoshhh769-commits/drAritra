@@ -83,7 +83,7 @@ const About = () => {
         >
           <motion.div 
             variants={itemVariants} 
-            className="relative w-full h-80 lg:w-5/12 lg:h-auto"
+            className="relative w-full h-72 lg:w-5/12 lg:h-auto"
           >
             {doctorImage && (
               <Image

@@ -1,9 +1,18 @@
 'use client';
 import React from 'react';
-import Lenis from '@studio-freight/lenis'
 import { ZoomParallax } from "@/components/ui/zoom-parallax";
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/use-mobile';
+import ClientOnly from './ClientOnly';
+import Image from 'next/image';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 
 const galleryImageIds = [
   'gallery-2',
@@ -15,32 +24,22 @@ const galleryImageIds = [
   'cert-guinness'
 ];
 
+// Ensure PlaceHolderImages is correctly typed and filtered for non-null values
 const images = galleryImageIds
   .map(id => PlaceHolderImages.find(img => img.id === id))
-  .filter(Boolean)
+  .filter((img): img is NonNullable<typeof img> => Boolean(img))
   .map(image => ({
-    src: image!.imageUrl,
-    alt: image!.description,
-    objectPosition: image!.id === 'doctor-portrait' ? 'object-top' : undefined,
+    src: image.imageUrl,
+    alt: image.description,
+    objectPosition: image.id === 'doctor-portrait' ? 'object-top' : 'object-cover',
   }));
 
 
 const Gallery = () => {
-
-	React.useEffect( () => {
-        const lenis = new Lenis()
-       
-        function raf(time: number) {
-            lenis.raf(time)
-            requestAnimationFrame(raf)
-        }
-
-        requestAnimationFrame(raf)
-    },[])
-
+    const isMobile = useIsMobile();
 
 	return (
-		<section id="gallery" className="w-full bg-background py-16 md:py-0">
+		<section id="gallery" className="w-full bg-background py-16 md:py-24">
 			<div className="relative flex h-auto md:h-[50vh] items-center justify-center">
 				<div
 					aria-hidden="true"
@@ -58,10 +57,46 @@ const Gallery = () => {
 				</div>
 			</div>
 
-            <>
-                <ZoomParallax images={images} />
-                <div className="h-[50vh] bg-background"/>
-            </>
+            <ClientOnly>
+            { isMobile === undefined ? (
+                <div className="h-[75vh]" /> // Fallback for SSR to prevent layout shift
+            ) : isMobile ? (
+				<div className="mt-8 md:hidden">
+					<Carousel
+						className="w-full max-w-md mx-auto"
+						opts={{
+                            align: 'center',
+                            loop: true,
+						}}
+					>
+						<CarouselContent>
+						{images.map((image, index) => {
+							return (
+							<CarouselItem key={index} className="basis-full sm:basis-5/6 flex items-center justify-center p-1">
+								<div className="w-full aspect-square relative overflow-hidden rounded-xl shadow-lg">
+									<Image
+										src={image.src}
+										alt={image.alt || ''}
+										fill
+										className={cn('object-cover', image.objectPosition)}
+                                        sizes="(max-width: 768px) 80vw, 33vw"
+									/>
+								</div>
+							</CarouselItem>
+							);
+						})}
+						</CarouselContent>
+						<CarouselPrevious className="inline-flex left-0" />
+						<CarouselNext className="inline-flex right-0" />
+					</Carousel>
+				</div>
+			) : (
+                <>
+                    <ZoomParallax images={images.map(img => ({src: img.src, alt: img.alt, objectPosition: img.objectPosition}))} />
+                    <div className="h-[50vh] bg-background"/>
+                </>
+			)}
+            </ClientOnly>
 		</section>
 	);
 }
