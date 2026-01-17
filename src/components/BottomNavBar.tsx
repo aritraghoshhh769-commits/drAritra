@@ -24,6 +24,10 @@ const BottomNavBar = () => {
 
     const observer = new IntersectionObserver(
       (entries) => {
+        if (window.scrollY < 100) {
+          setActiveSection('home');
+          return;
+        }
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             setActiveSection(entry.target.id);
