@@ -199,8 +199,7 @@ const ScrollSequence: React.FC = () => {
 
       {/* Mobile Hero */}
       <div className="md:hidden">
-        <section className="relative bg-background p-4">
-            <div className="relative rounded-2xl shadow-lg overflow-hidden aspect-[4/5] w-full">
+        <section className="relative w-full aspect-[4/5]">
             <Image
                 src="https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/aritro/ezgif-frame-240.jpg"
                 alt="Dr. Aritra Ghosh"
@@ -224,7 +223,6 @@ const ScrollSequence: React.FC = () => {
                         </div>
                     </div>
                 </div>
-            </div>
         </section>
       </div>
     </>
