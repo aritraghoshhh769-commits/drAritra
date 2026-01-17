@@ -92,7 +92,7 @@
   background:
     /* This radial gradient creates the central "safe zone" vignette. */
     /* It's transparent in the middle and fades to dark at the edges. */
-    radial-gradient(ellipse 70% 70% at 50% 50%, transparent 40%, var(--edge-dark) 85%),
+    radial-gradient(ellipse 70% 70% at 50% 65%, transparent 40%, var(--edge-dark) 85%),
 
     /* This linear gradient handles the bottom watermark, fading up from the bottom. */
     linear-gradient(to top, var(--edge-dark) 0%, transparent 15%);
