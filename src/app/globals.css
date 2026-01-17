@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -108,11 +109,17 @@
   pointer-events: none;
 
   background:
+    /* Gradient to hide watermark at the bottom */
+    linear-gradient(
+      to top,
+      var(--edge-dark) 0%,
+      transparent 15%
+    ),
     radial-gradient(
       120% 80% at center,
       transparent 55%,
       rgba(44,65,70,0.55) 78%,
-      rgba(44,65,70,1) 100%
+      var(--edge-dark) 100%
     );
 }
 
