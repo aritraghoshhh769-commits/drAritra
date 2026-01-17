@@ -112,8 +112,8 @@
     linear-gradient(
       90deg,
       var(--edge-dark) 0%,
-      rgba(44,65,70,0) 40%,
-      rgba(44,65,70,0) 60%,
+      rgba(44,65,70,0) 45%,
+      rgba(44,65,70,0) 55%,
       var(--edge-dark) 100%
     ),
     radial-gradient(
