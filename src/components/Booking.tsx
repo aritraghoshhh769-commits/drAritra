@@ -24,17 +24,14 @@ const Booking = () => {
               We are here to assist you with all your dental needs. Whether you have a question, need to schedule a routine check-up, or require urgent care, our team is ready to help. Reaching out is the first step towards a healthier, brighter smile.
             </p>
              <p className="text-base text-foreground/80 mt-4 md:hidden">
-              Ready to schedule your visit? Contact us today or book an appointment online.
+              Ready to schedule your visit? Contact us today.
             </p>
         </div>
         
         <div className="md:hidden">
             <ClientOnly>
                 <div className="flex flex-col items-center space-y-8 max-w-sm mx-auto">
-                    <Button asChild className="w-full">
-                        <Link href="/appointment" target="_blank">Book an Appointment</Link>
-                    </Button>
-                    <div className="space-y-4 text-sm text-foreground/80 w-full">
+                    <div className="space-y-4 text-sm text-foreground/80 w-full text-left">
                         <p className="flex items-center justify-start gap-2">
                           <MapPin className="h-4 w-4 text-primary" />
                           <span>Mondal Apartment, Near Nabin Club, Rampurhat</span>
@@ -72,13 +69,8 @@ const Booking = () => {
               </p>
             </div>
             <p className="text-foreground/70 mt-8">
-              You can reach us by phone or email, or use our convenient online booking system to request an appointment at any time. Clicking the button below will take you to our appointment form where you can select a preferred date and time.
+              You can reach us by phone or email. Our team is ready to assist you with scheduling your appointment and answering any questions you may have.
             </p>
-            <div className="mt-8">
-              <Button asChild>
-                  <Link href="/appointment" target="_blank">Book an Appointment</Link>
-              </Button>
-            </div>
           </div>
         </div>
       </div>
