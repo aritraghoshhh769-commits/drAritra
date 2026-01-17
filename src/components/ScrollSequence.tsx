@@ -145,15 +145,7 @@ const ScrollSequence: React.FC = () => {
               {!loading && (
                 <>
                   <div className="absolute bottom-0 right-0 z-20">
-                    <div 
-                      className="flex items-center"
-                      style={{
-                        background: 'linear-gradient(to left, rgba(0, 0, 0, 0.25) 60%, transparent 100%)',
-                        padding: '0.75rem 2rem 0.75rem 8rem',
-                        backdropFilter: 'blur(4px)',
-                        WebkitBackdropFilter: 'blur(4px)',
-                      }}
-                    >
+                    <div className="utility-panel flex items-center py-3 pr-8 pl-48">
                       <div className="flex items-center gap-3">
                         <a href="#" aria-label="Facebook" className="text-white/60 hover:text-white transition-colors"><Facebook className="h-4 w-4" /></a>
                         <a href="#" aria-label="Twitter" className="text-white/60 hover:text-white transition-colors"><Twitter className="h-4 w-4" /></a>
