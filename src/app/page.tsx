@@ -13,9 +13,11 @@ import BottomNavBar from '@/components/BottomNavBar';
 import Credentials from '@/components/Credentials';
 import Gallery from '@/components/Gallery';
 import CredentialsModal from '@/components/CredentialsModal';
+import AboutModal from '@/components/AboutModal';
 
 export default function Home() {
   const [isCredentialsModalOpen, setCredentialsModalOpen] = useState(false);
+  const [isAboutModalOpen, setAboutModalOpen] = useState(false);
 
   return (
     <>
@@ -39,12 +41,21 @@ export default function Home() {
       </main>
       <Footer />
       <ClientOnly>
-        <BottomNavBar onCredentialsClick={() => setCredentialsModalOpen(true)} />
+        <BottomNavBar
+          onCredentialsClick={() => setCredentialsModalOpen(true)}
+          onAboutClick={() => setAboutModalOpen(true)}
+        />
       </ClientOnly>
       <ClientOnly>
         <CredentialsModal
           isOpen={isCredentialsModalOpen}
           onClose={() => setCredentialsModalOpen(false)}
+        />
+      </ClientOnly>
+      <ClientOnly>
+        <AboutModal
+          isOpen={isAboutModalOpen}
+          onClose={() => setAboutModalOpen(false)}
         />
       </ClientOnly>
     </>

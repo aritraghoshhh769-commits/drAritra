@@ -59,7 +59,7 @@ const About = () => {
     <section 
       id="about" 
       aria-labelledby="about-dr-aritra"
-      className="w-full py-16 md:py-24"
+      className="w-full py-16 md:py-24 hidden md:block"
       style={{
         backgroundColor: 'hsl(195, 70%, 95%)',
         backgroundImage: `
@@ -92,7 +92,7 @@ const About = () => {
             )}
           </motion.div>
 
-          <div className="w-11/12 ml-auto lg:w-7/12 lg:ml-0 flex flex-col justify-center items-start text-left space-y-4 p-6 md:space-y-5 md:p-8 lg:p-12">
+          <div className="w-full lg:w-7/12 flex flex-col justify-center items-start text-left space-y-4 p-6 md:space-y-5 md:p-8 lg:p-12">
             <motion.h2 
               id="about-dr-aritra"
               variants={itemVariants}

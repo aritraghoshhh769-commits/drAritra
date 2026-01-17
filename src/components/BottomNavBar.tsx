@@ -8,18 +8,18 @@ import { Button } from '@/components/ui/button';
 
 const navItems = [
   { href: '#home', label: 'Home', icon: Home },
-  { href: '#about', label: 'About', icon: User },
+  { href: '#about-modal', label: 'About', icon: User },
   { href: '#services', label: 'Services', icon: BriefcaseMedical },
   { href: '#gallery', label: 'Gallery', icon: GalleryHorizontal },
   { href: '#credentials-modal', label: 'Credentials', icon: Award },
   { href: '#contact-us', label: 'Contact', icon: Phone },
 ];
 
-const BottomNavBar = ({ onCredentialsClick }: { onCredentialsClick: () => void }) => {
+const BottomNavBar = ({ onCredentialsClick, onAboutClick }: { onCredentialsClick: () => void; onAboutClick: () => void; }) => {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const sectionIds = navItems.map(item => item.href.substring(1)).filter(id => id && id !== 'credentials-modal' && id !== 'home');
+    const sectionIds = navItems.map(item => item.href.substring(1)).filter(id => id && !id.endsWith('-modal'));
     const sections = sectionIds.map(id => document.getElementById(id));
     const homeSection = document.getElementById('home');
 
@@ -74,6 +74,12 @@ const BottomNavBar = ({ onCredentialsClick }: { onCredentialsClick: () => void }
     e.preventDefault();
     if (href === '#credentials-modal') {
       onCredentialsClick();
+      setActiveSection('credentials-modal');
+      return;
+    }
+    if (href === '#about-modal') {
+      onAboutClick();
+      setActiveSection('about-modal');
       return;
     }
 
