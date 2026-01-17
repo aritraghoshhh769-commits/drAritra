@@ -3,6 +3,8 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useScroll, useTransform, motion, AnimatePresence } from 'framer-motion';
 import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 // --- Configuration Constants ---
 const TOTAL_FRAMES = 120;
@@ -172,6 +174,11 @@ const ScrollSequence: React.FC = () => {
                               <p className="mt-2 text-base md:text-xl lg:text-2xl text-white/80 font-light tracking-wide">
                                   Oral & Dental Surgeon
                               </p>
+                              <div className="mt-8 pointer-events-auto">
+                                <Button asChild variant="outline" className="border-white/80 bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black">
+                                  <Link href="/appointment">Book Appointment</Link>
+                                </Button>
+                              </div>
                           </div>
                       </div>
                   </motion.div>
