@@ -162,20 +162,19 @@ const ScrollSequence: React.FC = () => {
 
     let drawWidth, drawHeight, drawX, drawY;
 
-    // This is 'cover' logic, ensuring the image fills the container.
+    // This is 'contain' logic. It ensures the entire image fits within the canvas.
     if (imageRatio > canvasRatio) {
-        // Image is wider than the canvas, so we fit the height and crop the sides.
-        drawHeight = canvas.height;
-        drawWidth = drawHeight * imageRatio;
-        drawX = (canvas.width - drawWidth) / 2; // Center horizontally
-        drawY = 0; // Align to top
-    } else {
-        // Image is taller than or same aspect as the canvas, so we fit the width and crop the top/bottom.
+        // Image is wider than canvas, so fit to width and center vertically.
         drawWidth = canvas.width;
         drawHeight = drawWidth / imageRatio;
-        drawX = 0; // Align to left
-        // By setting drawY to 0, we align the image to the top, preventing the hairline from being cropped.
-        drawY = 0; 
+        drawX = 0;
+        drawY = (canvas.height - drawHeight) / 2;
+    } else {
+        // Image is taller than canvas, so fit to height and center horizontally.
+        drawHeight = canvas.height;
+        drawWidth = drawHeight * imageRatio;
+        drawX = (canvas.width - drawWidth) / 2;
+        drawY = 0;
     }
     
     context.clearRect(0, 0, canvas.width, canvas.height);
