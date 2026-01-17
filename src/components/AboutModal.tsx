@@ -54,7 +54,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
                         />
                         )}
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-l from-card to-transparent" />
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to left, hsl(var(--card)), transparent 70%)' }} />
                      <Button
                         variant="ghost"
                         size="icon"
