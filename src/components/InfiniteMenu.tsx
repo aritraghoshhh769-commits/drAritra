@@ -417,8 +417,6 @@ class ArcballControl {
   snapTargetDirection: vec3 | undefined;
   EPSILON = 0.1;
   IDENTITY_QUAT = quat.create();
-  inactivityTimer = 0;
-  inactivityThreshold = 5000; // 5 seconds
 
   canvas: HTMLCanvasElement;
   updateCallback: (deltaTime: number) => void;
@@ -441,7 +439,6 @@ class ArcballControl {
       vec2.set(this.pointerPos, e.clientX, e.clientY);
       vec2.copy(this.previousPointerPos, this.pointerPos);
       this.isPointerDown = true;
-      this.inactivityTimer = 0;
     });
     canvas.addEventListener('pointerup', () => {
       this.isPointerDown = false;
@@ -452,7 +449,6 @@ class ArcballControl {
     canvas.addEventListener('pointermove', e => {
       if (this.isPointerDown) {
         vec2.set(this.pointerPos, e.clientX, e.clientY);
-        this.inactivityTimer = 0;
       }
     });
 
@@ -465,7 +461,6 @@ class ArcballControl {
     let snapRotation = quat.create();
 
     if (this.isPointerDown) {
-      this.inactivityTimer = 0;
       const INTENSITY = 0.3 * timeScale;
       const ANGLE_AMPLIFICATION = 5 / timeScale;
 
@@ -489,8 +484,6 @@ class ArcballControl {
         quat.slerp(this.pointerRotation, this.pointerRotation, this.IDENTITY_QUAT, INTENSITY);
       }
     } else {
-      this.inactivityTimer += deltaTime;
-      
       const INTENSITY = 0.1 * timeScale;
       quat.slerp(this.pointerRotation, this.pointerRotation, this.IDENTITY_QUAT, INTENSITY);
 
@@ -589,13 +582,6 @@ class InfiniteGridMenu {
   smoothRotationVelocity = 0;
   scaleFactor = 1.0;
   movementActive = false;
-
-  autoRotateTimer = 0;
-  autoRotateInterval = 3000; // 3 seconds
-  currentSnapIndex = -1;
-  isAutoRotating = false;
-  isWaitingForNext = false;
-
 
   canvas: HTMLCanvasElement;
   items: { image: string, link: string, title: string, description: string }[];
@@ -850,71 +836,18 @@ class InfiniteGridMenu {
     }
 
     if (isPointerDown) {
-      this.isAutoRotating = false;
-      this.autoRotateTimer = 0;
       this.control.snapTargetDirection = undefined;
     } else {
-      if (this.control.inactivityTimer > this.control.inactivityThreshold) {
-        if (!this.isAutoRotating) {
-            this.isAutoRotating = true;
-            this.isWaitingForNext = true; // Start by waiting
-            this.autoRotateTimer = 0;
-            const nearestIndex = this.#findNearestVertexIndex();
-            this.currentSnapIndex = nearestIndex ?? 0;
+      // Snap to nearest when not being dragged
+      const nearestVertexIndex = this.#findNearestVertexIndex();
+      if (nearestVertexIndex !== null) {
+        if (this.nearestVertexIndex !== nearestVertexIndex) {
+            this.nearestVertexIndex = nearestVertexIndex;
+            this.onActiveItemChange(nearestVertexIndex);
         }
-      } else {
-        // Still active from user inertia. Snap to nearest.
-        this.isAutoRotating = false;
-        this.autoRotateTimer = 0;
-        const nearestVertexIndex = this.#findNearestVertexIndex();
-        if (nearestVertexIndex !== null) {
-          const snapDirection = vec3.normalize(vec3.create(), this.#getVertexWorldPosition(nearestVertexIndex));
-          this.control.snapTargetDirection = snapDirection;
-        }
+        const snapDirection = vec3.normalize(vec3.create(), this.#getVertexWorldPosition(nearestVertexIndex));
+        this.control.snapTargetDirection = snapDirection;
       }
-    }
-
-    if (this.isAutoRotating) {
-        if (this.isWaitingForNext) {
-            // We are at a stop, waiting.
-            const snapDirection = vec3.normalize(vec3.create(), this.#getVertexWorldPosition(this.currentSnapIndex));
-            this.control.snapTargetDirection = snapDirection;
-
-            this.autoRotateTimer += deltaTime;
-            if (this.autoRotateTimer > this.autoRotateInterval) {
-                this.autoRotateTimer = 0;
-                this.isWaitingForNext = false; // End of wait, start rotation.
-                
-                // Move to next target index.
-                this.currentSnapIndex = (this.currentSnapIndex + 1) % this.instancePositions.length;
-                
-                // --- SIMULATE THE FLICK ---
-                const invOrientation = quat.conjugate(quat.create(), this.control.orientation);
-                const currentFrontVec = vec3.transformQuat(vec3.create(), this.control.snapDirection, invOrientation);
-                const nextTargetVec = this.instancePositions[this.currentSnapIndex];
-                
-                const flickQuat = quat.create();
-                this.control.quatFromVectors(currentFrontVec, nextTargetVec, flickQuat);
-
-                // Reduce the rotation to a flick by slerping towards identity
-                quat.slerp(flickQuat, this.control.IDENTITY_QUAT, flickQuat, 0.2); 
-                
-                // Apply the flick to the momentum quaternion
-                quat.multiply(this.control.pointerRotation, flickQuat, this.control.pointerRotation);
-            }
-        } else { // Rotating to the next target
-            // While rotating, gently guide it to the destination.
-            const snapDirection = vec3.normalize(vec3.create(), this.#getVertexWorldPosition(this.currentSnapIndex));
-            this.control.snapTargetDirection = snapDirection;
-
-            const nearestIndex = this.#findNearestVertexIndex();
-            
-            // If we're close to the target and have slowed down enough, stop and wait.
-            if (nearestIndex === this.currentSnapIndex && this.control.rotationVelocity < 0.001) {
-                this.isWaitingForNext = true; // Arrived.
-                this.autoRotateTimer = 0;
-            }
-        }
     }
     
     if (isPointerDown) {
@@ -1044,3 +977,5 @@ export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuPr
     </div>
   );
 }
+
+    
