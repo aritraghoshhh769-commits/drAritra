@@ -6,8 +6,8 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 
 const galleryImageIds = [
-  'gallery-1',
   'gallery-2',
+  'gallery-1',
   'gallery-3',
   'doctor-portrait',
   'cert-nss',
