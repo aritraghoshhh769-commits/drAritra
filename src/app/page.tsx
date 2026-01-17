@@ -13,7 +13,7 @@ import Gallery from '@/components/Gallery';
 export default function Home() {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <main>
         <ClientOnly>
           <ScrollSequence />
@@ -31,7 +31,7 @@ export default function Home() {
       </main>
       <Footer />
       <ClientOnly>
-        <BottomNavBar />
+        {/* <BottomNavBar /> */}
       </ClientOnly>
     </>
   );
