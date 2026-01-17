@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
@@ -156,15 +157,15 @@ const ScrollSequence: React.FC = () => {
                     </a>
                   </div>
                   <div className="absolute bottom-0 right-0 z-20">
-                    <div className="bg-black/20 backdrop-blur-sm rounded-tl-lg px-8 py-2">
+                    <div className="bg-black/20 backdrop-blur-sm px-8 py-2">
                         <a href="#contact-us" onClick={(e) => handleLinkClick(e, '#contact-us')} className="text-xs text-white/70 hover:text-white transition-colors font-light">
                             Clinic Info
                         </a>
                     </div>
                   </div>
                   <motion.div
-                    initial={{ opacity: 0, x: -20, y: 20 }}
-                    animate={{ opacity: 1, x: 0, y: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: 'easeOut', delay: 0.5 }}
                     className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20 pointer-events-none"
                   >
