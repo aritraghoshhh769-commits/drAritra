@@ -3,6 +3,13 @@
 import InfiniteMenu from './InfiniteMenu';
 import ClientOnly from './ClientOnly';
 import { motion } from 'framer-motion';
+import { useIsMobile } from '@/hooks/use-mobile';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const dentalIssues = [
   {
@@ -67,6 +74,8 @@ const items = dentalIssues.map(issue => {
 });
 
 const DentalIssues = () => {
+  const isMobile = useIsMobile();
+
   return (
     <motion.section 
         id="dental-issues" 
@@ -79,12 +88,27 @@ const DentalIssues = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-primary whitespace-nowrap">Common Dental Issues</h2>
-            <p className="text-base md:text-lg text-foreground/80 mt-2">Spin the globe to explore common dental problems we treat.</p>
+            <p className="text-base md:text-lg text-foreground/80 mt-2">
+              {isMobile ? "Explore common dental problems we treat." : "Spin the globe to explore common dental problems we treat."}
+            </p>
         </div>
         <ClientOnly>
-          <div className="h-[500px] md:h-[600px] relative overflow-hidden">
-            <InfiniteMenu items={items}/>
-          </div>
+          {isMobile ? (
+             <Accordion type="single" collapsible className="w-full max-w-2xl mx-auto">
+              {dentalIssues.map((issue) => (
+                <AccordionItem value={issue.id} key={issue.id}>
+                  <AccordionTrigger>{issue.title}</AccordionTrigger>
+                  <AccordionContent className="text-left">
+                    {issue.description}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          ) : (
+            <div className="h-[500px] md:h-[600px] relative overflow-hidden">
+              <InfiniteMenu items={items}/>
+            </div>
+          )}
         </ClientOnly>
       </div>
     </motion.section>
