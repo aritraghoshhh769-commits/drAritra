@@ -34,12 +34,12 @@ const Gallery = () => {
         </p>
       </div>
 
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-4">
+      <div className="w-full">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
           {images.map((image, index) => (
             <motion.div
               key={index}
-              className="aspect-[4/3] relative overflow-hidden rounded-xl md:rounded-2xl shadow-md group"
+              className="aspect-[4/3] relative overflow-hidden group"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.5 }}
