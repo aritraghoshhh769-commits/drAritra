@@ -61,7 +61,7 @@ const Gallery = () => {
             { isMobile === undefined ? (
                 <div className="h-[75vh]" /> // Fallback for SSR to prevent layout shift
             ) : isMobile ? (
-				<div className="mt-8 px-14 md:hidden">
+				<div className="mt-8 px-4 md:hidden">
 					<Carousel
 						className="w-full max-w-md mx-auto"
 						opts={{
@@ -73,7 +73,7 @@ const Gallery = () => {
 						{images.map((image, index) => {
 							return (
 							<CarouselItem key={index} className="basis-full sm:basis-5/6 flex items-center justify-center p-1">
-								<div className="w-full aspect-square relative overflow-hidden rounded-xl shadow-lg">
+								<div className="w-full aspect-square relative overflow-hidden rounded-2xl shadow-lg">
 									<Image
 										src={image.src}
 										alt={image.alt || ''}
@@ -86,8 +86,8 @@ const Gallery = () => {
 							);
 						})}
 						</CarouselContent>
-						<CarouselPrevious />
-						<CarouselNext />
+						<CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/60 hover:bg-white text-primary" />
+        				<CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/60 hover:bg-white text-primary" />
 					</Carousel>
 				</div>
 			) : (

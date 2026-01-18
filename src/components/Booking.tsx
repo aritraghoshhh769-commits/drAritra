@@ -30,20 +30,22 @@ const Booking = () => {
         
         <div className="md:hidden">
             <ClientOnly>
-                <div className="flex flex-col items-center space-y-8 max-w-sm mx-auto">
-                    <div className="space-y-4 text-sm text-foreground/80 w-full text-left">
-                        <p className="flex items-center justify-start gap-2">
-                          <MapPin className="h-4 w-4 text-primary" />
-                          <span>Mondal Apartment, Near Nabin Club, Rampurhat</span>
-                        </p>
-                         <a href="tel:+919002694838" className="flex items-center justify-start gap-2 hover:text-primary transition-colors">
-                          <Phone className="h-4 w-4 text-primary" />
-                          <span>+91 90026 94838</span>
-                        </a>
-                        <a href="mailto:Aritroghosh2013@gmail.com" className="flex items-center justify-start gap-2 hover:text-primary transition-colors">
-                          <Mail className="h-4 w-4 text-primary" />
-                          <span>Aritroghosh2013@gmail.com</span>
-                        </a>
+                <div className="bg-teal-50/40 rounded-2xl p-6 max-w-sm mx-auto">
+                    <div className="flex flex-col items-center space-y-6">
+                        <div className="space-y-4 text-sm text-foreground/80 w-full text-left">
+                            <p className="flex items-start justify-start gap-3">
+                              <MapPin className="h-4 w-4 text-primary mt-1 shrink-0" />
+                              <span>Mondal Apartment, Near Nabin Club, Rampurhat</span>
+                            </p>
+                             <a href="tel:+919002694838" className="flex items-center justify-start gap-3 hover:text-primary transition-colors">
+                              <Phone className="h-4 w-4 text-primary shrink-0" />
+                              <span>+91 90026 94838</span>
+                            </a>
+                            <a href="mailto:Aritroghosh2013@gmail.com" className="flex items-center justify-start gap-3 hover:text-primary transition-colors">
+                              <Mail className="h-4 w-4 text-primary shrink-0" />
+                              <span>Aritroghosh2013@gmail.com</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </ClientOnly>
