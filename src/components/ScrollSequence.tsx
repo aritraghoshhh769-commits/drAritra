@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { Progress } from '@/components/ui/progress';
 
 // --- Configuration Constants ---
 const TOTAL_FRAMES = 120;
@@ -275,10 +276,14 @@ const ScrollSequence: React.FC = () => {
                 initial={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-                className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
+                className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background p-8"
             >
-                <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
-                <p className="mt-4 text-foreground/60">Loading experience... {Math.round(loadingProgress)}%</p>
+                <div className="w-full max-w-sm text-center">
+                    <h2 className="text-2xl font-bold text-primary mb-2">Welcome!</h2>
+                    <p className="text-foreground/70 mb-6">Preparing your seamless experience.</p>
+                    <Progress value={loadingProgress} className="w-full h-2" />
+                    <p className="mt-2 text-sm text-foreground/60">{Math.round(loadingProgress)}%</p>
+                </div>
             </motion.div>
             )}
         </AnimatePresence>
