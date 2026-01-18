@@ -103,12 +103,20 @@ const MobileHero = () => {
     return (
       <section 
         id="home" 
-        className="relative h-[70vh] w-full bg-cover bg-top bg-no-repeat mb-[-65px]"
-        style={{ backgroundImage: mobileHeroImage ? `url('${mobileHeroImage.imageUrl}')` : 'none' }}
+        className="relative h-[70vh] w-full mb-[-65px]"
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+        {mobileHeroImage && (
+            <Image
+                src={mobileHeroImage.imageUrl}
+                alt={mobileHeroImage.description}
+                fill
+                className="object-cover object-top"
+                priority
+            />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10" />
         
-        <div className="absolute bottom-0 left-0 right-0 p-6 z-10" style={{bottom: '60px'}}>
+        <div className="absolute bottom-0 left-0 right-0 p-6 z-20" style={{bottom: '60px'}}>
             <h1 className="text-4xl font-bold text-white tracking-tight">
                 Dr. Aritra Ghosh
             </h1>
@@ -117,7 +125,7 @@ const MobileHero = () => {
             </p>
         </div>
   
-        <div className="absolute bottom-[-1px] left-0 w-full overflow-hidden leading-[0]">
+        <div className="absolute bottom-[-1px] left-0 w-full overflow-hidden leading-[0] z-10">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block h-[65px] w-[calc(100%+1.3px)] -scale-y-100">
               <path d="M1200 0L0 0 0 66.3c235.4 22.4 480 34.5 720.9 34.5 139.7 0 274.3-3.8 400.2-11C1167.6 85.3 1189.3 82.5 1200 80V0z" className="fill-background"></path>
           </svg>
