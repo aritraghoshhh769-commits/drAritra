@@ -3,10 +3,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { X, GraduationCap, CheckCircle, Shield, Trophy, CalendarDays } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/card';
+import { Card, CardContent, CardTitle, CardDescription } from './ui/card';
 
 interface AboutModalProps {
   isOpen: boolean;
@@ -14,8 +12,6 @@ interface AboutModalProps {
 }
 
 const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
-  const doctorImage = PlaceHolderImages.find(img => img.id === 'doctor-portrait');
-
   const badges = [
     { icon: CheckCircle, text: "BDS Qualified" },
     { icon: GraduationCap, text: "CME Certified (UK)" },
@@ -41,32 +37,18 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             className="relative w-full max-w-lg m-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <Card className="border-primary/20 bg-card max-h-[90vh] flex flex-col overflow-hidden">
-                <CardHeader className="p-0 relative">
-                    <div className="w-full h-48">
-                        {doctorImage && (
-                        <Image
-                            src={doctorImage.imageUrl}
-                            alt={doctorImage.description}
-                            fill
-                            className="object-cover object-top"
-                            data-ai-hint={doctorImage.imageHint}
-                        />
-                        )}
-                    </div>
-                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to left, hsl(var(--card)), transparent 70%)' }} />
-                     <Button
-                        variant="ghost"
-                        size="icon"
-                        className="absolute top-2 right-2 z-10 text-white/80 bg-black/30 hover:bg-black/50 hover:text-white rounded-full"
-                        onClick={onClose}
-                    >
-                        <X className="h-5 w-5" />
-                        <span className="sr-only">Close</span>
-                    </Button>
-                </CardHeader>
+            <Card className="relative border-primary/20 bg-card max-h-[90vh] flex flex-col overflow-hidden">
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute top-2 right-2 z-10 text-foreground/70 hover:text-foreground rounded-full"
+                    onClick={onClose}
+                >
+                    <X className="h-5 w-5" />
+                    <span className="sr-only">Close</span>
+                </Button>
 
-              <CardContent className="p-4 flex-grow overflow-y-auto space-y-4">
+              <CardContent className="p-6 pt-8 flex-grow overflow-y-auto space-y-4">
                 <div className="text-center">
                     <CardTitle className="text-2xl text-primary">About Dr. Aritra Ghosh</CardTitle>
                     <CardDescription className="mt-1">Dedicated Dental Surgeon (BDS)</CardDescription>
