@@ -65,34 +65,59 @@ const HeroContent = () => {
                     <a href="#" aria-label="LinkedIn" className="text-white/60 hover:text-white transition-colors"><Linkedin className="h-4 w-4" /></a>
                     <a href="#" aria-label="Instagram" className="text-white/60 hover:text-white transition-colors"><Instagram className="h-4 w-4" /></a>
                 </div>
-                <a href="#contact-us" onClick={(e) => handleLinkClick(e, '#contact-us')} className="ml-5 text-xs text-white/60 hover:text-white transition-colors font-light">
+                <a href="#contact-us-desktop" onClick={(e) => handleLinkClick(e, '#contact-us-desktop')} className="ml-5 text-xs text-white/60 hover:text-white transition-colors font-light">
                     Clinic Info
                 </a>
                 </div>
             </div>
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: 'easeOut', delay: 0.5 }}
+            <div
                 className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20 pointer-events-none"
             >
                 <div className="flex items-start gap-4 md:gap-5">
-                    <div className="w-0.5 h-28 bg-white/50 rounded-full" />
+                    <motion.div 
+                        initial={{ height: 0 }}
+                        animate={{ height: "7rem" }}
+                        transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
+                        className="w-0.5 bg-white/50 rounded-full" 
+                    />
                     <div>
-                        <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
+                        <motion.h1
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.5 }}
+                            className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight"
+                        >
                             Dr. Aritra Ghosh
-                        </h1>
-                        <p className="mt-2 text-base md:text-xl lg:text-2xl text-white/80 font-light tracking-wide">
+                        </motion.h1>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.7 }}
+                            className="mt-2 text-base md:text-xl lg:text-2xl text-white/80 font-light tracking-wide"
+                        >
                             Oral & Dental Surgeon
-                        </p>
-                        <div className="mt-8 pointer-events-auto hidden md:block">
+                        </motion.p>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.9 }}
+                            className="mt-4 text-sm md:text-base max-w-md text-white/70 font-light"
+                        >
+                            Modern, high-trust dental services focused on your comfort and oral well-being. Experience personalized care with cutting-edge technology.
+                        </motion.p>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, ease: 'easeOut', delay: 1.1 }}
+                            className="mt-8 pointer-events-auto hidden md:block"
+                        >
                             <Button asChild variant="outline" className="border-white/80 bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black">
                             <Link href="/appointment">Book Appointment</Link>
                             </Button>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
-            </motion.div>
+            </div>
         </>
     );
 }

@@ -1,3 +1,4 @@
+
 'use client';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -10,7 +11,7 @@ import ClientOnly from './ClientOnly';
 const Booking = () => {
   return (
     <motion.section 
-        id="contact-us" 
+        id="contact-us-desktop" 
         className="py-16 md:py-24 bg-background hidden md:block"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
