@@ -100,7 +100,7 @@ const MobileHero = () => {
     return (
       <section id="home" className="relative h-[70vh] w-full bg-black mb-[-65px]">
         <Image
-          src="https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/aritro/ezgif-frame-120.jpg"
+          src="https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/aritro/Whisk_d87ddb5ed2e2ef6bdc1445085224968fdr.png"
           alt="Dr. Aritra Ghosh providing dental care"
           fill
           className="object-cover object-top"
