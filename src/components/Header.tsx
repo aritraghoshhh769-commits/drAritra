@@ -83,7 +83,7 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center space-x-4">
-             <Button asChild variant="outline" className="hidden md:inline-flex border-white text-white hover:bg-white hover:text-black">
+             <Button asChild variant="outline" className="hidden md:inline-flex border-white/80 bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black">
                 <Link href="/appointment" target="_blank">Book Appointment</Link>
             </Button>
           </div>
