@@ -70,7 +70,7 @@ const About = ({ onCredentialsClick }: { onCredentialsClick: () => void }) => {
     >
       <div className="container mx-auto max-w-6xl px-4">
         <motion.div 
-          className="bg-white/70 backdrop-blur-lg rounded-2xl lg:rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-white/50 flex flex-col lg:flex-row overflow-hidden"
+          className="bg-white/70 backdrop-blur-lg rounded-2xl md:rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-white/50 flex flex-col md:flex-row overflow-hidden"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
@@ -78,7 +78,7 @@ const About = ({ onCredentialsClick }: { onCredentialsClick: () => void }) => {
         >
           <motion.div 
             variants={itemVariants} 
-            className="relative w-full h-72 lg:w-5/12 lg:h-auto"
+            className="relative w-full h-72 md:w-5/12 md:h-auto"
           >
             {doctorImage && (
               <Image
@@ -95,7 +95,7 @@ const About = ({ onCredentialsClick }: { onCredentialsClick: () => void }) => {
             />
           </motion.div>
 
-          <div className="w-full lg:w-7/12 flex flex-col justify-center items-start text-left space-y-4 p-6 md:space-y-5 md:p-8 lg:p-12">
+          <div className="w-full md:w-7/12 flex flex-col justify-center items-start text-left space-y-4 p-6 md:space-y-5 md:p-8 lg:p-12">
             <motion.h2 
               id="about-dr-aritra"
               variants={itemVariants}
