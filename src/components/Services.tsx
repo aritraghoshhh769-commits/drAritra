@@ -81,7 +81,7 @@ type Service = (typeof services)[0] & { icon: React.ElementType };
 const ServiceCard = ({ service, onCtaClick }: { service: Service; onCtaClick: () => void }) => (
   <div
     className="group flex flex-col bg-gradient-to-br from-teal-50 to-cyan-100/50 rounded-2xl p-4 shadow-lg transition-all duration-300 ease-in-out hover:-translate-y-1 aspect-square 
-               md:aspect-auto md:h-full md:bg-[#DFF6F8] md:p-6 md:shadow-[0px_10px_30px_rgba(0,0,0,0.08)]"
+               md:bg-[#DFF6F8] md:p-6 md:shadow-[0px_10px_30px_rgba(0,0,0,0.08)]"
   >
     <div className="flex-grow flex flex-col justify-center items-center text-center md:items-start md:text-left">
       <div className="bg-white rounded-full p-2 mb-4 md:hidden">
@@ -121,7 +121,7 @@ const Services = () => {
             <p className="text-base md:text-lg text-foreground/80 mt-2">Dedicated to your oral health and beautiful smile.</p>
           </div>
           
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-8">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-8">
             {services.map((service, index) => (
               <motion.div
                 key={index}
