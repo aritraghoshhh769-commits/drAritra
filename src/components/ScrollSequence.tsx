@@ -3,7 +3,7 @@
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useScroll, useTransform, motion, AnimatePresence } from 'framer-motion';
-import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Facebook, X, Instagram, Linkedin } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -60,8 +60,8 @@ const HeroContent = () => {
             <div className="absolute bottom-0 left-0 right-0 z-20 hidden md:block">
                 <div className="utility-panel flex items-center justify-end py-4 px-8">
                 <div className="flex items-center gap-3">
-                    <a href="#" aria-label="Facebook" className="text-white/60 hover:text-white transition-colors"><Facebook className="h-4 w-4" /></a>
-                    <a href="#" aria-label="Twitter" className="text-white/60 hover:text-white transition-colors"><Twitter className="h-4 w-4" /></a>
+                    <a href="https://www.facebook.com/share/1aU68sBM26/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-white/60 hover:text-white transition-colors"><Facebook className="h-4 w-4" /></a>
+                    <a href="#" aria-label="X" className="text-white/60 hover:text-white transition-colors"><X className="h-4 w-4" /></a>
                     <a href="#" aria-label="LinkedIn" className="text-white/60 hover:text-white transition-colors"><Linkedin className="h-4 w-4" /></a>
                     <a href="#" aria-label="Instagram" className="text-white/60 hover:text-white transition-colors"><Instagram className="h-4 w-4" /></a>
                 </div>
