@@ -10,9 +10,6 @@ const galleryImageIds = [
   'gallery-1',
   'gallery-3',
   'doctor-portrait',
-  'cert-nss',
-  'cert-rcp',
-  'cert-guinness',
 ];
 
 // Ensure PlaceHolderImages is correctly typed and filtered for non-null values
@@ -30,10 +27,10 @@ const Gallery = () => {
     <section id="gallery" className="w-full bg-background py-16 md:py-24">
       <div className="text-center px-4 mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-primary">
-          Our Clinic & Credentials
+          Our Clinic
         </h2>
         <p className="text-base md:text-lg text-foreground/80 mt-2">
-          A glimpse into our professional environment and qualifications.
+          A glimpse into our professional environment.
         </p>
       </div>
 

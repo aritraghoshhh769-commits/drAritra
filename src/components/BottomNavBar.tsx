@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Home, User, BriefcaseMedical, Phone, GalleryHorizontal, Award } from 'lucide-react';
+import { Home, User, BriefcaseMedical, Phone, GalleryHorizontal } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -11,11 +11,10 @@ const navItems = [
   { href: '#about-modal', label: 'About', icon: User },
   { href: '#services', label: 'Services', icon: BriefcaseMedical },
   { href: '#gallery', label: 'Gallery', icon: GalleryHorizontal },
-  { href: '#credentials-modal', label: 'Credentials', icon: Award },
   { href: '#contact-us', label: 'Contact', icon: Phone },
 ];
 
-const BottomNavBar = ({ onCredentialsClick, onAboutClick }: { onCredentialsClick: () => void; onAboutClick: () => void; }) => {
+const BottomNavBar = ({ onAboutClick }: { onAboutClick: () => void; }) => {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
@@ -72,11 +71,6 @@ const BottomNavBar = ({ onCredentialsClick, onAboutClick }: { onCredentialsClick
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    if (href === '#credentials-modal') {
-      onCredentialsClick();
-      setActiveSection('credentials-modal');
-      return;
-    }
     if (href === '#about-modal') {
       onAboutClick();
       setActiveSection('about-modal');

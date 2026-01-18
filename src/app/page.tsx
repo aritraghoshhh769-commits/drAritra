@@ -10,13 +10,10 @@ import Footer from '@/components/Footer';
 import DentalIssues from '@/components/DentalIssues';
 import ClientOnly from '@/components/ClientOnly';
 import BottomNavBar from '@/components/BottomNavBar';
-import Credentials from '@/components/Credentials';
 import Gallery from '@/components/Gallery';
-import CredentialsModal from '@/components/CredentialsModal';
 import AboutModal from '@/components/AboutModal';
 
 export default function Home() {
-  const [isCredentialsModalOpen, setCredentialsModalOpen] = useState(false);
   const [isAboutModalOpen, setAboutModalOpen] = useState(false);
 
   return (
@@ -31,7 +28,6 @@ export default function Home() {
         <About />
         <Services />
         <Gallery />
-        <Credentials />
         <ClientOnly>
           <DentalIssues />
         </ClientOnly>
@@ -42,14 +38,7 @@ export default function Home() {
       <Footer />
       <ClientOnly>
         <BottomNavBar
-          onCredentialsClick={() => setCredentialsModalOpen(true)}
           onAboutClick={() => setAboutModalOpen(true)}
-        />
-      </ClientOnly>
-      <ClientOnly>
-        <CredentialsModal
-          isOpen={isCredentialsModalOpen}
-          onClose={() => setCredentialsModalOpen(false)}
         />
       </ClientOnly>
       <ClientOnly>
