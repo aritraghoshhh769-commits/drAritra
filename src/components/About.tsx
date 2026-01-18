@@ -1,5 +1,5 @@
 'use client';
-import { GraduationCap, CheckCircle, Shield, Trophy, CalendarDays } from 'lucide-react';
+import { CalendarDays } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -32,10 +32,10 @@ const About = () => {
   };
 
   const badges = [
-    { icon: CheckCircle, text: "BDS Qualified" },
-    { icon: GraduationCap, text: "CME Certified (UK)" },
-    { icon: Shield, text: "NSS Volunteer" },
-    { icon: Trophy, text: "Guinness World Records Participant" },
+    { text: "BDS Qualified" },
+    { text: "CME Certified (UK)" },
+    { text: "NSS Volunteer" },
+    { text: "Guinness World Records Participant" },
   ];
   
   const badgeContainerVariants = {
@@ -123,7 +123,6 @@ const About = () => {
                   variants={badgeItemVariants}
                   className="flex items-center justify-center p-2 rounded-full border border-primary/40 bg-primary/10"
                 >
-                  <badge.icon className="h-4 w-4 md:h-5 md:w-5 mr-2 shrink-0 text-primary" />
                   <span className="font-medium text-xs md:text-sm leading-normal text-primary">{badge.text}</span>
                 </motion.div>
               ))}

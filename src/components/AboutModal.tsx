@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { X, GraduationCap, CheckCircle, Shield, Trophy, CalendarDays } from 'lucide-react';
+import { X, CalendarDays } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent, CardTitle, CardDescription } from './ui/card';
 
@@ -13,10 +13,10 @@ interface AboutModalProps {
 
 const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
   const badges = [
-    { icon: CheckCircle, text: "BDS Qualified" },
-    { icon: GraduationCap, text: "CME Certified (UK)" },
-    { icon: Shield, text: "NSS Volunteer" },
-    { icon: Trophy, text: "Guinness World Records Participant" },
+    { text: "BDS Qualified" },
+    { text: "CME Certified (UK)" },
+    { text: "NSS Volunteer" },
+    { text: "Guinness World Records Participant" },
   ];
 
   return (
@@ -64,7 +64,6 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
                       key={badge.text}
                       className="flex items-center justify-center p-2 rounded-full border border-primary/40 bg-primary/10"
                     >
-                      <badge.icon className="h-4 w-4 mr-2 shrink-0 text-primary" />
                       <span className="font-medium text-xs leading-normal text-primary">{badge.text}</span>
                     </div>
                   ))}
