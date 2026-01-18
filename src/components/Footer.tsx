@@ -1,10 +1,21 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin, Facebook, Linkedin, Instagram } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './ui/button';
+
+const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      {...props}
+    >
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231L18.244 2.25zM17.5 19.5h1.57l-6.72-8.98-1.57-2.12H5.78l6.83 9.13 1.49 2.01h5.6z" />
+    </svg>
+);
+
 
 const Footer = () => {
   const [year, setYear] = useState(new Date().getFullYear());
@@ -19,6 +30,13 @@ const Footer = () => {
     { href: '#gallery', label: 'Gallery' },
     { href: '#dental-issues', label: 'Dental Issues' },
     { href: '#contact-us-desktop', label: 'Contact' },
+  ];
+  
+  const socialLinks = [
+    { href: 'https://www.facebook.com/share/1aU68sBM26/', label: 'Facebook', icon: Facebook },
+    { href: 'https://x.com/dr_aritraghosh', label: 'X', icon: XIcon },
+    { href: 'https://www.linkedin.com/in/aritra-ghosh-31a00a3a7/', label: 'LinkedIn', icon: Linkedin },
+    { href: 'https://www.instagram.com/dr.aritraghosh/', label: 'Instagram', icon: Instagram },
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -63,6 +81,20 @@ const Footer = () => {
                     <span>Mondal Apartment, M. Sarkar Para, Near Nabin Club, Doctor Para, Rampurhat</span>
                 </div>
             </div>
+            <div className="flex items-center space-x-6 pt-2">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="text-secondary-foreground/60 hover:text-primary transition-colors"
+                >
+                  <social.icon className="h-5 w-5" />
+                </a>
+              ))}
+            </div>
         </div>
 
         {/* --- Desktop Footer --- */}
@@ -84,6 +116,20 @@ const Footer = () => {
                         <MapPin className="h-4 w-4 shrink-0 mt-0.5" />
                         <span>Mondal Apartment, M. Sarkar Para, Near Nabin Club, Doctor Para, Rampurhat</span>
                     </div>
+                </div>
+                <div className="mt-6 flex items-center space-x-5">
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={social.label}
+                      className="text-secondary-foreground/60 hover:text-primary transition-colors"
+                    >
+                      <social.icon className="h-4 w-4" />
+                    </a>
+                  ))}
                 </div>
             </div>
             
