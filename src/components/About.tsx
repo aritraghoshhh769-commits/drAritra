@@ -69,7 +69,7 @@ const About = () => {
         `,
       }}
     >
-      <div className="container mx-auto max-w-5xl md:max-w-7xl px-4">
+      <div className="container mx-auto max-w-6xl px-4">
         <motion.div 
           className="bg-white/70 backdrop-blur-lg rounded-2xl lg:rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-white/50 flex flex-col lg:flex-row overflow-hidden"
           initial="hidden"
