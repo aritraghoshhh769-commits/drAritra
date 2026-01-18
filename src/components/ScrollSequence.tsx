@@ -67,19 +67,35 @@ const HeroContent = () => {
         }
         }
     };
+    const navLinks = [
+        { href: '#about', label: 'About' },
+        { href: '#services', label: 'Services' },
+        { href: '#gallery', label: 'Gallery' },
+        { href: '#dental-issues', label: 'Dental Issues' },
+        { href: '#contact-us-desktop', label: 'Contact us' },
+    ];
     return (
         <>
             <div className="absolute bottom-0 left-0 right-0 z-20 hidden md:block">
-                <div className="utility-panel flex items-center justify-end py-4 px-8">
-                <div className="flex items-center gap-3">
-                    <a href="https://www.facebook.com/share/1aU68sBM26/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-white/60 hover:text-white transition-colors"><Facebook className="h-4 w-4" /></a>
-                    <a href="#" aria-label="X" className="text-white/60 hover:text-white transition-colors"><XIcon className="h-4 w-4" /></a>
-                    <a href="#" aria-label="LinkedIn" className="text-white/60 hover:text-white transition-colors"><Linkedin className="h-4 w-4" /></a>
-                    <a href="#" aria-label="Instagram" className="text-white/60 hover:text-white transition-colors"><Instagram className="h-4 w-4" /></a>
-                </div>
-                <a href="#contact-us-desktop" onClick={(e) => handleLinkClick(e, '#contact-us-desktop')} className="ml-5 text-xs text-white/60 hover:text-white transition-colors font-light">
-                    Clinic Info
-                </a>
+                <div className="utility-panel flex items-center justify-between py-4 px-8">
+                    <div className="flex items-center gap-6">
+                        {navLinks.map((link) => (
+                            <a
+                                key={link.href}
+                                href={link.href}
+                                onClick={(e) => handleLinkClick(e, link.href)}
+                                className="text-xs text-white/60 hover:text-white transition-colors font-light"
+                            >
+                                {link.label}
+                            </a>
+                        ))}
+                    </div>
+                    <div className="flex items-center gap-3">
+                        <a href="https://www.facebook.com/share/1aU68sBM26/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-white/60 hover:text-white transition-colors"><Facebook className="h-4 w-4" /></a>
+                        <a href="#" aria-label="X" className="text-white/60 hover:text-white transition-colors"><XIcon className="h-4 w-4" /></a>
+                        <a href="#" aria-label="LinkedIn" className="text-white/60 hover:text-white transition-colors"><Linkedin className="h-4 w-4" /></a>
+                        <a href="#" aria-label="Instagram" className="text-white/60 hover:text-white transition-colors"><Instagram className="h-4 w-4" /></a>
+                    </div>
                 </div>
             </div>
             <div
