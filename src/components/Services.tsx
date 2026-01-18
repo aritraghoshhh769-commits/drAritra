@@ -20,7 +20,7 @@ const ToothIcon = (props: React.SVGProps<SVGSVGElement>) => (
       {...props}
     >
       <path d="M9.34 2.25c-1.43.28-2.6 1.14-3.46 2.37-1.12 1.6-1.54 3.58-1.54 5.56 0 2.21.56 4.28 1.68 5.86 1.19 1.65 2.8 2.76 4.75 3.19" />
-      <path d="M14.66 2.25c1.43.28 2.6 1.14 3.46 2.37 1.12 1.6 1.54 3.58 1.54 5.56 0 2.21-.56 4.28-1.68 5.86-1.19 1.65-2.8 2.76-4.75 3.19" />
+      <path d="M14.66 2.25c1.43.28 2.6 1.14 3.46 2.37 1.12 1.6 1.54 3.58-1.54 5.56 0 2.21-.56 4.28-1.68 5.86-1.19 1.65-2.8 2.76-4.75 3.19" />
       <path d="M9.34 2.25c1.17.8 2.45 1.25 3.83 1.25 1.38 0 2.66-.45 3.83-1.25" />
       <path d="M12 3.5v9" />
       <path d="M12 12.5c4 0 7.5-1.5 7.5-3.5" />
@@ -106,7 +106,7 @@ const Services = () => {
     <>
       <motion.section
         id="services"
-        className="py-16 md:py-24 bg-background"
+        className="relative py-16 md:py-24 bg-background"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
