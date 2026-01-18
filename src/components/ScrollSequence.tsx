@@ -101,7 +101,7 @@ const MobileHero = () => {
     const mobileHeroImage = PlaceHolderImages.find(img => img.id === 'mobile-hero');
 
     return (
-      <section id="home" className="relative h-[70vh] w-full bg-black mb-[-65px]">
+      <section id="home" className="relative h-[70vh] w-full mb-[-65px]">
         {mobileHeroImage && <Image
           src={mobileHeroImage.imageUrl}
           alt={mobileHeroImage.description}
