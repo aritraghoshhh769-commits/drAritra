@@ -80,7 +80,7 @@ type Service = (typeof services)[0] & { icon: React.ElementType };
 const ServiceCard = ({ service, onCtaClick }: { service: Service; onCtaClick: () => void }) => (
   <div
     className="group flex flex-col items-center text-center bg-gradient-to-br from-teal-50 to-cyan-100/50 rounded-2xl p-4 shadow-lg transition-all duration-300 ease-in-out hover:-translate-y-1 
-               md:items-start md:text-left md:bg-[#DFF6F8] md:p-6 md:shadow-[0px_10px_30px_rgba(0,0,0,0.08)] aspect-[4/3]"
+               md:items-start md:text-left md:bg-[#DFF6F8] md:p-6 md:shadow-[0px_10px_30px_rgba(0,0,0,0.08)] aspect-square"
   >
     <div className="bg-white rounded-full p-2 mb-4 md:hidden">
         <service.icon className="h-5 w-5 text-primary" />
@@ -114,7 +114,7 @@ const Services = () => {
       >
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-primary">Our Clinical Services</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary whitespace-nowrap">Our Clinical Services</h2>
             <p className="text-base md:text-lg text-foreground/80 mt-2">Dedicated to your oral health and beautiful smile.</p>
           </div>
           

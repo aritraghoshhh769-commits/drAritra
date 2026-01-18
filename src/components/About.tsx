@@ -100,7 +100,7 @@ const About = () => {
             <motion.h2 
               id="about-dr-aritra"
               variants={itemVariants}
-              className="text-2xl md:text-3xl font-bold tracking-tight text-primary"
+              className="text-2xl md:text-3xl font-bold tracking-tight text-primary whitespace-nowrap"
             >
               About Dr. Aritra Ghosh
             </motion.h2>
