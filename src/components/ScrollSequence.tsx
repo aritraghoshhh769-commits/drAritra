@@ -1,15 +1,13 @@
-
 'use client';
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useScroll, useTransform, motion, AnimatePresence } from 'framer-motion';
-import { Facebook, X, Instagram, Linkedin } from 'lucide-react';
+import { Facebook, Linkedin, Instagram } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Progress } from '@/components/ui/progress';
 
 // --- Configuration Constants ---
 const TOTAL_FRAMES = 120;
@@ -45,6 +43,19 @@ const preloadImages = (onProgress: (progress: number) => void, onComplete: (imag
   Promise.all(imagePromises).then(onComplete).catch(err => console.error("Error preloading images:", err));
 };
 
+// --- Custom X Icon ---
+const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      {...props}
+    >
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231L18.244 2.25zM17.5 19.5h1.57l-6.72-8.98-1.57-2.12H5.78l6.83 9.13 1.49 2.01h5.6z" />
+    </svg>
+);
+
+
 const HeroContent = () => {
     const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         if (href.startsWith('#')) {
@@ -62,7 +73,7 @@ const HeroContent = () => {
                 <div className="utility-panel flex items-center justify-end py-4 px-8">
                 <div className="flex items-center gap-3">
                     <a href="https://www.facebook.com/share/1aU68sBM26/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-white/60 hover:text-white transition-colors"><Facebook className="h-4 w-4" /></a>
-                    <a href="#" aria-label="X" className="text-white/60 hover:text-white transition-colors"><X className="h-4 w-4" /></a>
+                    <a href="#" aria-label="X" className="text-white/60 hover:text-white transition-colors"><XIcon className="h-4 w-4" /></a>
                     <a href="#" aria-label="LinkedIn" className="text-white/60 hover:text-white transition-colors"><Linkedin className="h-4 w-4" /></a>
                     <a href="#" aria-label="Instagram" className="text-white/60 hover:text-white transition-colors"><Instagram className="h-4 w-4" /></a>
                 </div>
@@ -160,6 +171,37 @@ const MobileHero = () => {
       </section>
     );
 };
+
+const ToothLoader = ({ progress }: { progress: number }) => {
+    const ToothPath = "M 54.3,39.8 C 58.7,35.9 60,30.3 60,25.8 C 60,16.6 54.2,9.3 46.5,6.2 C 43.1,4.6 39.3,3.8 35.5,3.8 L 28.5,3.8 C 24.7,3.8 20.9,4.6 17.5,6.2 C 9.8,9.3 4,16.6 4,25.8 C 4,30.3 5.3,35.9 9.7,39.8 C 14.1,43.7 19.9,46.1 26.2,46.2 L 26.2,50.2 C 23.3,50.3 20.4,51.1 17.7,52.4 C 15.6,53.5 14,55.6 14,57.9 C 14,60.2 15.8,62.1 18,62.1 C 18,62.1 30,56 32,56 C 34,56 46,62.1 46,62.1 C 48.2,62.1 50,60.2 50,57.9 C 50,55.6 48.4,53.5 46.3,52.4 C 43.6,51.1 40.7,50.3 37.8,50.2 L 37.8,46.2 C 44.1,46.1 49.9,43.7 54.3,39.8 Z";
+    
+    // The height of the viewbox is 64.
+    const fillHeight = 64 * (progress / 100);
+    const yOffset = 64 - fillHeight;
+  
+    return (
+      <div className="relative w-24 h-24 mx-auto mb-4">
+        <svg viewBox="0 0 64 64" className="w-full h-full absolute top-0 left-0">
+          <path d={ToothPath} fill="hsl(var(--primary) / 0.1)" />
+        </svg>
+        <svg viewBox="0 0 64 64" className="w-full h-full absolute top-0 left-0">
+          <defs>
+            <clipPath id="tooth-fill-clip">
+              <rect x="0" y={yOffset} width="64" height={fillHeight} />
+            </clipPath>
+          </defs>
+          <motion.path 
+            d={ToothPath} 
+            fill="hsl(var(--primary))" 
+            clipPath="url(#tooth-fill-clip)"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          />
+        </svg>
+      </div>
+    );
+  };
 
 // --- Main Scroll Sequence Component ---
 const ScrollSequence: React.FC = () => {
@@ -276,13 +318,13 @@ const ScrollSequence: React.FC = () => {
                 initial={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-                className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background p-8"
+                className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background p-8"
             >
                 <div className="w-full max-w-sm text-center">
                     <h2 className="text-2xl font-bold text-primary mb-2">Welcome!</h2>
-                    <p className="text-foreground/70 mb-6">Preparing your seamless experience.</p>
-                    <Progress value={loadingProgress} className="w-full h-2" />
-                    <p className="mt-2 text-sm text-foreground/60">{Math.round(loadingProgress)}%</p>
+                    <p className="text-foreground/70 mb-4">Preparing your seamless experience.</p>
+                    <ToothLoader progress={loadingProgress} />
+                    <p className="text-sm text-foreground/60 font-mono">{Math.round(loadingProgress)}%</p>
                 </div>
             </motion.div>
             )}
