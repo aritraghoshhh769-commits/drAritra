@@ -101,15 +101,11 @@ const MobileHero = () => {
     const mobileHeroImage = PlaceHolderImages.find(img => img.id === 'mobile-hero');
 
     return (
-      <section id="home" className="relative h-[70vh] w-full mb-[-65px]">
-        {mobileHeroImage && <Image
-          src={mobileHeroImage.imageUrl}
-          alt={mobileHeroImage.description}
-          fill
-          className="object-cover object-top"
-          priority
-          data-ai-hint={mobileHeroImage.imageHint}
-        />}
+      <section 
+        id="home" 
+        className="relative h-[70vh] w-full bg-cover bg-top bg-no-repeat mb-[-65px]"
+        style={{ backgroundImage: mobileHeroImage ? `url('${mobileHeroImage.imageUrl}')` : 'none' }}
+      >
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
         
         <div className="absolute bottom-0 left-0 right-0 p-6 z-10" style={{bottom: '60px'}}>
