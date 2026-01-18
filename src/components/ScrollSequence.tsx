@@ -107,7 +107,7 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
             <div
                 className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20"
             >
-                <div className="flex items-start gap-4 md:gap-5 max-w-xl translate-y-32">
+                <div className="flex items-start gap-4 md:gap-5 max-w-xl translate-y-24">
                     <motion.div 
                         initial={{ height: 0 }}
                         animate={{ height: "13rem" }}
