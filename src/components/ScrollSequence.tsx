@@ -56,7 +56,7 @@ const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 
-const HeroContent = () => {
+const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void }) => {
     const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         if (href.startsWith('#')) {
         e.preventDefault();
@@ -137,10 +137,13 @@ const HeroContent = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, ease: 'easeOut', delay: 1.1 }}
-                            className="mt-8 pointer-events-auto hidden md:block"
+                            className="mt-8 pointer-events-auto hidden md:flex items-center gap-4"
                         >
                             <Button asChild variant="outline" className="border-white/80 bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black">
                             <Link href="/appointment">Book Appointment</Link>
+                            </Button>
+                            <Button variant="outline" className="border-white/80 bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black" onClick={onCredentialsClick}>
+                                Doctor's Credentials
                             </Button>
                         </motion.div>
                     </div>
@@ -220,7 +223,7 @@ const ToothLoader = ({ progress }: { progress: number }) => {
   };
 
 // --- Main Scroll Sequence Component ---
-const ScrollSequence: React.FC = () => {
+const ScrollSequence: React.FC<{ onCredentialsClick: () => void }> = ({ onCredentialsClick }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
@@ -352,7 +355,7 @@ const ScrollSequence: React.FC = () => {
                     <canvas ref={canvasRef} className="w-full h-full" />
                 </div>
                 
-                {!loading && <HeroContent />}
+                {!loading && <HeroContent onCredentialsClick={onCredentialsClick} />}
                 </section>
             </div>
         </div>

@@ -12,9 +12,11 @@ import ClientOnly from '@/components/ClientOnly';
 import BottomNavBar from '@/components/BottomNavBar';
 import Gallery from '@/components/Gallery';
 import AboutModal from '@/components/AboutModal';
+import CredentialsModal from '@/components/CredentialsModal';
 
 export default function Home() {
   const [isAboutModalOpen, setAboutModalOpen] = useState(false);
+  const [isCredentialsModalOpen, setCredentialsModalOpen] = useState(false);
 
   return (
     <>
@@ -23,7 +25,7 @@ export default function Home() {
       </ClientOnly>
       <main>
         <ClientOnly>
-          <ScrollSequence />
+          <ScrollSequence onCredentialsClick={() => setCredentialsModalOpen(true)} />
         </ClientOnly>
         <About />
         <Services />
@@ -45,6 +47,12 @@ export default function Home() {
         <AboutModal
           isOpen={isAboutModalOpen}
           onClose={() => setAboutModalOpen(false)}
+        />
+      </ClientOnly>
+      <ClientOnly>
+        <CredentialsModal
+          isOpen={isCredentialsModalOpen}
+          onClose={() => setCredentialsModalOpen(false)}
         />
       </ClientOnly>
     </>
