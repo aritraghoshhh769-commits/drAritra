@@ -1,3 +1,4 @@
+
 'use client';
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -80,7 +81,7 @@ type Service = (typeof services)[0] & { icon: React.ElementType };
 const ServiceCard = ({ service, onCtaClick }: { service: Service; onCtaClick: () => void }) => (
   <div
     className="group flex flex-col items-center text-center bg-gradient-to-br from-teal-50 to-cyan-100/50 rounded-2xl p-4 shadow-lg transition-all duration-300 ease-in-out hover:-translate-y-1 
-               md:items-start md:text-left md:bg-[#DFF6F8] md:p-6 md:shadow-[0px_10px_30px_rgba(0,0,0,0.08)] aspect-square"
+               md:items-start md:text-left md:bg-[#DFF6F8] md:p-6 md:shadow-[0px_10px_30px_rgba(0,0,0,0.08)]"
   >
     <div className="bg-white rounded-full p-2 mb-4 md:hidden">
         <service.icon className="h-5 w-5 text-primary" />
@@ -106,7 +107,7 @@ const Services = () => {
     <>
       <motion.section
         id="services"
-        className="relative py-16 md:py-24"
+        className="py-16 md:py-24"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
