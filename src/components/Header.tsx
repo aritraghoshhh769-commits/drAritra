@@ -10,7 +10,7 @@ const navLinks = [
   { href: '#services', label: 'Services' },
   { href: '#gallery', label: 'Gallery' },
   { href: '#dental-issues', label: 'Dental Issues' },
-  { href: '#contact-us', label: 'Contact us' },
+  { href: '#contact-us-desktop', label: 'Contact us' },
 ];
 
 const Header = () => {
