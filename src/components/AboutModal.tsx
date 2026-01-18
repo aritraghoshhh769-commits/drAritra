@@ -2,16 +2,16 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { X, CalendarDays } from 'lucide-react';
-import Link from 'next/link';
+import { X, Award } from 'lucide-react';
 import { Card, CardContent, CardTitle, CardDescription } from './ui/card';
 
 interface AboutModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onCredentialsClick: () => void;
 }
 
-const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
+const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose, onCredentialsClick }) => {
   const badges = [
     { text: "BDS Qualified" },
     { text: "CME Certified (UK)" },
@@ -70,16 +70,14 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
                 </div>
               
                 <Button 
-                 asChild 
+                 onClick={onCredentialsClick}
                  className="w-full h-11 text-base font-semibold text-primary-foreground rounded-full shadow-[0_8px_20px_rgba(47,154,160,0.3)] transition-all duration-300 hover:scale-[1.03] hover:shadow-xl"
                  style={{
                    background: 'linear-gradient(100deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%)'
                  }}
                >
-                 <Link href="/appointment" aria-label="Book an appointment" onClick={onClose}>
-                   <CalendarDays className="mr-2 h-5 w-5" />
-                   Book Appointment
-                 </Link>
+                 <Award className="mr-2 h-5 w-5" />
+                 View Credentials
                </Button>
               </CardContent>
             </Card>

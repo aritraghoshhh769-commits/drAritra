@@ -1,12 +1,11 @@
 'use client';
-import { CalendarDays } from 'lucide-react';
+import { Award } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
-const About = () => {
+const About = ({ onCredentialsClick }: { onCredentialsClick: () => void }) => {
   const containerVariants = {
     hidden: { opacity: 0, y: 8 },
     visible: {
@@ -130,16 +129,14 @@ const About = () => {
             
             <motion.div variants={itemVariants} className="pt-2 md:pt-3 w-full max-w-lg">
                <Button 
-                 asChild 
+                 onClick={onCredentialsClick}
                  className="w-full h-10 md:h-12 text-sm md:text-base font-semibold text-primary-foreground rounded-full shadow-[0_8px_20px_rgba(47,154,160,0.3)] transition-all duration-300 hover:scale-[1.03] hover:shadow-xl px-6 md:px-8"
                  style={{
                    background: 'linear-gradient(100deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%)'
                  }}
                >
-                 <Link href="/appointment" aria-label="Book an appointment">
-                   <CalendarDays className="mr-2 h-4 w-4 md:h-5 md:w-5" />
-                   Book Appointment
-                 </Link>
+                 <Award className="mr-2 h-4 w-4 md:h-5 md:w-5" />
+                 View Credentials
                </Button>
             </motion.div>
 

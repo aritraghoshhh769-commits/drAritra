@@ -27,7 +27,7 @@ export default function Home() {
         <ClientOnly>
           <ScrollSequence onCredentialsClick={() => setCredentialsModalOpen(true)} />
         </ClientOnly>
-        <About />
+        <About onCredentialsClick={() => setCredentialsModalOpen(true)} />
         <Services />
         <Gallery />
         <ClientOnly>
@@ -47,6 +47,10 @@ export default function Home() {
         <AboutModal
           isOpen={isAboutModalOpen}
           onClose={() => setAboutModalOpen(false)}
+          onCredentialsClick={() => {
+            setAboutModalOpen(false);
+            setCredentialsModalOpen(true);
+          }}
         />
       </ClientOnly>
       <ClientOnly>
