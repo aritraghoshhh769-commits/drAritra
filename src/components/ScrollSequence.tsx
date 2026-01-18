@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
@@ -97,7 +98,7 @@ const HeroContent = () => {
 
 const MobileHero = () => {
     return (
-      <section id="home" className="relative h-[70vh] w-full bg-black">
+      <section id="home" className="relative h-[70vh] w-full bg-black mb-[-65px]">
         <Image
           src="https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/aritro/ezgif-frame-120.jpg"
           alt="Dr. Aritra Ghosh providing dental care"
@@ -117,7 +118,7 @@ const MobileHero = () => {
         </div>
   
         <div className="absolute bottom-[-1px] left-0 w-full overflow-hidden leading-[0]">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block h-[65px] w-[calc(100%+1.3px)]">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block h-[65px] w-[calc(100%+1.3px)] -scale-y-100">
               <path d="M1200 0L0 0 0 66.3c235.4 22.4 480 34.5 720.9 34.5 139.7 0 274.3-3.8 400.2-11C1167.6 85.3 1189.3 82.5 1200 80V0z" className="fill-background"></path>
           </svg>
         </div>
