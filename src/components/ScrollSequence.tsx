@@ -79,6 +79,9 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
             <div className="absolute bottom-0 left-0 right-0 z-20 hidden md:block">
                 <div className="utility-panel flex items-center justify-between py-4 px-8">
                     <div className="flex items-center gap-6">
+                        <button onClick={onCredentialsClick} className="text-xs text-white/60 hover:text-white transition-colors font-light">
+                            Doctor's Credentials
+                        </button>
                         {navLinks.map((link) => (
                             <a
                                 key={link.href}
@@ -91,9 +94,6 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
                         ))}
                     </div>
                     <div className="flex items-center gap-4">
-                        <Button variant="outline" className="border-white/60 bg-transparent text-white/60 text-xs h-auto py-1 px-3 hover:bg-white/10 hover:text-white hover:border-white" onClick={onCredentialsClick}>
-                            Doctor's Credentials
-                        </Button>
                         <div className="flex items-center gap-3">
                             <a href="https://www.facebook.com/share/1aU68sBM26/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-white/60 hover:text-white transition-colors"><Facebook className="h-4 w-4" /></a>
                             <a href="#" aria-label="X" className="text-white/60 hover:text-white transition-colors"><XIcon className="h-4 w-4" /></a>
