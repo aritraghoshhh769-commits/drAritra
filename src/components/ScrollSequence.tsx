@@ -97,9 +97,9 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
                     <div className="flex items-center gap-4">
                         <div className="flex items-center gap-3">
                             <a href="https://www.facebook.com/share/1aU68sBM26/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-white/60 hover:text-white transition-colors"><Facebook className="h-4 w-4" /></a>
-                            <a href="#" aria-label="X" className="text-white/60 hover:text-white transition-colors"><XIcon className="h-4 w-4" /></a>
-                            <a href="#" aria-label="LinkedIn" className="text-white/60 hover:text-white transition-colors"><Linkedin className="h-4 w-4" /></a>
-                            <a href="#" aria-label="Instagram" className="text-white/60 hover:text-white transition-colors"><Instagram className="h-4 w-4" /></a>
+                            <a href="https://x.com/dr_aritraghosh" target="_blank" rel="noopener noreferrer" aria-label="X" className="text-white/60 hover:text-white transition-colors"><XIcon className="h-4 w-4" /></a>
+                            <a href="https://www.linkedin.com/in/aritra-ghosh-31a00a3a7/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-white/60 hover:text-white transition-colors"><Linkedin className="h-4 w-4" /></a>
+                            <a href="https://www.instagram.com/dr.aritraghosh/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-white/60 hover:text-white transition-colors"><Instagram className="h-4 w-4" /></a>
                         </div>
                     </div>
                 </div>
@@ -107,7 +107,7 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
             <div
                 className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20 pointer-events-none"
             >
-                <div className="flex items-start gap-4 md:gap-5 max-w-2xl translate-y-24">
+                <div className="flex items-start gap-4 md:gap-5 max-w-xl translate-y-36">
                     <motion.div 
                         initial={{ height: 0 }}
                         animate={{ height: "7rem" }}
