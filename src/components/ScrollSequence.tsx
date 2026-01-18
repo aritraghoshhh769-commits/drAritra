@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
 import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 // --- Configuration Constants ---
 const TOTAL_FRAMES = 120;
@@ -97,15 +98,18 @@ const HeroContent = () => {
 }
 
 const MobileHero = () => {
+    const mobileHeroImage = PlaceHolderImages.find(img => img.id === 'mobile-hero');
+
     return (
       <section id="home" className="relative h-[70vh] w-full bg-black mb-[-65px]">
-        <Image
-          src="https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/aritro/Whisk_d87ddb5ed2e2ef6bdc1445085224968fdr.png"
-          alt="Dr. Aritra Ghosh providing dental care"
+        {mobileHeroImage && <Image
+          src={mobileHeroImage.imageUrl}
+          alt={mobileHeroImage.description}
           fill
           className="object-cover object-top"
           priority
-        />
+          data-ai-hint={mobileHeroImage.imageHint}
+        />}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
         
         <div className="absolute bottom-0 left-0 right-0 p-6 z-10" style={{bottom: '60px'}}>

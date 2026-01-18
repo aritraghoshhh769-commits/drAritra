@@ -1,6 +1,12 @@
 {
   "placeholderImages": [
     {
+      "id": "mobile-hero",
+      "description": "Dr. Aritra Ghosh providing dental care",
+      "imageUrl": "https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/aritro/Whisk_d87ddb5ed2e2ef6bdc1445085224968fdr.png",
+      "imageHint": "doctor treatment"
+    },
+    {
       "id": "doctor-portrait",
       "description": "Professional portrait of Dr. Aritra Ghosh",
       "imageUrl": "https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/WhatsApp%20Image%202026-01-13%20at%2016.26.55.jpeg",
