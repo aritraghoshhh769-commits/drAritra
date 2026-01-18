@@ -10,7 +10,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="py-8 bg-secondary text-secondary-foreground/80">
+    <footer id="contact-us" className="py-8 bg-secondary text-secondary-foreground/80">
       <div className="container mx-auto px-4 text-center">
         <p className="font-bold text-lg text-primary">Dr. Aritra Ghosh</p>
         <p className="text-sm">Dr. Aritra Ghosh Dental Clinic</p>

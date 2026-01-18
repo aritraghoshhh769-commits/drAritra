@@ -11,7 +11,7 @@ const Booking = () => {
   return (
     <motion.section 
         id="contact-us" 
-        className="py-16 md:py-24 bg-background"
+        className="py-16 md:py-24 bg-background hidden md:block"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -20,38 +20,12 @@ const Booking = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-primary">Get in Touch</h2>
-            <p className="text-base md:text-lg text-foreground/80 mt-4 hidden md:block">
+            <p className="text-base md:text-lg text-foreground/80 mt-4">
               We are here to assist you with all your dental needs. Whether you have a question, need to schedule a routine check-up, or require urgent care, our team is ready to help. Reaching out is the first step towards a healthier, brighter smile.
             </p>
-             <p className="text-base text-foreground/80 mt-4 md:hidden">
-              Ready to schedule your visit? Contact us today.
-            </p>
         </div>
         
-        <div className="md:hidden">
-            <ClientOnly>
-                <div className="bg-teal-50/40 rounded-2xl p-6 max-w-sm mx-auto">
-                    <div className="flex flex-col items-center space-y-6">
-                        <div className="space-y-4 text-sm text-foreground/80 w-full text-left">
-                            <p className="flex items-start justify-start gap-3">
-                              <MapPin className="h-4 w-4 text-primary mt-1 shrink-0" />
-                              <span>Mondal Apartment, Near Nabin Club, Rampurhat</span>
-                            </p>
-                             <a href="tel:+919002694838" className="flex items-center justify-start gap-3 hover:text-primary transition-colors">
-                              <Phone className="h-4 w-4 text-primary shrink-0" />
-                              <span>+91 90026 94838</span>
-                            </a>
-                            <a href="mailto:Aritroghosh2013@gmail.com" className="flex items-center justify-start gap-3 hover:text-primary transition-colors">
-                              <Mail className="h-4 w-4 text-primary shrink-0" />
-                              <span>Aritroghosh2013@gmail.com</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </ClientOnly>
-        </div>
-        
-        <div className="hidden md:grid grid-cols-1 gap-12 items-center">
+        <div className="grid grid-cols-1 gap-12 items-center">
             <div className="flex flex-col justify-center items-start text-left max-w-2xl mx-auto">
             <p className="text-lg text-foreground/80 font-semibold">Dr. Aritra Ghosh Dental Clinic</p>
             <p className="text-foreground/70 mt-4 leading-relaxed">
