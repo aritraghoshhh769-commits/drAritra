@@ -77,7 +77,7 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
     ];
     return (
         <>
-            <div className="absolute bottom-0 left-0 right-0 z-20 hidden md:block">
+            <div className="absolute bottom-0 left-0 right-0 z-30 hidden md:block">
                 <div className="utility-panel flex items-center justify-between py-4 px-8">
                     <div className="flex items-center gap-6">
                         <button onClick={onCredentialsClick} className="text-xs text-white/60 hover:text-white transition-colors font-light">
@@ -101,13 +101,16 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
                             <a href="https://www.linkedin.com/in/aritra-ghosh-31a00a3a7/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-white/60 hover:text-white transition-colors"><Linkedin className="h-4 w-4" /></a>
                             <a href="https://www.instagram.com/dr.aritraghosh/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-white/60 hover:text-white transition-colors"><Instagram className="h-4 w-4" /></a>
                         </div>
+                         <Button asChild variant="outline" className="border-white/80 bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black">
+                            <Link href="/appointment">Book Appointment</Link>
+                        </Button>
                     </div>
                 </div>
             </div>
             <div
                 className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20 pointer-events-none"
             >
-                <div className="flex items-start gap-4 md:gap-5 max-w-xl translate-y-36">
+                <div className="flex items-start gap-4 md:gap-5 max-w-xl translate-y-44">
                     <motion.div 
                         initial={{ height: 0 }}
                         animate={{ height: "7rem" }}
@@ -139,16 +142,6 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
                         >
                             Modern, high-trust dental services focused on your comfort and oral well-being. Experience personalized care with cutting-edge technology.
                         </motion.p>
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: 'easeOut', delay: 1.1 }}
-                            className="mt-8 pointer-events-auto hidden md:flex items-center gap-4"
-                        >
-                            <Button asChild variant="outline" className="border-white/80 bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black">
-                            <Link href="/appointment">Book Appointment</Link>
-                            </Button>
-                        </motion.div>
                     </div>
                 </div>
             </div>
