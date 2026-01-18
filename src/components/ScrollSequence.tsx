@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { Progress } from '@/components/ui/progress';
 
 // --- Configuration Constants ---
 const TOTAL_FRAMES = 120;
@@ -106,7 +107,7 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
             <div
                 className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20 pointer-events-none"
             >
-                <div className="flex items-start gap-4 md:gap-5">
+                <div className="flex items-start gap-4 md:gap-5 max-w-2xl">
                     <motion.div 
                         initial={{ height: 0 }}
                         animate={{ height: "7rem" }}
@@ -192,37 +193,6 @@ const MobileHero = () => {
       </section>
     );
 };
-
-const ToothLoader = ({ progress }: { progress: number }) => {
-    const ToothPath = "M 54.3,39.8 C 58.7,35.9 60,30.3 60,25.8 C 60,16.6 54.2,9.3 46.5,6.2 C 43.1,4.6 39.3,3.8 35.5,3.8 L 28.5,3.8 C 24.7,3.8 20.9,4.6 17.5,6.2 C 9.8,9.3 4,16.6 4,25.8 C 4,30.3 5.3,35.9 9.7,39.8 C 14.1,43.7 19.9,46.1 26.2,46.2 L 26.2,50.2 C 23.3,50.3 20.4,51.1 17.7,52.4 C 15.6,53.5 14,55.6 14,57.9 C 14,60.2 15.8,62.1 18,62.1 C 18,62.1 30,56 32,56 C 34,56 46,62.1 46,62.1 C 48.2,62.1 50,60.2 50,57.9 C 50,55.6 48.4,53.5 46.3,52.4 C 43.6,51.1 40.7,50.3 37.8,50.2 L 37.8,46.2 C 44.1,46.1 49.9,43.7 54.3,39.8 Z";
-    
-    // The height of the viewbox is 64.
-    const fillHeight = 64 * (progress / 100);
-    const yOffset = 64 - fillHeight;
-  
-    return (
-      <div className="relative w-24 h-24 mx-auto mb-4">
-        <svg viewBox="0 0 64 64" className="w-full h-full absolute top-0 left-0">
-          <path d={ToothPath} fill="hsl(var(--primary) / 0.1)" />
-        </svg>
-        <svg viewBox="0 0 64 64" className="w-full h-full absolute top-0 left-0">
-          <defs>
-            <clipPath id="tooth-fill-clip">
-              <rect x="0" y={yOffset} width="64" height={fillHeight} />
-            </clipPath>
-          </defs>
-          <motion.path 
-            d={ToothPath} 
-            fill="hsl(var(--primary))" 
-            clipPath="url(#tooth-fill-clip)"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-        </svg>
-      </div>
-    );
-  };
 
 // --- Main Scroll Sequence Component ---
 const ScrollSequence: React.FC<{ onCredentialsClick: () => void }> = ({ onCredentialsClick }) => {
@@ -344,7 +314,7 @@ const ScrollSequence: React.FC<{ onCredentialsClick: () => void }> = ({ onCreden
                 <div className="w-full max-w-sm text-center">
                     <h2 className="text-2xl font-bold text-primary mb-2">Welcome!</h2>
                     <p className="text-foreground/70 mb-4">Preparing your seamless experience.</p>
-                    <ToothLoader progress={loadingProgress} />
+                    <Progress value={loadingProgress} className="h-2 w-full my-4" />
                     <p className="text-sm text-foreground/60 font-mono">{Math.round(loadingProgress)}%</p>
                 </div>
             </motion.div>
