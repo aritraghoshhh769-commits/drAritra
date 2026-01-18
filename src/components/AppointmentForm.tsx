@@ -141,6 +141,8 @@ hi! doctor
                           disabled={(date) =>
                             date < today || date.getDay() === 0 || date.getDay() === 6
                           }
+                          modifiers={{ weekend: { dayOfWeek: [0, 6] } }}
+                          modifiersClassNames={{ weekend: 'day-is-weekend' }}
                           initialFocus
                         />
                       </PopoverContent>
