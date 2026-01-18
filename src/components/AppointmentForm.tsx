@@ -141,6 +141,9 @@ hi! doctor
                           disabled={(date) =>
                             date < today || date.getDay() === 0 || date.getDay() === 6
                           }
+                          classNames={{
+                            day_disabled: "text-destructive/60",
+                          }}
                           initialFocus
                         />
                       </PopoverContent>
