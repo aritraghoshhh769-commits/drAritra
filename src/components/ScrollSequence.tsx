@@ -90,11 +90,16 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
                             </a>
                         ))}
                     </div>
-                    <div className="flex items-center gap-3">
-                        <a href="https://www.facebook.com/share/1aU68sBM26/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-white/60 hover:text-white transition-colors"><Facebook className="h-4 w-4" /></a>
-                        <a href="#" aria-label="X" className="text-white/60 hover:text-white transition-colors"><XIcon className="h-4 w-4" /></a>
-                        <a href="#" aria-label="LinkedIn" className="text-white/60 hover:text-white transition-colors"><Linkedin className="h-4 w-4" /></a>
-                        <a href="#" aria-label="Instagram" className="text-white/60 hover:text-white transition-colors"><Instagram className="h-4 w-4" /></a>
+                    <div className="flex items-center gap-4">
+                        <Button variant="outline" className="border-white/60 bg-transparent text-white/60 text-xs h-auto py-1 px-3 hover:bg-white/10 hover:text-white hover:border-white" onClick={onCredentialsClick}>
+                            Doctor's Credentials
+                        </Button>
+                        <div className="flex items-center gap-3">
+                            <a href="https://www.facebook.com/share/1aU68sBM26/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-white/60 hover:text-white transition-colors"><Facebook className="h-4 w-4" /></a>
+                            <a href="#" aria-label="X" className="text-white/60 hover:text-white transition-colors"><XIcon className="h-4 w-4" /></a>
+                            <a href="#" aria-label="LinkedIn" className="text-white/60 hover:text-white transition-colors"><Linkedin className="h-4 w-4" /></a>
+                            <a href="#" aria-label="Instagram" className="text-white/60 hover:text-white transition-colors"><Instagram className="h-4 w-4" /></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -141,9 +146,6 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
                         >
                             <Button asChild variant="outline" className="border-white/80 bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black">
                             <Link href="/appointment">Book Appointment</Link>
-                            </Button>
-                            <Button variant="outline" className="border-white/80 bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black" onClick={onCredentialsClick}>
-                                Doctor's Credentials
                             </Button>
                         </motion.div>
                     </div>
