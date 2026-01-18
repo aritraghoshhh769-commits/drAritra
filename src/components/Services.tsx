@@ -80,16 +80,18 @@ type Service = (typeof services)[0] & { icon: React.ElementType };
 
 const ServiceCard = ({ service, onCtaClick }: { service: Service; onCtaClick: () => void }) => (
   <div
-    className="group flex flex-col items-center justify-center text-center bg-gradient-to-br from-teal-50 to-cyan-100/50 rounded-2xl p-4 shadow-lg transition-all duration-300 ease-in-out hover:-translate-y-1 aspect-square 
-               md:aspect-auto md:h-full md:items-start md:justify-between md:text-left md:bg-[#DFF6F8] md:p-6 md:shadow-[0px_10px_30px_rgba(0,0,0,0.08)]"
+    className="group flex flex-col bg-gradient-to-br from-teal-50 to-cyan-100/50 rounded-2xl p-4 shadow-lg transition-all duration-300 ease-in-out hover:-translate-y-1 aspect-square 
+               md:aspect-auto md:h-full md:bg-[#DFF6F8] md:p-6 md:shadow-[0px_10px_30px_rgba(0,0,0,0.08)]"
   >
-    <div className="bg-white rounded-full p-2 mb-4 md:hidden">
-        <service.icon className="h-5 w-5 text-primary" />
-    </div>
+    <div className="flex-grow flex flex-col justify-center items-center text-center md:items-start md:text-left">
+      <div className="bg-white rounded-full p-2 mb-4 md:hidden">
+          <service.icon className="h-5 w-5 text-primary" />
+      </div>
 
-    <h3 className="text-sm font-semibold text-primary uppercase mb-2 tracking-wider md:text-xs md:text-[#1F2A37] md:mb-2 md:tracking-wider md:text-base md:mb-3">{service.title}</h3>
-    <p className="text-xs text-foreground/80 leading-snug mb-4 md:text-[#6B7280] md:leading-relaxed md:mb-3 md:text-sm md:mb-5">{service.description}</p>
-    <div className="mt-auto">
+      <h3 className="text-sm font-semibold text-primary uppercase mb-2 tracking-wider md:text-xs md:text-[#1F2A37] md:tracking-wider md:text-base md:mb-3">{service.title}</h3>
+      <p className="text-xs text-foreground/80 leading-snug md:text-[#6B7280] md:leading-relaxed md:text-sm">{service.description}</p>
+    </div>
+    <div className="mt-4 flex justify-center md:justify-start">
       <Button
         className="bg-white text-primary rounded-full px-5 py-2 text-xs font-medium shadow-sm hover:bg-gray-100 md:text-[#1F2A37] md:px-3 md:h-auto md:py-1.5 md:font-medium md:text-xs md:px-6 md:py-2.5 md:text-sm"
         onClick={onCtaClick}
@@ -107,7 +109,7 @@ const Services = () => {
     <>
       <motion.section
         id="services"
-        className="py-16 md:py-24 bg-background"
+        className="relative z-10 py-16 md:py-24 bg-transparent"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -123,6 +125,7 @@ const Services = () => {
             {services.map((service, index) => (
               <motion.div
                 key={index}
+                className="h-full"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.5 }}
