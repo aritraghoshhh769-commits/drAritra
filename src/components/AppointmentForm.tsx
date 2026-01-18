@@ -107,7 +107,7 @@ hi! doctor
                 </FormItem>
               )}
             />
-            <div className="grid sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 gap-4">
               <FormField
                 control={form.control}
                 name="date"
