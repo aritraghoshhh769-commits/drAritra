@@ -1,8 +1,6 @@
-
 'use client';
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
 import ServiceDetailModal from './ServiceDetailModal';
 import { Shield, HeartPulse, ClipboardCheck, MessageSquare, Gem } from 'lucide-react';
 
@@ -107,13 +105,9 @@ const Services = () => {
 
   return (
     <>
-      <motion.section
+      <section
         id="services"
         className="relative z-10 py-16 md:py-24 bg-transparent"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.5 }}
       >
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-12 md:mb-16">
@@ -123,20 +117,16 @@ const Services = () => {
           
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-8">
             {services.map((service, index) => (
-              <motion.div
+              <div
                 key={index}
                 className="h-full"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <ServiceCard service={service} onCtaClick={() => setSelectedService(service)} />
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
-      </motion.section>
+      </section>
       <ServiceDetailModal service={selectedService} onClose={() => setSelectedService(null)} />
     </>
   );
