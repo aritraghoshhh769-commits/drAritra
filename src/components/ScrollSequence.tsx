@@ -77,7 +77,7 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
     ];
     return (
         <>
-            <div className="absolute bottom-0 left-0 right-0 z-40 hidden md:block">
+            <div className="absolute bottom-0 left-0 right-0 z-[60] hidden md:block">
                 <div className="utility-panel flex items-center justify-between py-4 px-8">
                     <div className="flex items-center gap-6">
                         <button onClick={onCredentialsClick} className="text-xs text-white/60 hover:text-white transition-colors font-light">
@@ -107,7 +107,7 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
             <div
                 className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20"
             >
-                <div className="flex items-start gap-4 md:gap-5 max-w-xl translate-y-24">
+                <div className="flex items-start gap-4 md:gap-5 max-w-xl -translate-y-8">
                     <motion.div 
                         initial={{ height: 0 }}
                         animate={{ height: "13rem" }}
