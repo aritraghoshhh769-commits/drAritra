@@ -2,7 +2,6 @@
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useScroll, useTransform, motion, AnimatePresence } from 'framer-motion';
-import { Facebook, Linkedin, Instagram } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -44,70 +43,13 @@ const preloadImages = (onProgress: (progress: number) => void, onComplete: (imag
   Promise.all(imagePromises).then(onComplete).catch(err => console.error("Error preloading images:", err));
 };
 
-// --- Custom X Icon ---
-const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      {...props}
-    >
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231L18.244 2.25zM17.5 19.5h1.57l-6.72-8.98-1.57-2.12H5.78l6.83 9.13 1.49 2.01h5.6z" />
-    </svg>
-);
-
-
 const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void }) => {
-    const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-        if (href.startsWith('#')) {
-        e.preventDefault();
-        const targetId = href.substring(1);
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
-        }
-        }
-    };
-    const navLinks = [
-        { href: '#about', label: 'About' },
-        { href: '#services', label: 'Services' },
-        { href: '#gallery', label: 'Gallery' },
-        { href: '#dental-issues', label: 'Dental Issues' },
-        { href: '#contact-us-desktop', label: 'Contact us' },
-    ];
     return (
         <>
-            <div className="absolute bottom-0 left-0 right-0 z-[60] hidden md:block">
-                <div className="utility-panel flex items-center justify-between py-4 px-8">
-                    <div className="flex items-center gap-6">
-                        <button onClick={onCredentialsClick} className="text-xs text-white/60 hover:text-white transition-colors font-light">
-                            Doctor's Credentials
-                        </button>
-                        {navLinks.map((link) => (
-                            <a
-                                key={link.href}
-                                href={link.href}
-                                onClick={(e) => handleLinkClick(e, link.href)}
-                                className="text-xs text-white/60 hover:text-white transition-colors font-light"
-                            >
-                                {link.label}
-                            </a>
-                        ))}
-                    </div>
-                    <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-3">
-                            <a href="https://www.facebook.com/share/1aU68sBM26/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-white/60 hover:text-white transition-colors"><Facebook className="h-4 w-4" /></a>
-                            <a href="https://x.com/dr_aritraghosh" target="_blank" rel="noopener noreferrer" aria-label="X" className="text-white/60 hover:text-white transition-colors"><XIcon className="h-4 w-4" /></a>
-                            <a href="https://www.linkedin.com/in/aritra-ghosh-31a00a3a7/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-white/60 hover:text-white transition-colors"><Linkedin className="h-4 w-4" /></a>
-                            <a href="https://www.instagram.com/dr.aritraghosh/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-white/60 hover:text-white transition-colors"><Instagram className="h-4 w-4" /></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div
                 className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20"
             >
-                <div className="flex items-start gap-4 md:gap-5 max-w-xl -translate-y-8">
+                <div className="flex items-start gap-4 md:gap-5 max-w-xl translate-y-8">
                     <motion.div 
                         initial={{ height: 0 }}
                         animate={{ height: "13rem" }}
@@ -149,6 +91,20 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
                                 <Link href="/appointment">Book Appointment</Link>
                             </Button>
                         </motion.div>
+                    </div>
+                </div>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 z-[60] hidden md:block">
+                <div className="utility-panel flex items-center justify-between py-4 px-8">
+                    <div className="flex items-center gap-6">
+                        <button onClick={onCredentialsClick} className="text-xs text-white/60 hover:text-white transition-colors font-light">
+                            Doctor's Credentials
+                        </button>
+                    </div>
+                    <div className="flex items-center gap-4">
+                         <Button asChild variant="outline" className="border-white/80 bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black">
+                            <Link href="/appointment" target="_blank">Book Appointment</Link>
+                        </Button>
                     </div>
                 </div>
             </div>
