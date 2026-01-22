@@ -49,6 +49,8 @@ const Footer = () => {
       }
     }
   };
+  
+  const gmailComposeUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=Aritroghosh2013@gmail.com';
 
   return (
     <footer id="contact-us" className="py-12 bg-secondary text-secondary-foreground/80">
@@ -106,7 +108,7 @@ const Footer = () => {
                         <Phone className="h-4 w-4 shrink-0" />
                         <span>+91 90026 94838</span>
                     </a>
-                    <a href="mailto:Aritroghosh2013@gmail.com" className="flex items-center gap-3 hover:text-primary transition-colors">
+                    <a href={gmailComposeUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-primary transition-colors">
                         <Mail className="h-4 w-4 shrink-0" />
                         <span>Aritroghosh2013@gmail.com</span>
                     </a>

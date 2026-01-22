@@ -9,6 +9,8 @@ import ClientOnly from './ClientOnly';
 
 
 const Booking = () => {
+  const gmailComposeUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=Aritroghosh2013@gmail.com';
+
   return (
     <motion.section 
         id="contact-us-desktop" 
@@ -40,7 +42,7 @@ const Booking = () => {
                 </a>
               </p>
               <p className="text-lg text-foreground/80 font-semibold">
-                <a href="mailto:Aritroghosh2013@gmail.com" className="flex items-center justify-start gap-2 hover:text-primary transition-colors">
+                <a href={gmailComposeUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-start gap-2 hover:text-primary transition-colors">
                   <Mail className="h-5 w-5" /> Aritroghosh2013@gmail.com
                 </a>
               </p>
