@@ -51,6 +51,7 @@ const Footer = () => {
   };
   
   const gmailComposeUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=Aritroghosh2013@gmail.com';
+  const mapUrl = 'https://maps.app.goo.gl/R4xbi3aBMYPceNQe6';
 
   return (
     <footer id="contact-us" className="py-12 bg-secondary text-secondary-foreground/80">
@@ -78,10 +79,10 @@ const Footer = () => {
                     <Mail className="h-4 w-4 shrink-0" />
                     <span>Aritroghosh2013@gmail.com</span>
                 </a>
-                 <div className="flex items-start gap-3">
+                 <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-primary transition-colors">
                     <MapPin className="h-4 w-4 shrink-0 mt-0.5" />
                     <span>Mondal Apartment, M. Sarkar Para, Near Nabin Club, Doctor Para, Rampurhat</span>
-                </div>
+                </a>
             </div>
             <div className="flex items-center space-x-6 pt-2">
               {socialLinks.map((social) => (
@@ -112,10 +113,10 @@ const Footer = () => {
                         <Mail className="h-4 w-4 shrink-0" />
                         <span>Aritroghosh2013@gmail.com</span>
                     </a>
-                    <div className="flex items-start gap-3">
+                    <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-primary transition-colors">
                         <MapPin className="h-4 w-4 shrink-0 mt-0.5" />
                         <span>Mondal Apartment, M. Sarkar Para, Near Nabin Club, Doctor Para, Rampurhat</span>
-                    </div>
+                    </a>
                 </div>
                 <div className="mt-6 flex items-center space-x-5">
                   {socialLinks.map((social) => (

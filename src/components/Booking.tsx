@@ -1,4 +1,3 @@
-
 'use client';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -10,6 +9,7 @@ import ClientOnly from './ClientOnly';
 
 const Booking = () => {
   const gmailComposeUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=Aritroghosh2013@gmail.com';
+  const mapUrl = 'https://maps.app.goo.gl/R4xbi3aBMYPceNQe6';
 
   return (
     <motion.section 
@@ -34,7 +34,9 @@ const Booking = () => {
             <p className="text-foreground/70 mt-4 leading-relaxed">
               Our clinic is conveniently located in the heart of Doctor Para, inside Mondal Apartment. We are situated near the well-known Nabin Club, making us easy to find. We've created a calm and welcoming environment to ensure your visit is as comfortable as possible.
             </p>
-            <p className="text-foreground/80 mt-2">Mondal Apartment,<br />M. Sarkar Para, Near Nabin Club,<br />Doctor Para, Rampurhat</p>
+            <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="text-foreground/80 mt-2 hover:text-primary transition-colors">
+              Mondal Apartment,<br />M. Sarkar Para, Near Nabin Club,<br />Doctor Para, Rampurhat
+            </a>
             <div className="flex flex-col sm:flex-row items-center justify-start gap-4 sm:gap-8 mt-6">
               <p className="text-lg text-foreground/80 font-semibold">
                 <a href="tel:+919002694838" className="flex items-center justify-start gap-2 hover:text-primary transition-colors">
