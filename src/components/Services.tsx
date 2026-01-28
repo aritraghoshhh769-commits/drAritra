@@ -78,7 +78,7 @@ type Service = (typeof services)[0] & { icon: React.ElementType };
 
 const ServiceCard = ({ service, onCtaClick }: { service: Service; onCtaClick: () => void }) => (
   <div
-    className="group flex flex-col justify-between bg-gradient-to-br from-teal-50 to-cyan-100/50 rounded-2xl p-4 shadow-lg transition-all duration-300 ease-in-out hover:-translate-y-1 aspect-square 
+    className="group flex flex-col justify-between bg-gradient-to-br from-teal-50 to-cyan-100/50 rounded-2xl p-4 shadow-lg transition-all duration-300 ease-in-out hover:-translate-y-1 
                md:bg-[#DFF6F8] md:p-6 md:shadow-[0px_10px_30px_rgba(0,0,0,0.08)]"
   >
     <div className="flex flex-col items-center text-center md:items-start md:text-left">
@@ -89,7 +89,7 @@ const ServiceCard = ({ service, onCtaClick }: { service: Service; onCtaClick: ()
       <h3 className="text-sm font-semibold text-primary uppercase mb-2 tracking-wider md:text-xs md:text-[#1F2A37] md:tracking-wider md:text-base md:mb-3">{service.title}</h3>
       <p className="text-xs text-foreground/80 leading-snug md:text-[#6B7280] md:leading-relaxed md:text-sm">{service.description}</p>
     </div>
-    <div className="mt-4 flex justify-center md:justify-start">
+    <div className="flex justify-center md:justify-start md:mt-4">
       <Button
         className="bg-white text-primary rounded-full px-5 py-2 text-xs font-medium shadow-sm hover:bg-gray-100 md:text-[#1F2A37] md:px-3 md:h-auto md:py-1.5 md:font-medium md:text-xs md:px-6 md:py-2.5 md:text-sm"
         onClick={onCtaClick}
@@ -117,12 +117,7 @@ const Services = () => {
           
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-8">
             {services.map((service, index) => (
-              <div
-                key={index}
-                className="h-full"
-              >
-                <ServiceCard service={service} onCtaClick={() => setSelectedService(service)} />
-              </div>
+                <ServiceCard key={index} service={service} onCtaClick={() => setSelectedService(service)} />
             ))}
           </div>
         </div>
