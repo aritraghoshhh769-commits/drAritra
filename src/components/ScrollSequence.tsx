@@ -43,7 +43,26 @@ const preloadImages = (onProgress: (progress: number) => void, onComplete: (imag
   Promise.all(imagePromises).then(onComplete).catch(err => console.error("Error preloading images:", err));
 };
 
+const navLinks = [
+  { href: '#about', label: 'About' },
+  { href: '#services', label: 'Services' },
+  { href: '#gallery', label: 'Gallery' },
+  { href: '#dental-issues', label: 'Dental Issues' },
+  { href: '#contact-us-desktop', label: 'Contact us' },
+];
+
 const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void }) => {
+    const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          const targetId = href.substring(1);
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+    };
+    
     return (
         <>
             <div
@@ -101,6 +120,18 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
                             Doctor's Credentials
                         </button>
                     </div>
+                    <nav className="flex items-center space-x-6">
+                        {navLinks.map((link) => (
+                        <a
+                            key={link.href}
+                            href={link.href}
+                            onClick={(e) => handleLinkClick(e, link.href)}
+                            className="text-xs font-medium text-white/60 hover:text-white transition-colors cursor-pointer"
+                        >
+                            {link.label}
+                        </a>
+                        ))}
+                    </nav>
                     <div className="flex items-center gap-4">
                          <Button asChild variant="outline" className="border-white/80 bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black">
                             <Link href="/appointment" target="_blank">Book Appointment</Link>
