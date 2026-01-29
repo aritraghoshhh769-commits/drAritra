@@ -27,15 +27,21 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
   const offsets = useRef<{ [key: string]: number }>({});
 
   useEffect(() => {
+    // A small delay to let browser finish layout before caching offsets
     const timer = setTimeout(() => {
       navLinks.forEach(link => {
-        const id = link.href.substring(1);
-        const el = document.getElementById(id);
-        if (el) {
-          offsets.current[id] = el.offsetTop;
-        }
+          if (link.href.startsWith('#')) {
+              const id = link.href.substring(1);
+              const el = document.getElementById(id);
+              if (el) {
+                  // The offsetTop is the static position, before any transforms.
+                  // The 600px is the amount the content is pulled up by the animation.
+                  offsets.current[id] = el.offsetTop - 600;
+              }
+          }
       });
     }, 100);
+    
     return () => clearTimeout(timer);
   }, []);
 
@@ -43,16 +49,16 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
     if (href.startsWith('#')) {
       e.preventDefault();
       const targetId = href.slice(1);
-      const initialOffset = offsets.current[targetId];
-      if (initialOffset !== undefined) {
+      const targetOffset = offsets.current[targetId];
+
+      if (targetOffset !== undefined) {
         const yOffset = -80; // Offset for the main header that will appear on scroll
-        const yPos = initialOffset - 600;
-        window.scrollTo({ top: yPos + yOffset, behavior: 'smooth' });
+        window.scrollTo({ top: targetOffset + yOffset, behavior: 'smooth' });
       }
     }
   };
 
-  const bottomBarY = useTransform(scrollYProgress, [0.4, 0.6], [0, 100]);
+  const bottomBarY = useTransform(scrollYProgress, [0.6, 0.7], [0, 100]);
 
   return (
     <>
@@ -189,7 +195,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   });
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
-  const aboutY = useTransform(scrollYProgress, [0.7, 1], [0, -600]);
+  const aboutY = useTransform(scrollYProgress, [0.4, 0.6], [0, -600]);
 
   const drawFrame = useCallback((idx: number) => {
     const canvas = canvasRef.current;
