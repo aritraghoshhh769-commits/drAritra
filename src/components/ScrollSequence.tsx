@@ -30,13 +30,14 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
       const targetId = href.slice(1);
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
-        const y = targetElement.getBoundingClientRect().top + window.scrollY;
+        const yOffset = -80; 
+        const y = targetElement.getBoundingClientRect().top + window.scrollY + yOffset;
         window.scrollTo({top: y, behavior: 'smooth'});
       }
     }
   };
 
-  const bottomBarOpacity = useTransform(scrollYProgress, [0.95, 1], [1, 0]);
+  const bottomBarOpacity = useTransform(scrollYProgress, [0.2, 0.4], [1, 0]);
 
   return (
     <>
@@ -173,7 +174,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   });
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
-  const aboutY = useTransform(scrollYProgress, [0.7, 1], [0, -600]);
+  const aboutY = useTransform(scrollYProgress, [0.2, 1], [0, -600]);
 
   const drawFrame = useCallback((idx: number) => {
     const canvas = canvasRef.current;
