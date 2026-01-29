@@ -21,16 +21,18 @@ export default function Home() {
 
   return (
     <>
-
-      <Header />
-      <main id="main-content">
+      {/* Mobile theme toggle */}
       <div className="absolute top-4 right-4 z-30 md:hidden">
         <ThemeToggle className="text-white/80 hover:text-white" />
       </div>
+
+      {/* Header (client-only to avoid hydration issues) */}
       <ClientOnly>
         <Header />
       </ClientOnly>
-      <main>
+
+      {/* Main content (for skip-link accessibility) */}
+      <main id="main-content">
         <ScrollSequence onCredentialsClick={() => setCredentialsModalOpen(true)} />
         <About onCredentialsClick={() => setCredentialsModalOpen(true)} />
         <Services />
@@ -38,10 +40,14 @@ export default function Home() {
         <DentalIssues />
         <Booking />
       </main>
+
       <Footer />
+
       <BottomNavBar
         onAboutClick={() => setAboutModalOpen(true)}
       />
+
+      {/* About modal */}
       <ClientOnly>
         <AboutModal
           isOpen={isAboutModalOpen}
@@ -52,6 +58,8 @@ export default function Home() {
           }}
         />
       </ClientOnly>
+
+      {/* Credentials modal */}
       <ClientOnly>
         <CredentialsModal
           isOpen={isCredentialsModalOpen}
@@ -61,3 +69,4 @@ export default function Home() {
     </>
   );
 }
+
