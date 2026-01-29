@@ -193,7 +193,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
     offset: ['start start', 'end end'],
   });
 
-  const aboutY = useTransform(scrollYProgress, [0.4, 0.7], [0, -600]);
+  const aboutY = useTransform(scrollYProgress, [0.4, 1], [0, -600]);
   const frameIndex = useTransform(scrollYProgress, [0, 0.4], [0, TOTAL_FRAMES - 1]);
 
   const drawFrame = useCallback((idx: number) => {
@@ -312,11 +312,14 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
           <motion.div
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black"
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background"
           >
-            <div className="w-48 text-center">
-              <p className="text-white text-sm mb-2">Loading animation...</p>
-              <Progress value={loadingProgress} className="h-2" />
+            <div className="text-center">
+              <h1 className="text-4xl font-bold text-primary mb-4">Welcome!</h1>
+              <div className="w-48 mx-auto">
+                <p className="text-foreground text-sm mb-2">Loading animation...</p>
+                <Progress value={loadingProgress} className="h-2" />
+              </div>
             </div>
           </motion.div>
         )}
