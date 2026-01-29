@@ -62,7 +62,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
     }
   };
 
-  const bottomBarOpacity = useTransform(scrollYProgress, [0, 0.05], [1, 0]);
+  const bottomBarOpacity = useTransform(scrollYProgress, [0.95, 1], [1, 0]);
 
   return (
     <>
