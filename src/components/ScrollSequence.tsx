@@ -304,26 +304,29 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
     return () => window.removeEventListener('resize', handleResize);
   }, [drawFrame, frames]);
 
+  const loadingScreen = (
+    <AnimatePresence>
+      {!isLoaded && (
+        <motion.div
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background"
+        >
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-primary mb-4">Welcome to our clinic</h1>
+            <div className="w-64 mx-auto">
+                <Progress value={loadingProgress} className="h-2" />
+                <p className="text-lg text-primary mt-2 font-semibold">{loadingProgress}%</p>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 
   return (
     <>
-      <AnimatePresence>
-        {!isLoaded && (
-          <motion.div
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background"
-          >
-            <div className="text-center">
-              <h1 className="text-4xl font-bold text-primary mb-4">Welcome to our clinic</h1>
-              <div className="w-48 mx-auto">
-                <Progress value={loadingProgress} className="h-2" />
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
+      {loadingScreen}
       <div ref={targetRef} className="relative h-[250vh] w-full">
         <div className="sticky top-0 h-screen">
           <canvas ref={canvasRef} className="w-full h-full" />
