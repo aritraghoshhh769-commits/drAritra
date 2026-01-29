@@ -188,7 +188,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   });
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
-  const aboutY = useTransform(scrollYProgress, [0.95, 1], [0, -150]);
+  const aboutY = useTransform(scrollYProgress, [0.95, 1], [0, -250]);
 
   useEffect(() => {
     preloadImages(setProgress, (imgs) => {
@@ -282,7 +282,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
           {!loading && <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />}
         </div>
       </div>
-      <motion.div style={{ y: aboutY }}>
+      <motion.div style={{ y: aboutY }} className="relative">
         <About onCredentialsClick={onCredentialsClick} />
       </motion.div>
     </>
