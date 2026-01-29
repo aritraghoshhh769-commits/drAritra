@@ -104,12 +104,13 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 hidden md:block z-30">
-        <div className="flex justify-between px-8 py-4">
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-black/50 backdrop-blur-sm" />
+        <div className="relative flex justify-between items-center h-16 px-8">
           <button
             onClick={onCredentialsClick}
             className="text-xs text-white/60 hover:text-white"
           >
-            Doctor&apos;s Credentials
+            Doctor's Credentials
           </button>
 
           <nav className="flex gap-6">
@@ -279,17 +280,27 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
 };
 
 // --- Export ---
-const ScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () => void }) => (
-  <>
-    <div className="md:hidden">
-      <MobileHero />
-    </div>
-    <div className="hidden md:block">
-      <ClientOnly>
-        <DesktopScrollSequence onCredentialsClick={onCredentialsClick} />
-      </ClientOnly>
-    </div>
-  </>
-);
+const ScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () => void }) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  return (
+    <>
+      <div className="md:hidden">
+        <MobileHero />
+      </div>
+      <div className="hidden md:block">
+        {isClient ? (
+          <DesktopScrollSequence onCredentialsClick={onCredentialsClick} />
+        ) : (
+          <div className="h-screen" /> // Placeholder for SSR
+        )}
+      </div>
+    </>
+  );
+};
 
 export default ScrollSequence;
