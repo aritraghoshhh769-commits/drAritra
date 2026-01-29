@@ -108,7 +108,7 @@ const Services = () => {
     <>
       <section
         id="services"
-        className="relative z-10 pt-24 pb-16 md:py-24 bg-background"
+        className="relative z-10 pt-16 pb-16 md:py-24 bg-background"
       >
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-12 md:mb-16">
