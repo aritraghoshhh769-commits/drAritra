@@ -145,7 +145,11 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
 
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+
   const [frames] = useState(() => {
+    if (typeof window === 'undefined') return [];
     const imageFrames: (HTMLImageElement | null)[] = [];
     for (let i = 0; i < TOTAL_FRAMES; i++) {
       const img = new window.Image();
@@ -164,7 +168,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   });
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
-  const aboutY = useTransform(scrollYProgress, [0.95, 1], [-600, -600]);
+  const aboutY = useTransform(scrollYProgress, [0.95, 1], [0, -600]);
 
   const drawFrame = useCallback((idx: number) => {
     const canvas = canvasRef.current;
@@ -221,28 +225,77 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
     });
     return () => unsub();
   }, [frameIndex, drawFrame]);
-
+  
   useEffect(() => {
-    if (frames.length > 0) {
-        drawFrame(0);
-    }
-  }, [frames, drawFrame]);
+    if (frames.length === 0) return;
+
+    let loadedCount = 0;
+    let isCancelled = false;
+
+    const updateProgress = () => {
+        if (isCancelled) return;
+        const progress = Math.round((loadedCount / TOTAL_FRAMES) * 100);
+        setLoadingProgress(progress);
+        if (loadedCount === TOTAL_FRAMES) {
+            setTimeout(() => {
+                if (!isCancelled) setIsLoaded(true);
+            }, 250);
+        }
+    };
+
+    frames.forEach((img) => {
+        if (!img) return;
+        const onLoad = () => {
+            loadedCount++;
+            updateProgress();
+        };
+        if (img.complete) {
+            onLoad();
+        } else {
+            img.onload = onLoad;
+            img.onerror = onLoad; // Count errors as loaded to not get stuck
+        }
+    });
+    
+    return () => {
+        isCancelled = true;
+    };
+}, [frames]);
+
 
   // Redraw on resize
   useEffect(() => {
     const handleResize = () => {
-      if (lastFrame.current > -1) {
+      if (lastFrame.current > -1 && frames[lastFrame.current]) {
         drawFrame(lastFrame.current);
+      } else if (frames[0]) {
+        drawFrame(0);
       }
     };
     window.addEventListener('resize', handleResize);
+    handleResize();
     return () => window.removeEventListener('resize', handleResize);
-  }, [drawFrame]);
+  }, [drawFrame, frames]);
 
 
   return (
     <>
-      <div ref={targetRef} className="relative h-[1200vh] w-full">
+      <AnimatePresence>
+        {!isLoaded && (
+          <motion.div
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black"
+          >
+            <div className="w-48 text-center">
+              <p className="text-white text-sm mb-2">Loading animation...</p>
+              <Progress value={loadingProgress} className="h-2" />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div ref={targetRef} className="relative h-[800vh] w-full">
         <div className="sticky top-0 h-screen">
           <canvas ref={canvasRef} className="w-full h-full" />
           <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />
