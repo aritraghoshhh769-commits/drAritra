@@ -108,7 +108,8 @@
 }
 
 .fill-background {
-  fill: hsl(var(--background));
+  color: hsl(var(--background));
+  fill: currentColor;
 }
 
 .day-is-weekend[data-disabled="true"] > button {
