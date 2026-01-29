@@ -173,7 +173,7 @@ const MobileHero = () => {
                 Oral & Dental Surgeon
             </p>
         </div>
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20">
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20 md:hidden">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block h-[65px] w-[calc(100%+1.3px)] -scale-y-100">
                 <path d="M1200 0L0 0 0 66.3c235.4 22.4 480 34.5 720.9 34.5 139.7 0 274.3-3.8 400.2-11C1167.6 85.3 1189.3 82.5 1200 80V0z" className="fill-background"></path>
             </svg>
@@ -308,7 +308,7 @@ const ScrollSequence: React.FC<{ onCredentialsClick: () => void }> = ({ onCreden
             </motion.div>
             )}
         </AnimatePresence>
-        <div id="home" ref={targetRef} className="relative w-full h-[600vh]">
+        <div id="home" ref={targetRef} className="relative w-full h-[400vh]">
             <div className="sticky top-0 h-screen w-full">
                 <section className="hero-scroll">
                 <div className="hero-stage">
