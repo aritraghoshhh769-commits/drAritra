@@ -31,35 +31,6 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --background: 202 22% 15%; /* #1F2A2E Charcoal Ink */
-      --foreground: 0 0% 98%;
-      --card: 202 22% 15%;
-      --card-foreground: 0 0% 98%;
-      --popover: 202 22% 15%;
-      --popover-foreground: 0 0% 98%;
-      --primary: 190 27% 35%; /* #3F6E73 Deep Teal Slate */
-      --primary-foreground: 0 0% 98%;
-      --secondary: 0 0% 14.9%;
-      --secondary-foreground: 0 0% 98%;
-      --muted: 0 0% 14.9%;
-      --muted-foreground: 0 0% 63.9%;
-      --accent: 45 41% 57%; /* #C8A95A Warm Medical Gold */
-      --accent-foreground: 202 22% 15%;
-      --destructive: 0 62.8% 30.6%;
-      --destructive-foreground: 0 0% 98%;
-      --border: 0 0% 25%;
-      --input: 0 0% 25%;
-      --ring: 190 27% 45%;
-      --chart-1: 220 70% 50%;
-      --chart-2: 160 60% 45%;
-      --chart-3: 30 80% 55%;
-      --chart-4: 280 65% 60%;
-      --chart-5: 340 75% 55%;
-    }
-  }
 }
 
 @layer base {
