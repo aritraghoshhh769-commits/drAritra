@@ -108,7 +108,7 @@ const Services = () => {
     <>
       <section
         id="services"
-        className="relative z-10 pt-4 pb-16 md:pt-16 md:pb-20 bg-background"
+        className="relative z-10 pt-4 pb-16 md:pt-8 md:pb-20 bg-background"
       >
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-12 md:mb-16">
