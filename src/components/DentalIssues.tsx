@@ -7,53 +7,53 @@ import { motion } from 'framer-motion';
 const dentalIssues = [
   {
     id: 'cavities',
-    title: 'Cavities',
-    description: 'Also known as tooth decay, these are permanently damaged areas in the hard surface of your teeth that develop into tiny openings or holes.',
+    title: 'Cavity Treatment',
+    description: 'Treating tooth decay and cavities permanently in Rampurhat to save your teeth.',
   },
   {
     id: 'gum-disease',
-    title: 'Gum Disease',
-    description: 'An inflammation of the gums that can progress to affect the bone that surrounds and supports your teeth. It is caused by plaque.',
+    title: 'Gum Disease Care',
+    description: 'Expert treatment for gum inflammation (Pyorrhea) and bleeding gums.',
   },
   {
     id: 'tooth-sensitivity',
-    title: 'Tooth Sensitivity',
-    description: 'Experience pain or discomfort in your teeth as a response to certain stimuli, such as hot or cold temperatures.',
+    title: 'Sensitivity Relief',
+    description: 'Effective relief for sharp pain from hot or cold foods and drinks.',
   },
   {
     id: 'cracked-tooth',
-    title: 'Cracked Tooth',
-    description: 'A crack can run from the chewing surface of a tooth down towards the root. Early diagnosis is important to save the tooth.',
+    title: 'Cracked Tooth Repair',
+    description: 'Bonding and repair for cracked or chipped teeth to restore your smile.',
   },
   {
     id: 'bad-breath',
-    title: 'Bad Breath',
-    description: 'Also called halitosis, can be embarrassing and is caused by a variety of factors, including food, health conditions and habits.',
+    title: 'Bad Breath Cure',
+    description: 'Treatment for chronic bad breath (Halitosis) and oral hygiene solutions.',
   },
   {
     id: 'wisdom-teeth',
-    title: 'Wisdom Teeth',
-    description: "Third molars at the back of the mouth that don't have enough room to emerge or develop normally.",
+    title: 'Wisdom Tooth Removal',
+    description: 'Safe and painless extraction of impacted wisdom teeth (Third Molars).',
   },
   {
     id: 'tooth-erosion',
-    title: 'Tooth Erosion',
-    description: 'Loss of tooth structure due to acid attacking the enamel, often from acidic foods and drinks.',
+    title: 'Enamel Repair',
+    description: 'Restoring tooth structure lost to acid erosion and protecting enamel.',
   },
   {
     id: 'bruxism',
-    title: 'Bruxism',
-    description: 'Involuntary grinding, gnashing, or clenching of teeth, often during sleep, which can lead to damage.',
+    title: 'Teeth Grinding',
+    description: 'Custom guards and treatment for nighttime teeth grinding (Bruxism).',
   },
   {
     id: 'dry-mouth',
-    title: 'Dry Mouth',
-    description: 'Also known as Xerostomia, a condition where salivary glands don’t produce enough saliva to keep the mouth wet.',
+    title: 'Dry Mouth Care',
+    description: 'Solutions for Xerostomia to restore healthy saliva flow and comfort.',
   },
   {
     id: 'oral-thrush',
-    title: 'Oral Thrush',
-    description: 'A condition in which the fungus Candida albicans accumulates on the lining of your mouth, causing white lesions.',
+    title: 'Fungal Infection',
+    description: 'Medical treatment for oral fungal infections and white lesions.',
   }
 ];
 
@@ -68,26 +68,39 @@ const items = dentalIssues.map(issue => {
 
 const DentalIssues = () => {
   return (
-    <motion.section 
-        id="dental-issues" 
-        className="py-16 md:py-24 bg-background"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.6 }}
+    <motion.section
+      id="dental-issues"
+      className="py-16 md:py-24 bg-background"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6 }}
     >
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-primary whitespace-nowrap">Common Dental Issues</h2>
-            <p className="text-base md:text-lg text-foreground/80 mt-2">
-              Spin the globe to explore common dental problems we treat.
-            </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-primary whitespace-nowrap">Common Dental Issues</h2>
+          <p className="text-base md:text-lg text-foreground/80 mt-2">
+            Spin the globe to explore common dental problems we treat.
+          </p>
         </div>
         <ClientOnly>
-            <div className="h-[500px] md:h-[600px] relative overflow-hidden">
-              <InfiniteMenu items={items}/>
-            </div>
+          <div className="h-[500px] md:h-[600px] relative overflow-hidden">
+            <InfiniteMenu items={items} />
+          </div>
         </ClientOnly>
+
+        {/* Semantic Fallback for SEO (Hidden visually but available to crawlers) */}
+        <div className="sr-only">
+          <h3>Common Dental Problems Treated in Rampurhat</h3>
+          <ul>
+            {dentalIssues.map((issue) => (
+              <li key={issue.id}>
+                <h4>{issue.title}</h4>
+                <p>{issue.description}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </motion.section>
   );

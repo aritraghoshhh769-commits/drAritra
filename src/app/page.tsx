@@ -21,6 +21,9 @@ export default function Home() {
 
   return (
     <>
+
+      <Header />
+      <main id="main-content">
       <div className="absolute top-4 right-4 z-30 md:hidden">
         <ThemeToggle className="text-white/80 hover:text-white" />
       </div>
@@ -32,12 +35,8 @@ export default function Home() {
         <About onCredentialsClick={() => setCredentialsModalOpen(true)} />
         <Services />
         <Gallery />
-        <ClientOnly>
-          <DentalIssues />
-        </ClientOnly>
-        <ClientOnly>
-          <Booking />
-        </ClientOnly>
+        <DentalIssues />
+        <Booking />
       </main>
       <Footer />
       <BottomNavBar

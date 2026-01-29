@@ -3,41 +3,47 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useScroll, useTransform, motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { siteConfig } from '@/lib/config';
 import ClientOnly from './ClientOnly';
 
-// --- Configuration Constants ---
+// --- Configuration ---
 const TOTAL_FRAMES = 120;
 
-// --- Helper Functions ---
+// --- Helpers ---
 const getFramePath = (frame: number): string => {
   const frameNumber = String(frame + 1).padStart(3, '0');
   return `https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/aritro/ezgif-frame-${frameNumber}.jpg`;
 };
 
-const preloadImages = (onProgress: (progress: number) => void, onComplete: (images: (HTMLImageElement | null)[]) => void) => {
+const preloadImages = (
+  onProgress: (progress: number) => void,
+  onComplete: (images: (HTMLImageElement | null)[]) => void
+) => {
   const imagePromises: Promise<HTMLImageElement | null>[] = [];
-  let loadedImagesCount = 0;
+  let loaded = 0;
 
   for (let i = 0; i < TOTAL_FRAMES; i++) {
     const img = new window.Image();
-    img.crossOrigin = "anonymous"; // Required for cross-origin images on canvas
+    img.crossOrigin = 'anonymous';
+
     const promise = new Promise<HTMLImageElement | null>((resolve) => {
       img.onload = () => {
-        loadedImagesCount++;
-        onProgress((loadedImagesCount / TOTAL_FRAMES) * 100);
+        loaded++;
+        onProgress((loaded / TOTAL_FRAMES) * 100);
         resolve(img);
       };
-      img.onerror = (err) => {
+      img.onerror = () => {
         console.error(`Failed to load image: ${img.src}`);
-        loadedImagesCount++;
-        onProgress((loadedImagesCount / TOTAL_FRAMES) * 100);
+        loaded++;
+        onProgress((loaded / TOTAL_FRAMES) * 100);
         resolve(null);
       };
     });
+
     img.src = getFramePath(i);
     imagePromises.push(promise);
   }
@@ -45,282 +51,215 @@ const preloadImages = (onProgress: (progress: number) => void, onComplete: (imag
   Promise.all(imagePromises).then(onComplete);
 };
 
-const navLinks = [
-  { href: '#about', label: 'About' },
-  { href: '#services', label: 'Services' },
-  { href: '#gallery', label: 'Gallery' },
-  { href: '#dental-issues', label: 'Dental Issues' },
-  { href: '#contact-us-desktop', label: 'Contact us' },
-];
+// --- Hero Content (Desktop Overlay) ---
+const navLinks = siteConfig.navLinks;
 
 const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void }) => {
-    const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-        if (href.startsWith('#')) {
-          e.preventDefault();
-          const targetId = href.substring(1);
-          const targetElement = document.getElementById(targetId);
-          if (targetElement) {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
-          }
-        }
-    };
-    
-    return (
-        <>
-            <div
-                className="absolute inset-0 flex items-center justify-start p-8 md:p-16 lg:p-24 z-20"
-            >
-                <div className="flex items-start gap-4 md:gap-5 max-w-xl translate-y-8">
-                    <motion.div 
-                        initial={{ height: 0 }}
-                        animate={{ height: "13rem" }}
-                        transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
-                        className="w-0.5 bg-white/50 rounded-full" 
-                    />
-                    <div className="max-w-2xl">
-                        <motion.h1
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.5 }}
-                            className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight"
-                        >
-                            Dr. Aritra Ghosh
-                        </motion.h1>
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.7 }}
-                            className="mt-2 text-base md:text-xl lg:text-2xl text-white/80 font-light tracking-wide"
-                        >
-                            Oral & Dental Surgeon
-                        </motion.p>
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.9 }}
-                            className="mt-4 text-sm md:text-base text-white/70 font-light"
-                        >
-                            Modern, high-trust dental services focused on your comfort and oral well-being. Experience personalized care with cutting-edge technology.
-                        </motion.p>
-                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: 'easeOut', delay: 1.1 }}
-                            className="mt-8"
-                        >
-                            <Button asChild variant="outline" size="lg" className="border-white/80 bg-white/20 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black font-semibold">
-                                <Link href="/appointment">Book Appointment</Link>
-                            </Button>
-                        </motion.div>
-                    </div>
-                </div>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 z-[60] hidden md:block">
-                <div className="utility-panel flex items-center justify-between py-4 px-8">
-                    <div className="flex items-center gap-6">
-                        <button onClick={onCredentialsClick} className="text-xs text-white/60 hover:text-white transition-colors font-light">
-                            Doctor's Credentials
-                        </button>
-                    </div>
-                    <nav className="flex items-center space-x-6">
-                        {navLinks.map((link) => (
-                        <a
-                            key={link.href}
-                            href={link.href}
-                            onClick={(e) => handleLinkClick(e, link.href)}
-                            className="text-xs font-medium text-white/60 hover:text-white transition-colors cursor-pointer"
-                        >
-                            {link.label}
-                        </a>
-                        ))}
-                    </nav>
-                    <div className="flex items-center gap-4">
-                         <Button asChild variant="outline" className="border-white/80 bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black">
-                            <Link href="/appointment" target="_blank">Book Appointment</Link>
-                        </Button>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
-}
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
-const MobileHero = () => {
-    const mobileHeroImage = PlaceHolderImages.find(img => img.id === 'mobile-hero');
-
-    return (
-      <section 
-        id="home" 
-        className="relative h-[70vh] w-full"
-      >
-        {mobileHeroImage && (
-            <Image
-                src={mobileHeroImage.imageUrl}
-                alt={mobileHeroImage.description}
-                fill
-                className="object-cover object-top"
-                priority
-                sizes="100vw"
-            />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10" />
-        
-        <div className="absolute bottom-0 left-0 right-0 p-6 z-30" style={{bottom: '60px'}}>
-            <h1 className="text-4xl font-bold text-white tracking-tight">
-                Dr. Aritra Ghosh
-            </h1>
-            <p className="mt-1 text-lg text-white/80 font-light tracking-wide">
-                Oral & Dental Surgeon
-            </p>
-        </div>
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20 md:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block h-[65px] w-[calc(100%+1.3px)] -scale-y-100">
-                <path d="M1200 0L0 0 0 66.3c235.4 22.4 480 34.5 720.9 34.5 139.7 0 274.3-3.8 400.2-11C1167.6 85.3 1189.3 82.5 1200 80V0z" className="fill-background"></path>
-            </svg>
-        </div>
-      </section>
-    );
-};
-
-const DesktopScrollSequence: React.FC<{ onCredentialsClick: () => void }> = ({ onCredentialsClick }) => {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-    const targetRef = useRef<HTMLDivElement>(null);
-    const [loading, setLoading] = useState(true);
-    const [loadingProgress, setLoadingProgress] = useState(0);
-    const [frames, setFrames] = useState<(HTMLImageElement | null)[]>([]);
-    const lastDrawnFrame = useRef(-1);
-    
-    const { scrollYProgress } = useScroll({
-      target: targetRef,
-      offset: ["start start", "end end"],
-    });
-  
-    const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
-  
-    useEffect(() => {
-        preloadImages(setLoadingProgress, (loadedFrames) => {
-            setFrames(loadedFrames);
-            setLoading(false);
-        });
-    }, []);
-  
-    const drawFrame = useCallback((frameIdx: number) => {
-      const canvas = canvasRef.current;
-      const image = frames[frameIdx];
-      if (!canvas || !image) return;
-  
-      const context = canvas.getContext('2d');
-      if (!context) return;
-      
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-      
-      const canvasWidth = rect.width * dpr;
-      const canvasHeight = rect.height * dpr;
-  
-      if (canvas.width !== canvasWidth || canvas.height !== canvasHeight) {
-          canvas.width = canvasWidth;
-          canvas.height = canvasHeight;
-      }
-  
-      const imgAspectRatio = image.naturalWidth / image.naturalHeight;
-      const canvasAspectRatio = canvas.width / canvas.height;
-  
-      let renderWidth, renderHeight, x, y;
-  
-      if (imgAspectRatio > canvasAspectRatio) {
-          renderHeight = canvas.height;
-          renderWidth = renderHeight * imgAspectRatio;
-          x = (canvas.width - renderWidth) / 2;
-          y = 0;
-      } else {
-          renderWidth = canvas.width;
-          renderHeight = renderWidth / imgAspectRatio;
-          x = 0;
-          y = (canvas.height - renderHeight) / 2;
-      }
-      
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      context.drawImage(image, x, y, renderWidth, renderHeight);
-    }, [frames]);
-  
-  
-    useEffect(() => {
-      const handleResize = () => {
-        if (frames.length > 0) {
-          drawFrame(Math.round(frameIndex.get()));
-        }
-      };
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }, [drawFrame, frames, frameIndex]);
-    
-    useEffect(() => {
-      const unsubscribe = frameIndex.on("change", (latest) => {
-          const roundedFrame = Math.round(latest);
-          if (frames[roundedFrame] && roundedFrame !== lastDrawnFrame.current) {
-              drawFrame(roundedFrame);
-              lastDrawnFrame.current = roundedFrame;
-          }
-      });
-      return () => unsubscribe();
-    }, [frameIndex, frames, drawFrame]);
-  
-    useEffect(() => {
-      if (!loading && frames.length > 0) {
-        drawFrame(0);
-      }
-    }, [loading, frames, drawFrame]);
-  
-    return (
-        <>
-          <AnimatePresence>
-              {loading && (
-              <motion.div
-                  initial={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background p-8"
-              >
-                  <div className="w-full max-w-sm text-center">
-                      <h2 className="text-2xl font-bold text-primary mb-2">Welcome!</h2>
-                      <p className="text-foreground/70 mb-4">Preparing your seamless experience.</p>
-                      <Progress value={loadingProgress} className="h-2 w-full my-4" />
-                      <p className="text-sm text-foreground/60 font-mono">{Math.round(loadingProgress)}%</p>
-                  </div>
-              </motion.div>
-              )}
-          </AnimatePresence>
-          <div id="home" ref={targetRef} className="relative w-full h-[400vh]">
-              <div className="sticky top-0 h-screen w-full">
-                  <section className="hero-scroll">
-                  <div className="hero-stage">
-                      <canvas ref={canvasRef} className="w-full h-full" />
-                  </div>
-                  
-                  {!loading && <HeroContent onCredentialsClick={onCredentialsClick} />}
-                  </section>
-              </div>
-          </div>
-        </>
-    );
-};
-
-
-// --- Main Scroll Sequence Component ---
-const ScrollSequence: React.FC<{ onCredentialsClick: () => void }> = ({ onCredentialsClick }) => {
   return (
     <>
-      <div className="md:hidden">
-        <MobileHero />
+      <div className="absolute inset-0 flex items-center p-8 md:p-16 lg:p-24 z-20">
+        <div className="flex gap-4 max-w-xl translate-y-8">
+          <motion.div
+            initial={{ height: 0 }}
+            animate={{ height: '13rem' }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="w-0.5 bg-white/50 rounded-full"
+          />
+          <div>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="text-4xl md:text-6xl font-bold text-white"
+            >
+              Dr. Aritra Ghosh
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="mt-2 text-xl text-white/80"
+            >
+              Oral & Dental Surgeon
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1 }}
+              className="mt-6"
+            >
+              <Button asChild variant="outline" className="border-white/80 text-white">
+                <Link href="/appointment">Book Appointment</Link>
+              </Button>
+            </motion.div>
+          </div>
+        </div>
       </div>
-      <div className="hidden md:block">
-        <ClientOnly>
-          <DesktopScrollSequence onCredentialsClick={onCredentialsClick} />
-        </ClientOnly>
+
+      <div className="absolute bottom-0 left-0 right-0 hidden md:block z-30">
+        <div className="flex justify-between px-8 py-4">
+          <button
+            onClick={onCredentialsClick}
+            className="text-xs text-white/60 hover:text-white"
+          >
+            Doctor&apos;s Credentials
+          </button>
+
+          <nav className="flex gap-6">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => handleLinkClick(e, link.href)}
+                className="text-xs text-white/60 hover:text-white"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+        </div>
       </div>
     </>
   );
 };
+
+// --- Mobile Hero ---
+const MobileHero = () => {
+  const img = PlaceHolderImages.find(i => i.id === 'mobile-hero');
+
+  return (
+    <section id="home" className="relative h-[70vh] w-full">
+      {img && (
+        <Image
+          src={img.imageUrl}
+          alt={img.description}
+          fill
+          priority
+          className="object-cover object-top"
+        />
+      )}
+
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10" />
+
+      <div className="absolute bottom-[60px] left-0 right-0 p-6 z-20">
+        <h1 className="text-4xl font-bold text-white">Dr. Aritra Ghosh</h1>
+        <p className="text-lg text-white/80">Oral & Dental Surgeon</p>
+      </div>
+
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20 md:hidden">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="h-[65px] w-full -scale-y-100">
+          <path
+            d="M1200 0L0 0 0 66.3c235.4 22.4 480 34.5 720.9 34.5 139.7 0 274.3-3.8 400.2-11C1167.6 85.3 1189.3 82.5 1200 80V0z"
+            className="fill-background"
+          />
+        </svg>
+      </div>
+    </section>
+  );
+};
+
+// --- Desktop Scroll Sequence ---
+const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () => void }) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const targetRef = useRef<HTMLDivElement>(null);
+
+  const [frames, setFrames] = useState<(HTMLImageElement | null)[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const lastFrame = useRef(-1);
+
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ['start start', 'end end'],
+  });
+
+  const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
+
+  useEffect(() => {
+    preloadImages(setProgress, (imgs) => {
+      setFrames(imgs);
+      setLoading(false);
+    });
+  }, []);
+
+  const drawFrame = useCallback((idx: number) => {
+    const canvas = canvasRef.current;
+    const img = frames[idx];
+    if (!canvas || !img) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  }, [frames]);
+
+  useEffect(() => {
+    const unsub = frameIndex.on('change', (v) => {
+      const f = Math.round(v);
+      if (frames[f] && f !== lastFrame.current) {
+        drawFrame(f);
+        lastFrame.current = f;
+      }
+    });
+    return () => unsub();
+  }, [frameIndex, frames, drawFrame]);
+
+  useEffect(() => {
+    if (!loading && frames.length) drawFrame(0);
+  }, [loading, frames, drawFrame]);
+
+  return (
+    <>
+      <AnimatePresence>
+        {loading && (
+          <motion.div
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-background"
+          >
+            <div className="w-64 text-center">
+              <p className="mb-2">Loading experience…</p>
+              <Progress value={progress} />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div ref={targetRef} className="relative h-[400vh] w-full">
+        <div className="sticky top-0 h-screen">
+          <canvas ref={canvasRef} className="w-full h-full" />
+          {!loading && <HeroContent onCredentialsClick={onCredentialsClick} />}
+        </div>
+      </div>
+    </>
+  );
+};
+
+// --- Export ---
+const ScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () => void }) => (
+  <>
+    <div className="md:hidden">
+      <MobileHero />
+    </div>
+    <div className="hidden md:block">
+      <ClientOnly>
+        <DesktopScrollSequence onCredentialsClick={onCredentialsClick} />
+      </ClientOnly>
+    </div>
+  </>
+);
 
 export default ScrollSequence;

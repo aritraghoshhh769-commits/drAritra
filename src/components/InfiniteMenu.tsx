@@ -399,13 +399,15 @@ function resizeCanvasToDisplaySize(canvas: HTMLCanvasElement) {
   return needResize;
 }
 
-function makeBuffer(gl: WebGL2RenderingContext, sizeOrData: number | ArrayBuffer, usage: number) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function makeBuffer(gl: WebGL2RenderingContext, sizeOrData: any, usage: number) {
   const buf = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, buf);
   gl.bufferData(gl.ARRAY_BUFFER, sizeOrData, usage);
   gl.bindBuffer(gl.ARRAY_BUFFER, null);
   return buf;
 }
+
 
 class ArcballControl {
   isPointerDown = false;
@@ -449,7 +451,7 @@ class ArcballControl {
     canvas.addEventListener('pointermove', (e: PointerEvent) => {
       if (this.isPointerDown) {
         if (window.innerWidth < 768 && Math.abs(e.movementY) > Math.abs(e.movementX)) {
-            return;
+          return;
         }
         vec2.set(this.pointerPos, e.clientX, e.clientY);
       }
@@ -461,7 +463,7 @@ class ArcballControl {
   update(deltaTime: number, targetFrameDuration = 16) {
     const timeScale = deltaTime / targetFrameDuration + 0.00001;
     let angleFactor = timeScale;
-    let snapRotation = quat.create();
+    const snapRotation = quat.create();
 
     if (this.isPointerDown) {
       const INTENSITY = 0.3 * timeScale;
@@ -585,9 +587,11 @@ class InfiniteGridMenu {
   smoothRotationVelocity = 0;
   scaleFactor = 1.0;
   movementActive = false;
-  onStateUpdate: (state: { faces: any[], activeItemIndex: number | null, isMoving: boolean }) => void = () => {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onStateUpdate: (state: { faces: any[], activeItemIndex: number | null, isMoving: boolean }) => void = () => { };
 
   canvas: HTMLCanvasElement;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   items: { image: string, link: string, title: string, description: string }[];
   gl!: WebGL2RenderingContext;
   viewportSize!: vec2;
@@ -605,6 +609,7 @@ class InfiniteGridMenu {
   control!: ArcballControl;
 
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(canvas: HTMLCanvasElement, items: any[], onStateUpdate: (state: any) => void, onInit: ((sketch: InfiniteGridMenu) => void) | null = null, scale = 1.0) {
     this.canvas = canvas;
     this.items = items || [];
@@ -618,7 +623,8 @@ class InfiniteGridMenu {
     this.viewportSize = vec2.set(this.viewportSize || vec2.create(), this.canvas.clientWidth, this.canvas.clientHeight);
 
     const gl = this.gl;
-    const needsResize = resizeCanvasToDisplaySize(gl.canvas);
+    const canvas = gl.canvas as HTMLCanvasElement;
+    const needsResize = resizeCanvasToDisplaySize(canvas);
     if (needsResize) {
       gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
     }
@@ -731,7 +737,7 @@ class InfiniteGridMenu {
     const gl = this.gl;
     this.control.update(deltaTime, this.TARGET_FRAME_DURATION);
 
-    let positions = this.instancePositions.map(p => vec3.transformQuat(vec3.create(), p, this.control.orientation));
+    const positions = this.instancePositions.map(p => vec3.transformQuat(vec3.create(), p, this.control.orientation));
     const scale = 0.25;
     const SCALE_INTENSITY = 0.6;
     positions.forEach((p, ndx) => {
@@ -804,7 +810,8 @@ class InfiniteGridMenu {
   }
 
   #updateProjectionMatrix(gl: WebGL2RenderingContext) {
-    this.camera.aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
+    const canvas = gl.canvas as HTMLCanvasElement;
+    this.camera.aspect = canvas.clientWidth / canvas.clientHeight;
     const height = this.SPHERE_RADIUS * 0.35;
     const distance = this.camera.position[2];
     if (this.camera.aspect > 1) {
@@ -845,7 +852,7 @@ class InfiniteGridMenu {
         this.control.snapTargetDirection = snapDirection;
       }
     }
-    
+
     if (isPointerDown) {
       cameraTargetZ += this.control.rotationVelocity * 80 + 2.5;
       damping = 7 / timeScale;
@@ -855,6 +862,7 @@ class InfiniteGridMenu {
     this.#updateCameraMatrix();
 
     // --- State update logic for React UI ---
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const facesState: any[] = [];
     const positions = this.instancePositions.map(p => vec3.transformQuat(vec3.create(), p, this.control.orientation));
 
@@ -862,25 +870,26 @@ class InfiniteGridMenu {
       const worldPos4 = vec4.fromValues(p[0], p[1], p[2], 1.0);
       const viewPos = vec4.transformMat4(vec4.create(), worldPos4, this.camera.matrices.view);
       const clipPos = vec4.transformMat4(vec4.create(), viewPos, this.camera.matrices.projection);
-      
+
       if (clipPos[3] > 0) {
         const ndcX = clipPos[0] / clipPos[3];
         const ndcY = clipPos[1] / clipPos[3];
-        
-        const screenX = (ndcX * 0.5 + 0.5) * this.gl.canvas.clientWidth;
-        const screenY = (-ndcY * 0.5 + 0.5) * this.gl.canvas.clientHeight;
-        
-        if (p[2] > 0) { // is in front
-            const opacity = Math.pow(p[2] / this.SPHERE_RADIUS, 1.5);
-            const textScale = 0.8 + 0.4 * (p[2] / this.SPHERE_RADIUS);
 
-            facesState.push({
-                index: ndx,
-                x: screenX,
-                y: screenY,
-                opacity: opacity,
-                scale: textScale,
-            });
+        const canvas = this.gl.canvas as HTMLCanvasElement;
+        const screenX = (ndcX * 0.5 + 0.5) * canvas.clientWidth;
+        const screenY = (-ndcY * 0.5 + 0.5) * canvas.clientHeight;
+
+        if (p[2] > 0) { // is in front
+          const opacity = Math.pow(p[2] / this.SPHERE_RADIUS, 1.5);
+          const textScale = 0.8 + 0.4 * (p[2] / this.SPHERE_RADIUS);
+
+          facesState.push({
+            index: ndx,
+            x: screenX,
+            y: screenY,
+            opacity: opacity,
+            scale: textScale,
+          });
         }
       }
     });
@@ -940,6 +949,7 @@ interface InfiniteMenuProps {
 export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [state, setState] = useState({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     faces: [] as any[],
     activeItemIndex: 0,
     isMoving: true,

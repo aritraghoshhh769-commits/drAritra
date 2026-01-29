@@ -4,14 +4,9 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { siteConfig } from '@/lib/config';
 
-const navLinks = [
-  { href: '#about', label: 'About' },
-  { href: '#services', label: 'Services' },
-  { href: '#gallery', label: 'Gallery' },
-  { href: '#dental-issues', label: 'Dental Issues' },
-  { href: '#contact-us-desktop', label: 'Contact us' },
-];
+const navLinks = siteConfig.navLinks;
 
 const Header = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -83,8 +78,8 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center space-x-4">
-             <Button asChild variant="outline" className="hidden md:inline-flex border-white/80 bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black">
-                <Link href="/appointment" target="_blank">Book Appointment</Link>
+            <Button asChild variant="outline" className="hidden md:inline-flex border-white/80 bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black">
+              <Link href="/appointment" target="_blank">Book Appointment</Link>
             </Button>
           </div>
         </div>
