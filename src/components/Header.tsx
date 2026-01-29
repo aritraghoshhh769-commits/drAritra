@@ -45,10 +45,10 @@ const Header = () => {
       const targetId = href.substring(1);
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
-        // Offset for the sticky header (h-20 = 80px)
-        const yOffset = -80; 
-        const y = targetElement.getBoundingClientRect().top + window.scrollY + yOffset;
-        window.scrollTo({top: y, behavior: 'smooth'});
+        const yOffset = -80; // Offset for the sticky header
+        // The final position is the element's static top offset minus the 600px animation pull-up.
+        const yPos = targetElement.offsetTop - 600;
+        window.scrollTo({ top: yPos + yOffset, behavior: 'smooth' });
       }
     }
   };

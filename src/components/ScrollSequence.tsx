@@ -30,14 +30,15 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
       const targetId = href.slice(1);
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
-        const yOffset = -80; 
-        const y = targetElement.getBoundingClientRect().top + window.scrollY + yOffset;
-        window.scrollTo({top: y, behavior: 'smooth'});
+        const yOffset = 0; // No sticky header to offset
+        // The final position is the element's static top offset minus the 600px animation pull-up.
+        const yPos = targetElement.offsetTop - 600;
+        window.scrollTo({ top: yPos + yOffset, behavior: 'smooth' });
       }
     }
   };
 
-  const bottomBarY = useTransform(scrollYProgress, [0.4, 0.6], [0, 32]);
+  const bottomBarY = useTransform(scrollYProgress, [0.4, 0.6], [0, 100]);
 
   return (
     <>
@@ -174,7 +175,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   });
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
-  const aboutY = useTransform(scrollYProgress, [0.4, 1], [0, -600]);
+  const aboutY = useTransform(scrollYProgress, [0.4, 0.7], [0, -600]);
 
   const drawFrame = useCallback((idx: number) => {
     const canvas = canvasRef.current;
@@ -301,7 +302,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
         )}
       </AnimatePresence>
 
-      <div ref={targetRef} className="relative h-[400vh] w-full">
+      <div ref={targetRef} className="relative h-[250vh] w-full">
         <div className="sticky top-0 h-screen">
           <canvas ref={canvasRef} className="w-full h-full" />
           <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />
