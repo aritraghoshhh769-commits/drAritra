@@ -192,7 +192,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   const drawFrame = useCallback((idx: number) => {
     const canvas = canvasRef.current;
     const img = frames[idx];
-    if (!canvas || !img) return;
+    if (!canvas || !img || img.width === 0) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -204,7 +204,25 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
     canvas.height = rect.height * dpr;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    // Preserve aspect ratio (object-fit: cover)
+    const imgAspectRatio = img.width / img.height;
+    const canvasAspectRatio = canvas.width / canvas.height;
+    let drawWidth, drawHeight, x, y;
+
+    if (imgAspectRatio > canvasAspectRatio) {
+      drawHeight = canvas.height;
+      drawWidth = drawHeight * imgAspectRatio;
+      x = (canvas.width - drawWidth) / 2;
+      y = 0;
+    } else {
+      drawWidth = canvas.width;
+      drawHeight = drawWidth / imgAspectRatio;
+      x = 0;
+      y = (canvas.height - drawHeight) / 2;
+    }
+    
+    ctx.drawImage(img, x, y, drawWidth, drawHeight);
   }, [frames]);
 
   useEffect(() => {
@@ -221,6 +239,18 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   useEffect(() => {
     if (!loading && frames.length) drawFrame(0);
   }, [loading, frames, drawFrame]);
+
+  // Redraw on resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (!loading && frames.length > 0 && lastFrame.current > -1) {
+        drawFrame(lastFrame.current);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [loading, frames, drawFrame]);
+
 
   return (
     <>
