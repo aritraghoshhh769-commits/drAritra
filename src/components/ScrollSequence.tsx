@@ -20,38 +20,6 @@ const getFramePath = (frame: number): string => {
   return `https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/aritro/ezgif-frame-${frameNumber}.jpg`;
 };
 
-const preloadImages = (
-  onProgress: (progress: number) => void,
-  onComplete: (images: (HTMLImageElement | null)[]) => void
-) => {
-  const imagePromises: Promise<HTMLImageElement | null>[] = [];
-  let loaded = 0;
-
-  for (let i = 0; i < TOTAL_FRAMES; i++) {
-    const img = new window.Image();
-    img.crossOrigin = 'anonymous';
-
-    const promise = new Promise<HTMLImageElement | null>((resolve) => {
-      img.onload = () => {
-        loaded++;
-        onProgress((loaded / TOTAL_FRAMES) * 100);
-        resolve(img);
-      };
-      img.onerror = () => {
-        console.error(`Failed to load image: ${img.src}`);
-        loaded++;
-        onProgress((loaded / TOTAL_FRAMES) * 100);
-        resolve(null);
-      };
-    });
-
-    img.src = getFramePath(i);
-    imagePromises.push(promise);
-  }
-
-  Promise.all(imagePromises).then(onComplete);
-};
-
 // --- Hero Content (Desktop Overlay) ---
 const navLinks = siteConfig.navLinks;
 
@@ -177,9 +145,17 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
 
-  const [frames, setFrames] = useState<(HTMLImageElement | null)[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [progress, setProgress] = useState(0);
+  const [frames] = useState(() => {
+    const imageFrames: (HTMLImageElement | null)[] = [];
+    for (let i = 0; i < TOTAL_FRAMES; i++) {
+      const img = new window.Image();
+      img.crossOrigin = 'anonymous';
+      img.src = getFramePath(i);
+      imageFrames.push(img);
+    }
+    return imageFrames;
+  });
+
   const lastFrame = useRef(-1);
 
   const { scrollYProgress } = useScroll({
@@ -188,98 +164,88 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   });
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
-  const aboutY = useTransform(scrollYProgress, [0.95, 1], [0, -600]);
-
-  useEffect(() => {
-    preloadImages(setProgress, (imgs) => {
-      setFrames(imgs);
-      setLoading(false);
-    });
-  }, []);
+  const aboutY = useTransform(scrollYProgress, [0.95, 1], [-600, -600]);
 
   const drawFrame = useCallback((idx: number) => {
     const canvas = canvasRef.current;
     const img = frames[idx];
-    if (!canvas || !img || img.width === 0) return;
+    if (!canvas || !img) return;
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const draw = () => {
+        const ctx = canvas.getContext('2d');
+        if (!ctx || img.width === 0) return;
+        
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
 
-    const dpr = window.devicePixelRatio || 1;
-    const rect = canvas.getBoundingClientRect();
+        if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+        }
 
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const imgAspectRatio = img.width / img.height;
+        const canvasAspectRatio = canvas.width / canvas.height;
+        let drawWidth, drawHeight, x, y;
 
-    // Preserve aspect ratio (object-fit: cover)
-    const imgAspectRatio = img.width / img.height;
-    const canvasAspectRatio = canvas.width / canvas.height;
-    let drawWidth, drawHeight, x, y;
+        if (imgAspectRatio > canvasAspectRatio) {
+            drawHeight = canvas.height;
+            drawWidth = drawHeight * imgAspectRatio;
+            x = (canvas.width - drawWidth) / 2;
+            y = 0;
+        } else {
+            drawWidth = canvas.width;
+            drawHeight = drawWidth / imgAspectRatio;
+            x = 0;
+            y = (canvas.height - drawHeight) / 2;
+        }
+        
+        ctx.drawImage(img, x, y, drawWidth, drawHeight);
+    };
 
-    if (imgAspectRatio > canvasAspectRatio) {
-      drawHeight = canvas.height;
-      drawWidth = drawHeight * imgAspectRatio;
-      x = (canvas.width - drawWidth) / 2;
-      y = 0;
+    if (img.complete && img.naturalWidth > 0) {
+      draw();
     } else {
-      drawWidth = canvas.width;
-      drawHeight = drawWidth / imgAspectRatio;
-      x = 0;
-      y = (canvas.height - drawHeight) / 2;
+      img.onload = draw;
     }
-    
-    ctx.drawImage(img, x, y, drawWidth, drawHeight);
   }, [frames]);
 
   useEffect(() => {
     const unsub = frameIndex.on('change', (v) => {
       const f = Math.round(v);
-      if (frames[f] && f !== lastFrame.current) {
+      if (f >= 0 && f < TOTAL_FRAMES && f !== lastFrame.current) {
         drawFrame(f);
         lastFrame.current = f;
       }
     });
     return () => unsub();
-  }, [frameIndex, frames, drawFrame]);
+  }, [frameIndex, drawFrame]);
 
   useEffect(() => {
-    if (!loading && frames.length) drawFrame(0);
-  }, [loading, frames, drawFrame]);
+    if (frames.length > 0) {
+        drawFrame(0);
+    }
+  }, [frames, drawFrame]);
 
   // Redraw on resize
   useEffect(() => {
     const handleResize = () => {
-      if (!loading && frames.length > 0 && lastFrame.current > -1) {
+      if (lastFrame.current > -1) {
         drawFrame(lastFrame.current);
       }
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [loading, frames, drawFrame]);
+  }, [drawFrame]);
 
 
   return (
     <>
-      <AnimatePresence>
-        {loading && (
-          <motion.div
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-background"
-          >
-            <div className="w-64 text-center">
-              <p className="mb-2">Loading experience…</p>
-              <Progress value={progress} />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <div ref={targetRef} className="relative h-[800vh] w-full">
+      <div ref={targetRef} className="relative h-[1200vh] w-full">
         <div className="sticky top-0 h-screen">
-          <canvas ref={canvasRef} className="w-full h-full object-cover" />
-          {!loading && <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />}
+          <canvas ref={canvasRef} className="w-full h-full" />
+          <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />
         </div>
       </div>
       <motion.div style={{ y: aboutY }} className="relative z-[1]">
