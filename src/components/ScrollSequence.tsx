@@ -18,14 +18,14 @@ const getFramePath = (frame: number): string => {
   return `https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/aritro/ezgif-frame-${frameNumber}.jpg`;
 };
 
-const preloadImages = (onProgress: (progress: number) => void, onComplete: (images: HTMLImageElement[]) => void) => {
-  const imagePromises: Promise<HTMLImageElement>[] = [];
+const preloadImages = (onProgress: (progress: number) => void, onComplete: (images: (HTMLImageElement | null)[]) => void) => {
+  const imagePromises: Promise<HTMLImageElement | null>[] = [];
   let loadedImagesCount = 0;
 
   for (let i = 0; i < TOTAL_FRAMES; i++) {
     const img = new window.Image();
     img.crossOrigin = "anonymous"; // Required for cross-origin images on canvas
-    const promise = new Promise<HTMLImageElement>((resolve, reject) => {
+    const promise = new Promise<HTMLImageElement | null>((resolve) => {
       img.onload = () => {
         loadedImagesCount++;
         onProgress((loadedImagesCount / TOTAL_FRAMES) * 100);
@@ -33,14 +33,16 @@ const preloadImages = (onProgress: (progress: number) => void, onComplete: (imag
       };
       img.onerror = (err) => {
         console.error(`Failed to load image: ${img.src}`);
-        reject(err);
+        loadedImagesCount++;
+        onProgress((loadedImagesCount / TOTAL_FRAMES) * 100);
+        resolve(null);
       };
     });
     img.src = getFramePath(i);
     imagePromises.push(promise);
   }
 
-  Promise.all(imagePromises).then(onComplete).catch(err => console.error("Error preloading images:", err));
+  Promise.all(imagePromises).then(onComplete);
 };
 
 const navLinks = [
@@ -186,7 +188,7 @@ const ScrollSequence: React.FC<{ onCredentialsClick: () => void }> = ({ onCreden
   const targetRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
-  const [frames, setFrames] = useState<HTMLImageElement[]>([]);
+  const [frames, setFrames] = useState<(HTMLImageElement | null)[]>([]);
   const lastDrawnFrame = useRef(-1);
   const isMobile = useIsMobile();
   const hasMounted = isMobile !== undefined;
