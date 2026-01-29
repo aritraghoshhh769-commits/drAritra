@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { useScroll, useTransform, motion, AnimatePresence } from 'framer-motion';
+import { useScroll, useTransform, motion, AnimatePresence, type MotionValue } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -54,13 +54,15 @@ const preloadImages = (
 // --- Hero Content (Desktop Overlay) ---
 const navLinks = siteConfig.navLinks;
 
-const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void }) => {
+const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsClick: () => void; scrollYProgress: MotionValue<number> }) => {
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#')) {
       e.preventDefault();
       document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const bottomBarOpacity = useTransform(scrollYProgress, [0, 0.05], [1, 0]);
 
   return (
     <>
@@ -103,9 +105,12 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 hidden md:block z-30">
-        <div className="absolute inset-x-0 bottom-0 h-10 bg-black/50 backdrop-blur-sm" />
-        <div className="relative flex justify-between items-center h-10 px-8">
+      <motion.div 
+        className="absolute bottom-0 left-0 right-0 hidden h-8 md:block z-30"
+        style={{ opacity: bottomBarOpacity }}
+      >
+        <div className="absolute inset-x-0 bottom-0 h-full bg-black/50 backdrop-blur-sm" />
+        <div className="relative flex justify-between items-center h-full px-8">
           <button
             onClick={onCredentialsClick}
             className="text-xs text-white/60 hover:text-white"
@@ -126,7 +131,7 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
             ))}
           </nav>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };
@@ -272,7 +277,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
       <div ref={targetRef} className="relative h-[400vh] w-full">
         <div className="sticky top-0 h-screen">
           <canvas ref={canvasRef} className="w-full h-full" />
-          {!loading && <HeroContent onCredentialsClick={onCredentialsClick} />}
+          {!loading && <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />}
         </div>
       </div>
     </>
