@@ -30,7 +30,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
       const targetId = href.slice(1);
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
-        const yOffset = 0; // No sticky header to offset
+        const yOffset = -80; // Offset for the main header that will appear on scroll
         // The final position is the element's static top offset minus the 600px animation pull-up.
         const yPos = targetElement.offsetTop - 600;
         window.scrollTo({ top: yPos + yOffset, behavior: 'smooth' });
@@ -73,7 +73,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
               transition={{ duration: 0.8, delay: 1 }}
               className="mt-6"
             >
-              <Button asChild variant="outline" className="border-white/80 bg-white/20 text-white backdrop-blur-sm hover:bg-white hover:text-black">
+              <Button asChild variant="outline" className="border-white/80 bg-white/20 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black">
                 <Link href="/appointment">Book Appointment</Link>
               </Button>
             </motion.div>
