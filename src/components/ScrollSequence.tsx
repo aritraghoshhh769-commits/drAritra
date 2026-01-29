@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { siteConfig } from '@/lib/config';
-import ClientOnly from './ClientOnly';
 import About from '@/components/About';
 
 // --- Configuration ---
@@ -58,7 +57,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
     }
   };
 
-  const bottomBarY = useTransform(scrollYProgress, [0.6, 0.7], [0, 100]);
+  const bottomBarY = useTransform(scrollYProgress, [0.8, 1], [0, 100]);
 
   return (
     <>
@@ -175,8 +174,8 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   const [isLoaded, setIsLoaded] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
 
-  const [frames] = useState(() => {
-    if (typeof window === 'undefined') return [];
+  const [frames, setFrames] = useState<(HTMLImageElement | null)[]>([]);
+  useEffect(() => {
     const imageFrames: (HTMLImageElement | null)[] = [];
     for (let i = 0; i < TOTAL_FRAMES; i++) {
       const img = new window.Image();
@@ -184,8 +183,8 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
       img.src = getFramePath(i);
       imageFrames.push(img);
     }
-    return imageFrames;
-  });
+    setFrames(imageFrames);
+  }, []);
 
   const lastFrame = useRef(-1);
 
@@ -194,8 +193,8 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
     offset: ['start start', 'end end'],
   });
 
-  const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
-  const aboutY = useTransform(scrollYProgress, [0.4, 0.6], [0, -600]);
+  const aboutY = useTransform(scrollYProgress, [0.4, 0.7], [0, -600]);
+  const frameIndex = useTransform(scrollYProgress, [0, 0.4], [0, TOTAL_FRAMES - 1]);
 
   const drawFrame = useCallback((idx: number) => {
     const canvas = canvasRef.current;
@@ -254,7 +253,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   }, [frameIndex, drawFrame]);
   
   useEffect(() => {
-    if (typeof window === 'undefined' || frames.length === 0) return;
+    if (frames.length === 0) return;
   
     let isCancelled = false;
     let loadedCount = 0;
@@ -293,6 +292,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   // Redraw on resize
   useEffect(() => {
     const handleResize = () => {
+      if (frames.length === 0) return;
       if (lastFrame.current > -1 && frames[lastFrame.current]) {
         drawFrame(lastFrame.current);
       } else if (frames[0]) {
@@ -343,9 +343,7 @@ const ScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () => void
         <MobileHero />
       </div>
       <div id="home" className="hidden md:block">
-        <ClientOnly>
-          <DesktopScrollSequence onCredentialsClick={onCredentialsClick} />
-        </ClientOnly>
+        <DesktopScrollSequence onCredentialsClick={onCredentialsClick} />
       </div>
     </>
   );
