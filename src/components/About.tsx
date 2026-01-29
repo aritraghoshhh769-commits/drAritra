@@ -56,7 +56,6 @@ const About = ({ onCredentialsClick }: { onCredentialsClick: () => void }) => {
 
   return (
     <section 
-      id="about" 
       aria-labelledby="about-dr-aritra"
       className="w-full py-16 md:py-24"
       style={{

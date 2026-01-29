@@ -295,13 +295,13 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
         )}
       </AnimatePresence>
 
-      <div ref={targetRef} className="relative h-[800vh] w-full">
+      <div ref={targetRef} className="relative h-[400vh] w-full">
         <div className="sticky top-0 h-screen">
           <canvas ref={canvasRef} className="w-full h-full" />
           <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />
         </div>
       </div>
-      <motion.div style={{ y: aboutY }} className="relative z-[1]">
+      <motion.div id="about" style={{ y: aboutY }} className="relative z-[1]">
         <About onCredentialsClick={onCredentialsClick} />
       </motion.div>
     </>
