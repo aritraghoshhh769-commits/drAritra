@@ -32,7 +32,7 @@
     --radius: 0.5rem;
   }
 
-  @media (prefers-color-scheme: dark) {
+  .dark {
     :root {
       --background: 0 0% 17%;
       --foreground: 210 40% 98%;
