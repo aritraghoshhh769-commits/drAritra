@@ -110,7 +110,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
         className="absolute bottom-0 left-0 right-0 hidden h-8 md:block z-30"
         style={{ opacity: bottomBarOpacity }}
       >
-        <div className="absolute inset-x-0 bottom-0 h-full bg-black/50 backdrop-blur-sm" />
+        <div className="absolute inset-x-0 bottom-0 h-full bg-black/30 backdrop-blur-md" />
         <div className="relative flex justify-between items-center h-full px-8">
           <button
             onClick={onCredentialsClick}
@@ -188,7 +188,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   });
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
-  const aboutY = useTransform(scrollYProgress, [0.95, 1], [0, -400]);
+  const aboutY = useTransform(scrollYProgress, [0.95, 1], [0, -600]);
 
   useEffect(() => {
     preloadImages(setProgress, (imgs) => {
@@ -276,7 +276,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
         )}
       </AnimatePresence>
 
-      <div ref={targetRef} className="relative h-[600vh] w-full">
+      <div ref={targetRef} className="relative h-[800vh] w-full">
         <div className="sticky top-0 h-screen">
           <canvas ref={canvasRef} className="w-full h-full object-cover" />
           {!loading && <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />}
