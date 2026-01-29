@@ -2,91 +2,91 @@
   "placeholderImages": [
     {
       "id": "mobile-hero",
-      "description": "Dr. Aritra Ghosh providing dental care",
+      "description": "Dr. Aritra Ghosh providing dental care in Rampurhat clinic",
       "imageUrl": "https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/Whisk_d87ddb5ed2e2ef6bdc1445085224968fdr.png",
       "imageHint": "doctor treatment"
     },
     {
       "id": "doctor-portrait",
-      "description": "Professional portrait of Dr. Aritra Ghosh",
+      "description": "Professional portrait of Dr. Aritra Ghosh - Best Dentist in Rampurhat",
       "imageUrl": "https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/WhatsApp%20Image%202026-01-13%20at%2016.26.55.jpeg",
       "imageHint": "doctor portrait"
     },
     {
       "id": "cert-nss",
-      "description": "NSS Certificate",
+      "description": "NSS Certificate of Dr. Aritra Ghosh",
       "imageUrl": "https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/doc%20credentials/ChatGPT%20Image%20Jan%2014,%202026,%2012_58_15%20PM.png",
       "imageHint": "certificate"
     },
     {
       "id": "cert-rcp",
-      "description": "Royal College of Physicians Certificate",
+      "description": "Royal College of Physicians Certificate - Dr. Aritra Ghosh",
       "imageUrl": "https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/doc%20credentials/ChatGPT%20Image%20Jan%2014,%202026,%2012_58_10%20PM.png",
       "imageHint": "certificate"
     },
     {
       "id": "cert-guinness",
-      "description": "Guinness World Records Certificate",
+      "description": "Guinness World Records Certificate awarded to Dr. Aritra Ghosh",
       "imageUrl": "https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/doc%20credentials/ChatGPT%20Image%20Jan%2014,%202026,%2012_58_02%20PM.png",
       "imageHint": "certificate"
     },
     {
       "id": "map-placeholder",
-      "description": "Placeholder for clinic location map",
+      "description": "Dental Clinic Map Location Rampurhat - Dr. Aritra Ghosh",
       "imageUrl": "https://images.unsplash.com/photo-1604357209793-fca5dca89f97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtYXB8ZW58MHx8fHwxNzY4Mzc4NjAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "map"
     },
     {
       "id": "cavities",
-      "description": "Image showing tooth with cavities",
+      "description": "Cavity treatment (Tooth Decay) - Dr. Aritra Ghosh Rampurhat",
       "imageUrl": "https://images.unsplash.com/photo-1629905680198-503a7c62b0d5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "imageHint": "tooth decay"
     },
     {
       "id": "gum-disease",
-      "description": "Image showing inflamed gums",
+      "description": "Gum Disease Treatment (Pyorrhea) - Birbhum Dental Care",
       "imageUrl": "https://images.unsplash.com/photo-1589482103442-7313a27f6943?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "imageHint": "gum disease"
     },
     {
       "id": "tooth-sensitivity",
-      "description": "Image representing tooth sensitivity",
+      "description": "Tooth Sensitivity Relief in Rampurhat - Treatment for Pain",
       "imageUrl": "https://images.unsplash.com/photo-1512353087810-971b134b2a38?q=80&w=1934&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "imageHint": "tooth sensitivity"
     },
     {
       "id": "cracked-tooth",
-      "description": "Image showing a cracked tooth",
+      "description": "Cracked Tooth Repair & Bonding - Best Dentist Rampurhat",
       "imageUrl": "https://images.unsplash.com/photo-1629905680198-503a7c62b0d5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "imageHint": "cracked tooth"
     },
     {
       "id": "bad-breath",
-      "description": "Image representing bad breath",
+      "description": "Bad Breath (Halitosis) Treatment - Oral Health Rampurhat",
       "imageUrl": "https://images.unsplash.com/photo-1592332822473-3d02a50426d9?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "imageHint": "person talking"
     },
     {
       "id": "wisdom-teeth",
-      "description": "Image showing a dental x-ray of wisdom teeth",
+      "description": "Wisdom Tooth Surgery & Pain Relief - Dr. Aritra Ghosh",
       "imageUrl": "https://images.unsplash.com/photo-1629905680198-503a7c62b0d5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "imageHint": "dental x-ray"
     },
     {
       "id": "gallery-1",
-      "description": "Clinic interior view 1",
+      "description": "Clinic interior view at Dr. Aritra Ghosh's Dental Clinic Rampurhat",
       "imageUrl": "https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/WhatsApp%20Image%202026-01-13%20at%2015.37.10%20(1).jpeg",
       "imageHint": "clinic interior"
     },
     {
       "id": "gallery-2",
-      "description": "Patient in dental chair",
+      "description": "Patient receiving treatment at Rampurhat Dental Clinic",
       "imageUrl": "https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/WhatsApp%20Image%202026-01-13%20at%2016.26.55%20(2).jpeg",
       "imageHint": "patient treatment"
     },
     {
       "id": "gallery-3",
-      "description": "Clinic interior view 2",
+      "description": "Dental Clinic Reception Area - Rampurhat",
       "imageUrl": "https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/WhatsApp%20Image%202026-01-13%20at%2015.37.09%20(1).jpeg",
       "imageHint": "clinic reception"
     }
