@@ -108,8 +108,13 @@ const Services = () => {
     <>
       <section
         id="services"
-        className="relative z-10 py-16 md:py-24 bg-transparent"
+        className="relative z-10 py-16 md:py-24 bg-background"
       >
+        <div className="absolute bottom-full left-0 w-full overflow-hidden leading-[0]">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block h-[65px] w-[calc(100%+1.3px)]">
+                <path d="M1200 0L0 0 0 66.3c235.4 22.4 480 34.5 720.9 34.5 139.7 0 274.3-3.8 400.2-11C1167.6 85.3 1189.3 82.5 1200 80V0z" className="fill-background"></path>
+            </svg>
+        </div>
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-primary whitespace-nowrap">Our Clinical Services</h2>
