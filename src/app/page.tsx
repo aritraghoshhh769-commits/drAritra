@@ -40,11 +40,9 @@ export default function Home() {
         </ClientOnly>
       </main>
       <Footer />
-      <ClientOnly>
-        <BottomNavBar
-          onAboutClick={() => setAboutModalOpen(true)}
-        />
-      </ClientOnly>
+      <BottomNavBar
+        onAboutClick={() => setAboutModalOpen(true)}
+      />
       <ClientOnly>
         <AboutModal
           isOpen={isAboutModalOpen}
