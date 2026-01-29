@@ -110,7 +110,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
         className="absolute bottom-0 left-0 right-0 hidden h-8 md:block z-30"
         style={{ opacity: bottomBarOpacity }}
       >
-        <div className="absolute inset-x-0 bottom-0 h-full bg-black/30 backdrop-blur-md" />
+        <div className="absolute inset-x-0 bottom-0 h-full bg-black/30 backdrop-blur-lg" />
         <div className="relative flex justify-between items-center h-full px-8">
           <button
             onClick={onCredentialsClick}
