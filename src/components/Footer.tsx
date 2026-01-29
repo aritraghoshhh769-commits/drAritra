@@ -54,7 +54,7 @@ const Footer = () => {
   const mapUrl = 'https://maps.app.goo.gl/R4xbi3aBMYPceNQe6';
 
   return (
-    <footer id="contact-us" className="py-12 bg-secondary text-secondary-foreground/80 transition-colors duration-300">
+    <footer id="contact-us" className="py-12 bg-secondary text-secondary-foreground/80">
       <div className="container mx-auto px-4">
         {/* --- Mobile Footer --- */}
         <div className="md:hidden text-left space-y-6">
