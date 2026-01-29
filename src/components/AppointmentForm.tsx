@@ -8,6 +8,7 @@ import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
+import { siteConfig } from '@/lib/config';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -42,7 +43,7 @@ const AppointmentForm = () => {
   });
 
   function onSubmit(values: AppointmentFormValues) {
-    const whatsAppNumber = '919002694838'; // Make sure it includes the country code without '+'
+    const whatsAppNumber = siteConfig.contact.whatsapp;
     const message = `
 hi! doctor
 *New Appointment Request*
@@ -54,7 +55,7 @@ hi! doctor
     `.trim();
 
     const whatsappUrl = `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(message)}`;
-    
+
     window.open(whatsappUrl, '_blank');
   }
 
@@ -157,16 +158,16 @@ hi! doctor
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Preferred Time</FormLabel>
-                     <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select from available slots" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {timeSlots.map(slot => <SelectItem key={slot} value={slot}>{slot}</SelectItem>)}
-                        </SelectContent>
-                      </Select>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select from available slots" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {timeSlots.map(slot => <SelectItem key={slot} value={slot}>{slot}</SelectItem>)}
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}

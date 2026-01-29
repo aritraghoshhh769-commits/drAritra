@@ -1,18 +1,26 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Home, User, BriefcaseMedical, Phone, GalleryHorizontal } from 'lucide-react';
+import { Home, User, BriefcaseMedical, Phone, GalleryHorizontal, LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { siteConfig } from '@/lib/config';
 
-const navItems = [
-  { href: '#home', label: 'Home', icon: Home },
-  { href: '#about-modal', label: 'About', icon: User },
-  { href: '#services', label: 'Services', icon: BriefcaseMedical },
-  { href: '#gallery', label: 'Gallery', icon: GalleryHorizontal },
-  { href: '#contact-us', label: 'Contact', icon: Phone },
-];
+// Map icon names from config to actual icons
+const iconMap: Record<string, LucideIcon> = {
+  Home,
+  User,
+  BriefcaseMedical,
+  GalleryHorizontal,
+  Phone,
+};
+
+// Build navItems from config with resolved icons
+const navItems = siteConfig.mobileNavItems.map(item => ({
+  ...item,
+  icon: iconMap[item.iconName] || Home,
+}));
 
 const BottomNavBar = ({ onAboutClick }: { onAboutClick: () => void; }) => {
   const [activeSection, setActiveSection] = useState('home');
@@ -45,15 +53,15 @@ const BottomNavBar = ({ onAboutClick }: { onAboutClick: () => void; }) => {
     });
 
     const homeObserver = new IntersectionObserver(
-        (entries) => {
-            if(entries[0].isIntersecting) {
-                setActiveSection('home');
-            }
-        }, { threshold: 0.1}
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setActiveSection('home');
+        }
+      }, { threshold: 0.1 }
     );
 
     if (homeSection) {
-        homeObserver.observe(homeSection)
+      homeObserver.observe(homeSection)
     }
 
 
@@ -64,7 +72,7 @@ const BottomNavBar = ({ onAboutClick }: { onAboutClick: () => void; }) => {
         }
       });
       if (homeSection) {
-          homeObserver.unobserve(homeSection);
+        homeObserver.unobserve(homeSection);
       }
     };
   }, []);
@@ -89,9 +97,9 @@ const BottomNavBar = ({ onAboutClick }: { onAboutClick: () => void; }) => {
     <div className="fixed bottom-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-sm border-t border-border md:hidden">
       <div className="p-1 border-b border-border">
         <Button asChild className="w-full font-semibold" size="sm">
-            <Link href="/appointment" target="_blank">
-              Book an Appointment
-            </Link>
+          <Link href="/appointment" target="_blank">
+            Book an Appointment
+          </Link>
         </Button>
       </div>
       <nav>

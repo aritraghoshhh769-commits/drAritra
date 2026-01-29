@@ -20,22 +20,14 @@ export default function Home() {
 
   return (
     <>
-      <ClientOnly>
-        <Header />
-      </ClientOnly>
-      <main>
-        <ClientOnly>
-          <ScrollSequence onCredentialsClick={() => setCredentialsModalOpen(true)} />
-        </ClientOnly>
+      <Header />
+      <main id="main-content">
+        <ScrollSequence onCredentialsClick={() => setCredentialsModalOpen(true)} />
         <About onCredentialsClick={() => setCredentialsModalOpen(true)} />
         <Services />
         <Gallery />
-        <ClientOnly>
-          <DentalIssues />
-        </ClientOnly>
-        <ClientOnly>
-          <Booking />
-        </ClientOnly>
+        <DentalIssues />
+        <Booking />
       </main>
       <Footer />
       <ClientOnly>
