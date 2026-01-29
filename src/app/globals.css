@@ -34,24 +34,24 @@
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --background: 215 48% 12%;
+      --background: 0 0% 17%;
       --foreground: 210 40% 98%;
-      --card: 215 30% 17%;
+      --card: 0 0% 22%;
       --card-foreground: 210 40% 98%;
-      --popover: 215 30% 17%;
+      --popover: 0 0% 22%;
       --popover-foreground: 210 40% 98%;
       --primary: 180 50% 45%;
       --primary-foreground: 210 40% 98%;
-      --secondary: 215 30% 22%;
+      --secondary: 0 0% 27%;
       --secondary-foreground: 210 40% 98%;
-      --muted: 215 30% 22%;
+      --muted: 0 0% 27%;
       --muted-foreground: 215 20% 65%;
       --accent: 195 70% 55%;
       --accent-foreground: 210 40% 98%;
       --destructive: 0 72.2% 50.6%;
       --destructive-foreground: 210 40% 98%;
-      --border: 215 30% 27%;
-      --input: 215 30% 27%;
+      --border: 0 0% 32%;
+      --input: 0 0% 32%;
       --ring: 180 50% 45%;
     }
   }
