@@ -87,7 +87,7 @@ const ServiceCard = ({ service, onCtaClick }: { service: Service; onCtaClick: ()
           <service.icon className="h-5 w-5 text-primary dark:text-accent" />
       </div>
 
-      <h3 className="text-sm font-semibold text-primary uppercase mb-2 tracking-wider dark:text-accent md:text-xs md:text-[#1F2A37] md:tracking-wider md:text-base md:mb-3">{service.title}</h3>
+      <h3 className="text-sm font-semibold text-foreground uppercase mb-2 tracking-wider dark:text-foreground md:text-xs md:text-[#1F2A37] md:tracking-wider md:text-base md:mb-3">{service.title}</h3>
       <p className="text-xs text-foreground/80 leading-snug dark:text-muted-foreground md:text-[#6B7280] md:leading-relaxed md:text-sm">{service.description}</p>
     </div>
     <div className="flex justify-center md:justify-start md:mt-4">
