@@ -315,9 +315,8 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
             className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background"
           >
             <div className="text-center">
-              <h1 className="text-4xl font-bold text-primary mb-4">Welcome!</h1>
+              <h1 className="text-4xl font-bold text-primary mb-4">Welcome to our clinic</h1>
               <div className="w-48 mx-auto">
-                <p className="text-foreground text-sm mb-2">Loading animation...</p>
                 <Progress value={loadingProgress} className="h-2" />
               </div>
             </div>
