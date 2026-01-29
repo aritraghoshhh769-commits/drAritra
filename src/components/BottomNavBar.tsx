@@ -86,7 +86,7 @@ const BottomNavBar = ({ onAboutClick }: { onAboutClick: () => void; }) => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-sm border-t border-border md:hidden">
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-sm border-t border-border md:hidden transition-colors duration-300">
       <div className="p-1 border-b border-border">
         <Button asChild className="w-full font-semibold" size="sm">
             <Link href="/appointment" target="_blank">
