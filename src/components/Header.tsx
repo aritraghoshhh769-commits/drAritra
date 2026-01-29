@@ -45,7 +45,10 @@ const Header = () => {
       const targetId = href.substring(1);
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth' });
+        // Offset for the sticky header (h-20 = 80px)
+        const yOffset = -80; 
+        const y = targetElement.getBoundingClientRect().top + window.scrollY + yOffset;
+        window.scrollTo({top: y, behavior: 'smooth'});
       }
     }
   };
@@ -55,7 +58,7 @@ const Header = () => {
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out md:block hidden',
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none',
-        'bg-black/50 backdrop-blur-sm'
+        'bg-black/50 backdrop-blur-lg'
       )}
     >
       <div className="container mx-auto px-4">
@@ -78,7 +81,7 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center space-x-4">
-            <Button asChild variant="outline" className="hidden md:inline-flex border-white/80 bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black">
+            <Button asChild variant="outline" className="hidden md:inline-flex border-white/80 bg-white/20 text-white backdrop-blur-sm transition-all hover:bg-white hover:text-black">
               <Link href="/appointment" target="_blank">Book Appointment</Link>
             </Button>
           </div>

@@ -27,7 +27,12 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#')) {
       e.preventDefault();
-      document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth' });
+      const targetId = href.slice(1);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        const y = targetElement.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({top: y, behavior: 'smooth'});
+      }
     }
   };
 
@@ -78,7 +83,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
         className="absolute bottom-0 left-0 right-0 hidden h-8 md:block z-30"
         style={{ opacity: bottomBarOpacity }}
       >
-        <div className="absolute inset-x-0 bottom-0 h-full bg-black/30 backdrop-blur-lg" />
+        <div className="absolute inset-x-0 bottom-0 h-full bg-black/50 backdrop-blur-lg" />
         <div className="relative flex justify-between items-center h-full px-8">
           <button
             onClick={onCredentialsClick}
@@ -227,16 +232,24 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   }, [frameIndex, drawFrame]);
   
   useEffect(() => {
-    if (frames.length === 0) return;
+    if (typeof window === 'undefined' || frames.length === 0) return;
 
-    let loadedCount = 0;
     let isCancelled = false;
-
-    const updateProgress = () => {
+    let loadedCount = 0;
+    
+    const checkImages = () => {
         if (isCancelled) return;
-        loadedCount++;
+        
+        loadedCount = 0;
+        frames.forEach((img) => {
+            if (img?.complete && img.naturalWidth > 0) {
+                loadedCount++;
+            }
+        });
+
         const progress = Math.round((loadedCount / TOTAL_FRAMES) * 100);
         setLoadingProgress(progress);
+
         if (loadedCount === TOTAL_FRAMES) {
             setTimeout(() => {
                 if (!isCancelled) setIsLoaded(true);
@@ -246,14 +259,12 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
 
     frames.forEach((img) => {
         if (!img) return;
-        if (img.complete) {
-            updateProgress();
-        } else {
-            img.onload = updateProgress;
-            img.onerror = updateProgress; // Count errors as loaded to not get stuck
-        }
+        img.onload = checkImages;
+        img.onerror = checkImages; // Treat error as loaded to not get stuck
     });
     
+    checkImages(); // Initial check for cached images
+
     return () => {
         isCancelled = true;
     };
@@ -292,7 +303,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
         )}
       </AnimatePresence>
 
-      <div ref={targetRef} className="relative h-[200vh] w-full">
+      <div ref={targetRef} className="relative h-[400vh] w-full">
         <div className="sticky top-0 h-screen">
           <canvas ref={canvasRef} className="w-full h-full" />
           <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />
