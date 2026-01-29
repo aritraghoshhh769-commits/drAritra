@@ -9,6 +9,7 @@ import { Progress } from '@/components/ui/progress';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { siteConfig } from '@/lib/config';
 import ClientOnly from './ClientOnly';
+import About from '@/components/About';
 
 // --- Configuration ---
 const TOTAL_FRAMES = 120;
@@ -187,6 +188,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   });
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
+  const aboutY = useTransform(scrollYProgress, [0.95, 1], [0, -150]);
 
   useEffect(() => {
     preloadImages(setProgress, (imgs) => {
@@ -276,10 +278,13 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
 
       <div ref={targetRef} className="relative h-[400vh] w-full">
         <div className="sticky top-0 h-screen">
-          <canvas ref={canvasRef} className="w-full h-full" />
+          <canvas ref={canvasRef} className="w-full h-full object-cover" />
           {!loading && <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />}
         </div>
       </div>
+      <motion.div style={{ y: aboutY }}>
+        <About onCredentialsClick={onCredentialsClick} />
+      </motion.div>
     </>
   );
 };

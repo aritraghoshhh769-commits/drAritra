@@ -34,7 +34,9 @@ export default function Home() {
       {/* Main content (for skip-link accessibility) */}
       <main id="main-content">
         <ScrollSequence onCredentialsClick={() => setCredentialsModalOpen(true)} />
-        <About onCredentialsClick={() => setCredentialsModalOpen(true)} />
+        <div className="md:hidden">
+          <About onCredentialsClick={() => setCredentialsModalOpen(true)} />
+        </div>
         <Services />
         <Gallery />
         <DentalIssues />
@@ -69,4 +71,3 @@ export default function Home() {
     </>
   );
 }
-

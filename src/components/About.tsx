@@ -58,7 +58,7 @@ const About = ({ onCredentialsClick }: { onCredentialsClick: () => void }) => {
     <section 
       id="about" 
       aria-labelledby="about-dr-aritra"
-      className="w-full py-16 md:py-24 hidden md:block"
+      className="w-full py-16 md:py-24"
       style={{
         backgroundColor: 'hsl(195, 70%, 95%)',
         backgroundImage: `
