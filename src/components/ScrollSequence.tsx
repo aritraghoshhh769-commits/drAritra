@@ -9,6 +9,7 @@ import { Progress } from '@/components/ui/progress';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { siteConfig } from '@/lib/config';
 import About from '@/components/About';
+import ClientOnly from '@/components/ClientOnly';
 
 // --- Configuration ---
 const TOTAL_FRAMES = 120;
@@ -110,7 +111,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
             onClick={onCredentialsClick}
             className="text-xs text-white/60 hover:text-white"
           >
-            Doctor's Credentials
+            Doctor&apos;s Credentials
           </button>
 
           <nav className="flex gap-6">
@@ -310,7 +311,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
         <motion.div
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background"
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white"
         >
           <div className="text-center">
             <h1 className="text-4xl font-bold text-primary mb-4">Welcome to our clinic</h1>
@@ -325,7 +326,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   );
 
   return (
-    <>
+    <ClientOnly>
       {loadingScreen}
       <div ref={targetRef} className="relative h-[250vh] w-full">
         <div className="sticky top-0 h-screen">
@@ -333,10 +334,12 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
           <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />
         </div>
       </div>
-      <motion.div id="about" style={{ y: aboutY, marginBottom: aboutY }} className="relative z-[1]">
-        <About onCredentialsClick={onCredentialsClick} />
+      <motion.div id="about" style={{ y: aboutY, marginBottom: -600 }} className="relative z-[1]">
+          <div className="md:block hidden">
+            <About onCredentialsClick={onCredentialsClick} />
+          </div>
       </motion.div>
-    </>
+    </ClientOnly>
   );
 };
 
