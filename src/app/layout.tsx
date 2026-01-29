@@ -49,7 +49,7 @@ export default function RootLayout({
       </head>
 
       <body className="font-body antialiased bg-background text-foreground pb-28 md:pb-0 overflow-x-hidden">
-        {/* Accessibility: Skip to main content */}
+        {/* Accessibility skip link */}
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-primary focus:text-primary-foreground focus:px-4 focus:py-2 focus:rounded-md"
@@ -57,12 +57,7 @@ export default function RootLayout({
           Skip to main content
         </a>
 
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider>
           {children}
           <Toaster />
         </ThemeProvider>
