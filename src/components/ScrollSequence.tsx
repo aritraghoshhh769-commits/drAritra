@@ -173,7 +173,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   });
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
-  const aboutY = useTransform(scrollYProgress, [0.85, 1], [0, -600]);
+  const aboutY = useTransform(scrollYProgress, [0.7, 1], [0, -600]);
 
   const drawFrame = useCallback((idx: number) => {
     const canvas = canvasRef.current;
@@ -300,7 +300,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
         )}
       </AnimatePresence>
 
-      <div ref={targetRef} className="relative h-[250vh] w-full">
+      <div ref={targetRef} className="relative h-[300vh] w-full">
         <div className="sticky top-0 h-screen">
           <canvas ref={canvasRef} className="w-full h-full" />
           <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />
