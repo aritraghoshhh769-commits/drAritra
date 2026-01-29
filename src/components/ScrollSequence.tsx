@@ -4,10 +4,10 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useScroll, useTransform, motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { useIsMobile } from '@/hooks/use-mobile';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Progress } from '@/components/ui/progress';
+import ClientOnly from './ClientOnly';
 
 // --- Configuration Constants ---
 const TOTAL_FRAMES = 120;
@@ -182,144 +182,144 @@ const MobileHero = () => {
     );
 };
 
-// --- Main Scroll Sequence Component ---
-const ScrollSequence: React.FC<{ onCredentialsClick: () => void }> = ({ onCredentialsClick }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const targetRef = useRef<HTMLDivElement>(null);
-  const [loading, setLoading] = useState(true);
-  const [loadingProgress, setLoadingProgress] = useState(0);
-  const [frames, setFrames] = useState<(HTMLImageElement | null)[]>([]);
-  const lastDrawnFrame = useRef(-1);
-  const isMobile = useIsMobile();
-  const hasMounted = isMobile !== undefined;
-
-
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start start", "end end"],
-  });
-
-  const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
-
-  useEffect(() => {
-    if (hasMounted && !isMobile) {
+const DesktopScrollSequence: React.FC<{ onCredentialsClick: () => void }> = ({ onCredentialsClick }) => {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const targetRef = useRef<HTMLDivElement>(null);
+    const [loading, setLoading] = useState(true);
+    const [loadingProgress, setLoadingProgress] = useState(0);
+    const [frames, setFrames] = useState<(HTMLImageElement | null)[]>([]);
+    const lastDrawnFrame = useRef(-1);
+    
+    const { scrollYProgress } = useScroll({
+      target: targetRef,
+      offset: ["start start", "end end"],
+    });
+  
+    const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
+  
+    useEffect(() => {
         preloadImages(setLoadingProgress, (loadedFrames) => {
             setFrames(loadedFrames);
             setLoading(false);
         });
-    } else {
-        setLoading(false);
-    }
-  }, [isMobile, hasMounted]);
-
-  const drawFrame = useCallback((frameIdx: number) => {
-    const canvas = canvasRef.current;
-    const image = frames[frameIdx];
-    if (!canvas || !image) return;
-
-    const context = canvas.getContext('2d');
-    if (!context) return;
-    
-    const dpr = window.devicePixelRatio || 1;
-    const rect = canvas.getBoundingClientRect();
-    
-    const canvasWidth = rect.width * dpr;
-    const canvasHeight = rect.height * dpr;
-
-    if (canvas.width !== canvasWidth || canvas.height !== canvasHeight) {
-        canvas.width = canvasWidth;
-        canvas.height = canvasHeight;
-    }
-
-    const imgAspectRatio = image.naturalWidth / image.naturalHeight;
-    const canvasAspectRatio = canvas.width / canvas.height;
-
-    let renderWidth, renderHeight, x, y;
-
-    if (imgAspectRatio > canvasAspectRatio) {
-        renderHeight = canvas.height;
-        renderWidth = renderHeight * imgAspectRatio;
-        x = (canvas.width - renderWidth) / 2;
-        y = 0;
-    } else {
-        renderWidth = canvas.width;
-        renderHeight = renderWidth / imgAspectRatio;
-        x = 0;
-        y = (canvas.height - renderHeight) / 2;
-    }
-    
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.drawImage(image, x, y, renderWidth, renderHeight);
-  }, [frames]);
-
-
-  useEffect(() => {
-    if (isMobile) return;
-    const handleResize = () => {
-      if (frames.length > 0) {
-        drawFrame(Math.round(frameIndex.get()));
+    }, []);
+  
+    const drawFrame = useCallback((frameIdx: number) => {
+      const canvas = canvasRef.current;
+      const image = frames[frameIdx];
+      if (!canvas || !image) return;
+  
+      const context = canvas.getContext('2d');
+      if (!context) return;
+      
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      
+      const canvasWidth = rect.width * dpr;
+      const canvasHeight = rect.height * dpr;
+  
+      if (canvas.width !== canvasWidth || canvas.height !== canvasHeight) {
+          canvas.width = canvasWidth;
+          canvas.height = canvasHeight;
       }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [drawFrame, frames, frameIndex, isMobile]);
   
-  useEffect(() => {
-    if (isMobile) return;
-    const unsubscribe = frameIndex.on("change", (latest) => {
-        const roundedFrame = Math.round(latest);
-        if (frames[roundedFrame] && roundedFrame !== lastDrawnFrame.current) {
-            drawFrame(roundedFrame);
-            lastDrawnFrame.current = roundedFrame;
+      const imgAspectRatio = image.naturalWidth / image.naturalHeight;
+      const canvasAspectRatio = canvas.width / canvas.height;
+  
+      let renderWidth, renderHeight, x, y;
+  
+      if (imgAspectRatio > canvasAspectRatio) {
+          renderHeight = canvas.height;
+          renderWidth = renderHeight * imgAspectRatio;
+          x = (canvas.width - renderWidth) / 2;
+          y = 0;
+      } else {
+          renderWidth = canvas.width;
+          renderHeight = renderWidth / imgAspectRatio;
+          x = 0;
+          y = (canvas.height - renderHeight) / 2;
+      }
+      
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(image, x, y, renderWidth, renderHeight);
+    }, [frames]);
+  
+  
+    useEffect(() => {
+      const handleResize = () => {
+        if (frames.length > 0) {
+          drawFrame(Math.round(frameIndex.get()));
         }
-    });
-    return () => unsubscribe();
-  }, [frameIndex, frames, drawFrame, isMobile]);
-
-  useEffect(() => {
-    if (isMobile || loading || frames.length === 0) return;
-    drawFrame(0);
-  }, [loading, frames, drawFrame, isMobile]);
-
-  if (!hasMounted) {
-    return <div id="home" className="h-screen" />; // Render nothing until mounted on client
-  }
-
-  if (isMobile) {
-      return <MobileHero />;
-  }
+      };
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, [drawFrame, frames, frameIndex]);
+    
+    useEffect(() => {
+      const unsubscribe = frameIndex.on("change", (latest) => {
+          const roundedFrame = Math.round(latest);
+          if (frames[roundedFrame] && roundedFrame !== lastDrawnFrame.current) {
+              drawFrame(roundedFrame);
+              lastDrawnFrame.current = roundedFrame;
+          }
+      });
+      return () => unsubscribe();
+    }, [frameIndex, frames, drawFrame]);
   
+    useEffect(() => {
+      if (!loading && frames.length > 0) {
+        drawFrame(0);
+      }
+    }, [loading, frames, drawFrame]);
+  
+    return (
+        <>
+          <AnimatePresence>
+              {loading && (
+              <motion.div
+                  initial={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background p-8"
+              >
+                  <div className="w-full max-w-sm text-center">
+                      <h2 className="text-2xl font-bold text-primary mb-2">Welcome!</h2>
+                      <p className="text-foreground/70 mb-4">Preparing your seamless experience.</p>
+                      <Progress value={loadingProgress} className="h-2 w-full my-4" />
+                      <p className="text-sm text-foreground/60 font-mono">{Math.round(loadingProgress)}%</p>
+                  </div>
+              </motion.div>
+              )}
+          </AnimatePresence>
+          <div id="home" ref={targetRef} className="relative w-full h-[400vh]">
+              <div className="sticky top-0 h-screen w-full">
+                  <section className="hero-scroll">
+                  <div className="hero-stage">
+                      <canvas ref={canvasRef} className="w-full h-full" />
+                  </div>
+                  
+                  {!loading && <HeroContent onCredentialsClick={onCredentialsClick} />}
+                  </section>
+              </div>
+          </div>
+        </>
+    );
+};
+
+
+// --- Main Scroll Sequence Component ---
+const ScrollSequence: React.FC<{ onCredentialsClick: () => void }> = ({ onCredentialsClick }) => {
   return (
-      <>
-        <AnimatePresence>
-            {loading && (
-            <motion.div
-                initial={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background p-8"
-            >
-                <div className="w-full max-w-sm text-center">
-                    <h2 className="text-2xl font-bold text-primary mb-2">Welcome!</h2>
-                    <p className="text-foreground/70 mb-4">Preparing your seamless experience.</p>
-                    <Progress value={loadingProgress} className="h-2 w-full my-4" />
-                    <p className="text-sm text-foreground/60 font-mono">{Math.round(loadingProgress)}%</p>
-                </div>
-            </motion.div>
-            )}
-        </AnimatePresence>
-        <div id="home" ref={targetRef} className="relative w-full h-[400vh]">
-            <div className="sticky top-0 h-screen w-full">
-                <section className="hero-scroll">
-                <div className="hero-stage">
-                    <canvas ref={canvasRef} className="w-full h-full" />
-                </div>
-                
-                {!loading && <HeroContent onCredentialsClick={onCredentialsClick} />}
-                </section>
-            </div>
-        </div>
-      </>
+    <>
+      <div className="md:hidden">
+        <MobileHero />
+      </div>
+      <div className="hidden md:block">
+        <ClientOnly>
+          <DesktopScrollSequence onCredentialsClick={onCredentialsClick} />
+        </ClientOnly>
+      </div>
+    </>
   );
 };
 

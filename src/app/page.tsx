@@ -28,9 +28,7 @@ export default function Home() {
         <Header />
       </ClientOnly>
       <main>
-        <ClientOnly>
-          <ScrollSequence onCredentialsClick={() => setCredentialsModalOpen(true)} />
-        </ClientOnly>
+        <ScrollSequence onCredentialsClick={() => setCredentialsModalOpen(true)} />
         <About onCredentialsClick={() => setCredentialsModalOpen(true)} />
         <Services />
         <Gallery />
