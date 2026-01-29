@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <>
       <div className="absolute top-4 right-4 z-30 md:hidden">
-        <ThemeToggle className="text-white/80 bg-black/20 hover:bg-black/40 hover:text-white" />
+        <ThemeToggle className="text-white/80 hover:text-white" />
       </div>
       <ClientOnly>
         <Header />
