@@ -16,11 +16,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('light');
   const controls = useAnimation();
 
-  // On initial load, set the theme based on localStorage or system preference
+  // On initial load, set the theme based on localStorage or default to light
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme') as Theme | null;
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setThemeState(storedTheme || (systemPrefersDark ? 'dark' : 'light'));
+    // For new users, default to light theme, regardless of system preference.
+    setThemeState(storedTheme || 'light');
   }, []);
 
   // Whenever the theme state changes, update the class on the html element
