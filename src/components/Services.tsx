@@ -108,12 +108,12 @@ const Services = () => {
     <>
       <section
         id="services"
-        className="relative z-10 py-16 md:py-24 bg-transparent"
+        className="relative z-10 pt-4 pb-16 md:pt-8 md:pb-20 bg-background"
       >
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-primary whitespace-nowrap">Our Clinical Services</h2>
-            <p className="text-base md:text-lg text-foreground/80 mt-2">Dedicated to your oral health and beautiful smile.</p>
+            <p className="text-sm text-foreground/80 mt-2">Dedicated to your oral health and beautiful smile.</p>
           </div>
           
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-8">

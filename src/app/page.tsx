@@ -13,6 +13,7 @@ import BottomNavBar from '@/components/BottomNavBar';
 import Gallery from '@/components/Gallery';
 import AboutModal from '@/components/AboutModal';
 import CredentialsModal from '@/components/CredentialsModal';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 export default function Home() {
   const [isAboutModalOpen, setAboutModalOpen] = useState(false);
@@ -20,8 +21,16 @@ export default function Home() {
 
   return (
     <>
+
       <Header />
       <main id="main-content">
+      <div className="absolute top-4 right-4 z-30 md:hidden">
+        <ThemeToggle className="text-white/80 hover:text-white" />
+      </div>
+      <ClientOnly>
+        <Header />
+      </ClientOnly>
+      <main>
         <ScrollSequence onCredentialsClick={() => setCredentialsModalOpen(true)} />
         <About onCredentialsClick={() => setCredentialsModalOpen(true)} />
         <Services />
@@ -30,11 +39,9 @@ export default function Home() {
         <Booking />
       </main>
       <Footer />
-      <ClientOnly>
-        <BottomNavBar
-          onAboutClick={() => setAboutModalOpen(true)}
-        />
-      </ClientOnly>
+      <BottomNavBar
+        onAboutClick={() => setAboutModalOpen(true)}
+      />
       <ClientOnly>
         <AboutModal
           isOpen={isAboutModalOpen}
