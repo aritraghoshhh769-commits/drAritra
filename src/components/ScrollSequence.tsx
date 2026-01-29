@@ -66,7 +66,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
               transition={{ duration: 0.8, delay: 1 }}
               className="mt-6"
             >
-              <Button asChild variant="outline" className="border-white/80 text-white">
+              <Button asChild variant="outline" className="border-white/80 bg-white/20 text-white backdrop-blur-sm hover:bg-white hover:text-black">
                 <Link href="/appointment">Book Appointment</Link>
               </Button>
             </motion.div>
