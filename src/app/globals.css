@@ -135,7 +135,6 @@
 .fill-background {
   color: hsl(var(--background));
   fill: currentColor;
-  transition: color 0.3s ease-in-out;
 }
 
 .day-is-weekend[data-disabled="true"] > button {
@@ -143,6 +142,6 @@
     text-decoration: none !important;
 }
 /* This is to override the today dot color for disabled weekends */
-.day-is-weekend[data-disabled="true"][data-today="true"] > button > *::after {
+.day-is-weekend[data-disabled="true"][data-today="true"] > *::after {
     background-color: hsl(var(--destructive) / 0.7) !important;
 }
