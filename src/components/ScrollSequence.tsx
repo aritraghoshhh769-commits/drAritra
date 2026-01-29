@@ -234,6 +234,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
 
     const updateProgress = () => {
         if (isCancelled) return;
+        loadedCount++;
         const progress = Math.round((loadedCount / TOTAL_FRAMES) * 100);
         setLoadingProgress(progress);
         if (loadedCount === TOTAL_FRAMES) {
@@ -245,15 +246,11 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
 
     frames.forEach((img) => {
         if (!img) return;
-        const onLoad = () => {
-            loadedCount++;
-            updateProgress();
-        };
         if (img.complete) {
-            onLoad();
+            updateProgress();
         } else {
-            img.onload = onLoad;
-            img.onerror = onLoad; // Count errors as loaded to not get stuck
+            img.onload = updateProgress;
+            img.onerror = updateProgress; // Count errors as loaded to not get stuck
         }
     });
     
@@ -295,13 +292,13 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
         )}
       </AnimatePresence>
 
-      <div ref={targetRef} className="relative h-[400vh] w-full">
+      <div ref={targetRef} className="relative h-[200vh] w-full">
         <div className="sticky top-0 h-screen">
           <canvas ref={canvasRef} className="w-full h-full" />
           <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />
         </div>
       </div>
-      <motion.div id="about" style={{ y: aboutY }} className="relative z-[1]">
+      <motion.div id="about" style={{ y: aboutY, marginBottom: aboutY }} className="relative z-[1]">
         <About onCredentialsClick={onCredentialsClick} />
       </motion.div>
     </>
@@ -315,7 +312,7 @@ const ScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () => void
       <div className="md:hidden">
         <MobileHero />
       </div>
-      <div className="hidden md:block">
+      <div id="home" className="hidden md:block">
         <ClientOnly>
           <DesktopScrollSequence onCredentialsClick={onCredentialsClick} />
         </ClientOnly>
