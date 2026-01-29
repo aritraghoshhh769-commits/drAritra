@@ -37,7 +37,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
     }
   };
 
-  const bottomBarOpacity = useTransform(scrollYProgress, [0.2, 0.4], [1, 0]);
+  const bottomBarY = useTransform(scrollYProgress, [0.4, 0.6], [0, 32]);
 
   return (
     <>
@@ -82,7 +82,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
 
       <motion.div 
         className="absolute bottom-0 left-0 right-0 hidden h-8 md:block z-30"
-        style={{ opacity: bottomBarOpacity }}
+        style={{ y: bottomBarY }}
       >
         <div className="absolute inset-x-0 bottom-0 h-full bg-black/30 backdrop-blur-md" />
         <div className="relative flex justify-between items-center h-full px-8">
@@ -174,7 +174,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   });
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
-  const aboutY = useTransform(scrollYProgress, [0.2, 1], [0, -600]);
+  const aboutY = useTransform(scrollYProgress, [0.4, 1], [0, -600]);
 
   const drawFrame = useCallback((idx: number) => {
     const canvas = canvasRef.current;
@@ -301,7 +301,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
         )}
       </AnimatePresence>
 
-      <div ref={targetRef} className="relative h-[300vh] w-full">
+      <div ref={targetRef} className="relative h-[400vh] w-full">
         <div className="sticky top-0 h-screen">
           <canvas ref={canvasRef} className="w-full h-full" />
           <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />
