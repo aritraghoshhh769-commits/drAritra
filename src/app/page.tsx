@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Header from '@/components/Header';
 import ScrollSequence from '@/components/ScrollSequence';
 import About from '@/components/About';
@@ -18,10 +18,6 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 export default function Home() {
   const [isAboutModalOpen, setAboutModalOpen] = useState(false);
   const [isCredentialsModalOpen, setCredentialsModalOpen] = useState(false);
-
-  useEffect(() => {
-    window.history.scrollRestoration = 'manual';
-  }, []);
 
   return (
     <>

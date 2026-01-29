@@ -33,6 +33,14 @@ export default function RootLayout({
       <head>
         <meta name="color-scheme" content="light dark" />
 
+        <Script id="scroll-restoration" strategy="beforeInteractive">
+          {`
+            if (window.history.scrollRestoration) {
+              window.history.scrollRestoration = 'manual';
+            }
+          `}
+        </Script>
+
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-EW443DZW0F"
