@@ -83,7 +83,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
         className="absolute bottom-0 left-0 right-0 hidden h-8 md:block z-30"
         style={{ opacity: bottomBarOpacity }}
       >
-        <div className="absolute inset-x-0 bottom-0 h-full bg-black/50 backdrop-blur-lg" />
+        <div className="absolute inset-x-0 bottom-0 h-full bg-black/30 backdrop-blur-md" />
         <div className="relative flex justify-between items-center h-full px-8">
           <button
             onClick={onCredentialsClick}
@@ -173,7 +173,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   });
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
-  const aboutY = useTransform(scrollYProgress, [0.95, 1], [0, -600]);
+  const aboutY = useTransform(scrollYProgress, [0.85, 1], [0, -600]);
 
   const drawFrame = useCallback((idx: number) => {
     const canvas = canvasRef.current;
@@ -233,42 +233,39 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   
   useEffect(() => {
     if (typeof window === 'undefined' || frames.length === 0) return;
-
+  
     let isCancelled = false;
     let loadedCount = 0;
-    
+  
     const checkImages = () => {
-        if (isCancelled) return;
-        
-        loadedCount = 0;
-        frames.forEach((img) => {
-            if (img?.complete && img.naturalWidth > 0) {
-                loadedCount++;
-            }
-        });
-
-        const progress = Math.round((loadedCount / TOTAL_FRAMES) * 100);
-        setLoadingProgress(progress);
-
-        if (loadedCount === TOTAL_FRAMES) {
-            setTimeout(() => {
-                if (!isCancelled) setIsLoaded(true);
-            }, 250);
-        }
+      if (isCancelled) return;
+  
+      loadedCount = frames.filter(img => img?.complete && img.naturalWidth > 0).length;
+  
+      const progress = Math.round((loadedCount / TOTAL_FRAMES) * 100);
+      setLoadingProgress(progress);
+  
+      if (loadedCount === TOTAL_FRAMES) {
+        setTimeout(() => {
+          if (!isCancelled) setIsLoaded(true);
+        }, 250);
+      }
     };
-
-    frames.forEach((img) => {
-        if (!img) return;
+  
+    frames.forEach(img => {
+      if (img) {
         img.onload = checkImages;
         img.onerror = checkImages; // Treat error as loaded to not get stuck
+      }
     });
-    
-    checkImages(); // Initial check for cached images
-
+  
+    // Initial check for cached images
+    checkImages();
+  
     return () => {
-        isCancelled = true;
+      isCancelled = true;
     };
-}, [frames]);
+  }, [frames]);
 
 
   // Redraw on resize
@@ -303,7 +300,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
         )}
       </AnimatePresence>
 
-      <div ref={targetRef} className="relative h-[400vh] w-full">
+      <div ref={targetRef} className="relative h-[250vh] w-full">
         <div className="sticky top-0 h-screen">
           <canvas ref={canvasRef} className="w-full h-full" />
           <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />
