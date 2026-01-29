@@ -24,15 +24,29 @@ const getFramePath = (frame: number): string => {
 const navLinks = siteConfig.navLinks;
 
 const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsClick: () => void; scrollYProgress: MotionValue<number> }) => {
+  const offsets = useRef<{ [key: string]: number }>({});
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navLinks.forEach(link => {
+        const id = link.href.substring(1);
+        const el = document.getElementById(id);
+        if (el) {
+          offsets.current[id] = el.offsetTop;
+        }
+      });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#')) {
       e.preventDefault();
       const targetId = href.slice(1);
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
+      const initialOffset = offsets.current[targetId];
+      if (initialOffset !== undefined) {
         const yOffset = -80; // Offset for the main header that will appear on scroll
-        // The final position is the element's static top offset minus the 600px animation pull-up.
-        const yPos = targetElement.offsetTop - 600;
+        const yPos = initialOffset - 600;
         window.scrollTo({ top: yPos + yOffset, behavior: 'smooth' });
       }
     }
@@ -175,7 +189,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   });
 
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, TOTAL_FRAMES - 1]);
-  const aboutY = useTransform(scrollYProgress, [0.4, 0.7], [0, -600]);
+  const aboutY = useTransform(scrollYProgress, [0.7, 1], [0, -600]);
 
   const drawFrame = useCallback((idx: number) => {
     const canvas = canvasRef.current;

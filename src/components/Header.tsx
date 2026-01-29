@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -10,11 +10,25 @@ const navLinks = siteConfig.navLinks;
 
 const Header = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const offsets = useRef<{ [key: string]: number }>({});
 
   useEffect(() => {
+    // A small delay to let browser finish layout before caching offsets
+    const timer = setTimeout(() => {
+      navLinks.forEach(link => {
+          if (link.href.startsWith('#')) {
+              const id = link.href.substring(1);
+              const el = document.getElementById(id);
+              if (el) {
+                  offsets.current[id] = el.offsetTop;
+              }
+          }
+      });
+    }, 100);
+    
     const aboutSection = document.getElementById('about');
     if (!aboutSection) {
-      return;
+      return () => clearTimeout(timer);
     }
 
     const observer = new IntersectionObserver(
@@ -32,6 +46,7 @@ const Header = () => {
     observer.observe(aboutSection);
 
     return () => {
+      clearTimeout(timer);
       if (aboutSection) {
         observer.unobserve(aboutSection);
       }
@@ -43,11 +58,12 @@ const Header = () => {
     if (href.startsWith('#')) {
       e.preventDefault();
       const targetId = href.substring(1);
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
+      const initialOffset = offsets.current[targetId];
+
+      if (initialOffset !== undefined) {
         const yOffset = -80; // Offset for the sticky header
         // The final position is the element's static top offset minus the 600px animation pull-up.
-        const yPos = targetElement.offsetTop - 600;
+        const yPos = initialOffset - 600;
         window.scrollTo({ top: yPos + yOffset, behavior: 'smooth' });
       }
     }
