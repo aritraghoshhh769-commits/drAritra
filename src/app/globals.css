@@ -34,24 +34,24 @@
 
   .dark {
     :root {
-      --background: 0 0% 17%;
+      --background: 215 30% 15%;
       --foreground: 210 40% 98%;
-      --card: 0 0% 22%;
+      --card: 215 28% 20%;
       --card-foreground: 210 40% 98%;
-      --popover: 0 0% 22%;
+      --popover: 215 28% 20%;
       --popover-foreground: 210 40% 98%;
       --primary: 180 50% 45%;
       --primary-foreground: 210 40% 98%;
-      --secondary: 0 0% 27%;
+      --secondary: 215 25% 25%;
       --secondary-foreground: 210 40% 98%;
-      --muted: 0 0% 27%;
+      --muted: 215 25% 25%;
       --muted-foreground: 215 20% 65%;
       --accent: 195 70% 55%;
       --accent-foreground: 210 40% 98%;
       --destructive: 0 72.2% 50.6%;
       --destructive-foreground: 210 40% 98%;
-      --border: 0 0% 32%;
-      --input: 0 0% 32%;
+      --border: 215 25% 30%;
+      --input: 215 25% 30%;
       --ring: 180 50% 45%;
     }
   }
