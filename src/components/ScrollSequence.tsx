@@ -104,8 +104,8 @@ const HeroContent = ({ onCredentialsClick }: { onCredentialsClick: () => void })
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 hidden md:block z-30">
-        <div className="absolute inset-x-0 bottom-0 h-14 bg-black/50 backdrop-blur-sm" />
-        <div className="relative flex justify-between items-center h-14 px-8">
+        <div className="absolute inset-x-0 bottom-0 h-10 bg-black/50 backdrop-blur-sm" />
+        <div className="relative flex justify-between items-center h-10 px-8">
           <button
             onClick={onCredentialsClick}
             className="text-xs text-white/60 hover:text-white"
