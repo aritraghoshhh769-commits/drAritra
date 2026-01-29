@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Header from '@/components/Header';
 import ScrollSequence from '@/components/ScrollSequence';
-import About from '@/components/About';
 import Services from '@/components/Services';
 import Booking from '@/components/Booking';
 import Footer from '@/components/Footer';
@@ -34,9 +33,6 @@ export default function Home() {
       {/* Main content (for skip-link accessibility) */}
       <main id="main-content">
         <ScrollSequence onCredentialsClick={() => setCredentialsModalOpen(true)} />
-        <div className="md:hidden">
-          <About onCredentialsClick={() => setCredentialsModalOpen(true)} />
-        </div>
         <Services />
         <Gallery />
         <DentalIssues />
