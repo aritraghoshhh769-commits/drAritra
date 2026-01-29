@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
@@ -19,15 +20,27 @@ export const metadata: Metadata = {
   },
   description: 'Professional dental care by Dr. Aritra Ghosh in Rampurhat. Modern, clean, and high-trust dental services including general dentistry, preventive care, and pain management. Book your appointment today.',
   keywords: [
-    'dentist rampurhat',
-    'dental clinic rampurhat',
-    'dr aritra ghosh',
-    'dental surgeon',
-    'tooth pain treatment',
-    'dental checkup',
-    'oral health',
-    'dental care west bengal',
-    'BDS doctor rampurhat',
+    // Primary Keywords
+    'dentist rampurhat', 'dental clinic rampurhat', 'dr aritra ghosh', 'best dentist rampurhat',
+    'dental surgeon rampurhat', 'oral surgeon rampurhat', 'BDS doctor rampurhat',
+    // Name Variations & Misspellings
+    'dr aritro ghosh', 'aritra ghosh dentist', 'aritro ghosh', 'dr ghosh rampurhat',
+    'dr aritra ghos', 'aritra dentist',
+    // Location Variations
+    'dentist birbhum', 'dental clinic birbhum', 'dentist near tarapith', 'dentist near nalhati',
+    'dentist near mallarpur', 'best doctor rampurhat', 'top doctor rampurhat',
+    'doctor para rampurhat clinic', 'mondal apartment dentist',
+    // Bengali/Hinglish Terms
+    'dater daktar rampurhat', 'dant er daktar', 'danta chikitshak', 'dant batha doctor',
+    'bathe komanor daktar', 'dant tola rampurhat', 'gum specialist rampurhat',
+    // Services
+    'root canal treatment rampurhat', 'tooth extraction rampurhat', 'dental filling rampurhat',
+    'teeth cleaning rampurhat', 'dental xray rampurhat', 'teeth whitening rampurhat',
+    'cavity treatment rampurhat', 'dental checkup rampurhat', 'tooth pain treatment',
+    'oral health', 'dental care west bengal', 'emergency dentist rampurhat',
+    // Misspellings (Common Typos)
+    'dentis rampurhat', 'denist rampurhat', 'dental clinc rampurhat', 'docter rampurhat',
+    'daktar rampurhat', 'rampur hat dentist', 'rampurhat dent clinic',
   ],
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
@@ -83,6 +96,12 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Dentist',
   name: `${siteConfig.name} Dental Clinic`,
+  alternateName: [
+    'Dr. Aritro Ghosh',
+    'Dr. Aritra Ghosh Dental Clinic',
+    'Best Dentist in Rampurhat',
+    'Rampurhat Dental Clinic',
+  ],
   description: 'Professional dental care services including general dentistry, preventive care, and pain management.',
   url: baseUrl,
   telephone: `+${siteConfig.contact.phone}`,
@@ -97,9 +116,24 @@ const jsonLd = {
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: 24.1736, // Update with actual coordinates
-    longitude: 87.7847, // Update with actual coordinates
+    latitude: 24.1736,
+    longitude: 87.7847,
   },
+  areaServed: [
+    { '@type': 'City', name: 'Rampurhat' },
+    { '@type': 'AdministrativeArea', name: 'Birbhum District' },
+    { '@type': 'Place', name: 'Tarapith' },
+    { '@type': 'Place', name: 'Nalhati' },
+    { '@type': 'Place', name: 'Mallarpur' },
+  ],
+  availableService: [
+    { '@type': 'MedicalProcedure', name: 'General Dental Care' },
+    { '@type': 'MedicalProcedure', name: 'Root Canal Treatment' },
+    { '@type': 'MedicalProcedure', name: 'Tooth Extraction' },
+    { '@type': 'MedicalProcedure', name: 'Dental Filling' },
+    { '@type': 'MedicalProcedure', name: 'Teeth Cleaning' },
+    { '@type': 'MedicalProcedure', name: 'Oral Pain Management' },
+  ],
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
@@ -110,6 +144,7 @@ const jsonLd = {
   ],
   priceRange: '₹₹',
   image: `${baseUrl}/og-image.png`,
+  hasMap: siteConfig.contact.mapUrl,
   sameAs: [
     siteConfig.social.facebook,
     siteConfig.social.linkedin,
@@ -127,17 +162,18 @@ export default function RootLayout({
       <head>
         <meta name="color-scheme" content="light dark" />
         {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-EW443DZW0F" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-EW443DZW0F');
-            `,
-          }}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-EW443DZW0F"
+          strategy="afterInteractive"
         />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-EW443DZW0F');
+          `}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
