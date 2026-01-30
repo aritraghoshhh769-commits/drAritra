@@ -26,7 +26,7 @@ const BottomNavBar = ({ onAboutClick }: { onAboutClick: () => void }) => {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const sectionIds = navItems.map(item => item.href.substring(1)).filter(id => id && id !== 'about-mobile');
+    const sectionIds = navItems.map(item => item.href.substring(1)).filter(id => id);
     const sections = sectionIds.map(id => document.getElementById(id));
     const homeSection = document.getElementById('home');
 
