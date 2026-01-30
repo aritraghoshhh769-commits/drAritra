@@ -43,25 +43,25 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: `${siteConfig.name} | ${siteConfig.title}`,
-    description: 'Professional dental care by Dr. Aritra Ghosh in Rampurhat. Modern, clean, and high-trust dental services.',
+    description: 'A dedicated Dental Surgeon (BDS) committed to providing exceptional care through clinical precision and continuous medical education. Dr. Ghosh ensures every patient receives personalized and effective treatment.',
     url: baseUrl,
     siteName: siteConfig.name,
     locale: 'en_IN',
     type: 'website',
     images: [
       {
-        url: '/icon.png',
-        width: 512,
-        height: 512,
-        alt: 'Dr. Aritra Ghosh - Dentist',
+        url: 'https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/WhatsApp%20Image%202026-01-13%20at%2016.26.55.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Dr. Aritra Ghosh - Dental Surgeon in Rampurhat',
       },
     ],
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: `${siteConfig.name} | ${siteConfig.title}`,
-    description: 'Professional dental care by Dr. Aritra Ghosh in Rampurhat.',
-    images: ['/icon.png'],
+    description: 'A dedicated Dental Surgeon (BDS) committed to providing exceptional care through clinical precision and continuous medical education.',
+    images: ['https://yqhlxtvpnziabkrrprbs.supabase.co/storage/v1/object/public/assets/WhatsApp%20Image%202026-01-13%20at%2016.26.55.jpeg'],
   },
 };
 
