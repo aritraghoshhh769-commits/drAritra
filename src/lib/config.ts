@@ -12,7 +12,7 @@ export const siteConfig = {
         whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919002694838",
         email: process.env.NEXT_PUBLIC_EMAIL || "Aritroghosh2013@gmail.com",
         address: process.env.NEXT_PUBLIC_ADDRESS || "Mondal Apartment, M. Sarkar Para, Near Nabin Club, Doctor Para, Rampurhat",
-        mapUrl: process.env.NEXT_PUBLIC_MAP_URL || "https://maps.app.goo.gl/R4xbi3aBMYPceNQe6",
+        mapUrl: process.env.NEXT_PUBLIC_MAP_URL || "https://maps.app.goo.gl/2YQysYQjgYBeqS5h7",
         gmailComposeUrl: "https://mail.google.com/mail/?view=cm&fs=1&to=Aritroghosh2013@gmail.com",
     },
 
@@ -35,7 +35,7 @@ export const siteConfig = {
     // Mobile navigation with icon names (icons imported in component)
     mobileNavItems: [
         { href: '#home', label: 'Home', iconName: 'Home' as const },
-        { href: '#about-mobile-anchor', label: 'About', iconName: 'User' as const },
+        { href: '#about-mobile', label: 'About', iconName: 'User' as const },
         { href: '#services', label: 'Services', iconName: 'BriefcaseMedical' as const },
         { href: '#gallery', label: 'Gallery', iconName: 'GalleryHorizontal' as const },
         { href: '#contact-us', label: 'Contact', iconName: 'Phone' as const },
