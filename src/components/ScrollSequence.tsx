@@ -58,7 +58,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
     }
   };
 
-  const bottomBarY = useTransform(scrollYProgress, [0.8, 1], [0, 100]);
+  const bottomBarY = useTransform(scrollYProgress, [0.4, 0.5], [0, 100]);
 
   return (
     <>
@@ -326,7 +326,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   );
 
   return (
-    <ClientOnly>
+    <>
       {loadingScreen}
       <div ref={targetRef} className="relative h-[250vh] w-full">
         <div className="sticky top-0 h-screen">
@@ -339,7 +339,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
             <About onCredentialsClick={onCredentialsClick} />
           </div>
       </motion.div>
-    </ClientOnly>
+    </>
   );
 };
 

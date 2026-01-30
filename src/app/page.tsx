@@ -13,6 +13,7 @@ import Gallery from '@/components/Gallery';
 import AboutModal from '@/components/AboutModal';
 import CredentialsModal from '@/components/CredentialsModal';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import About from '@/components/About';
 
 export default function Home() {
   const [isAboutModalOpen, setAboutModalOpen] = useState(false);
@@ -33,6 +34,9 @@ export default function Home() {
       {/* Main content (for skip-link accessibility) */}
       <main id="main-content">
         <ScrollSequence onCredentialsClick={() => setCredentialsModalOpen(true)} />
+        <div className="md:hidden">
+          <About onCredentialsClick={() => setCredentialsModalOpen(true)} />
+        </div>
         <Services />
         <Gallery />
         <DentalIssues />
