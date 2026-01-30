@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import ScrollSequence from '@/components/ScrollSequence';
 import Services from '@/components/Services';
@@ -17,6 +17,10 @@ import AboutModal from '@/components/AboutModal';
 export default function Home() {
   const [isCredentialsModalOpen, setCredentialsModalOpen] = useState(false);
   const [isAboutModalOpen, setAboutModalOpen] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleCredentialsClick = () => {
     setAboutModalOpen(false); // Close about modal if open
