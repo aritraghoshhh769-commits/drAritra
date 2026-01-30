@@ -5,6 +5,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { siteConfig } from '@/lib/config';
+import JsonLd from '@/components/JsonLd';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,6 +30,38 @@ export const metadata: Metadata = {
     apple: [
       { url: '/apple-icon.png' },
     ],
+  },
+  alternates: {
+    canonical: '/',
+  },
+  keywords: [
+    'dentist rampurhat',
+    'dental clinic rampurhat',
+    'dr aritra ghosh',
+    'oral surgeon west bengal',
+    'dental care rampurhat',
+  ],
+  openGraph: {
+    title: `${siteConfig.name} | ${siteConfig.title}`,
+    description: 'Professional dental care by Dr. Aritra Ghosh in Rampurhat. Modern, clean, and high-trust dental services.',
+    url: baseUrl,
+    siteName: siteConfig.name,
+    locale: 'en_IN',
+    type: 'website',
+    images: [
+      {
+        url: '/icon.png',
+        width: 512,
+        height: 512,
+        alt: 'Dr. Aritra Ghosh - Dentist',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary',
+    title: `${siteConfig.name} | ${siteConfig.title}`,
+    description: 'Professional dental care by Dr. Aritra Ghosh in Rampurhat.',
+    images: ['/icon.png'],
   },
 };
 
@@ -75,6 +108,7 @@ export default function RootLayout({
         </a>
 
         <ThemeProvider>
+          <JsonLd />
           {children}
           <Toaster />
         </ThemeProvider>

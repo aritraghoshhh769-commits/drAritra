@@ -67,7 +67,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress, onLinkClick }: { onC
         </div>
       </div>
 
-      <motion.div 
+      <motion.div
         className="absolute bottom-0 left-0 right-0 hidden h-8 md:block z-30"
         style={{ y: bottomBarY }}
       >
@@ -117,7 +117,7 @@ const MobileHero = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10" />
 
       <div className="absolute bottom-[60px] left-0 right-0 p-6 z-20">
-        <h1 className="text-4xl font-bold text-white">Dr. Aritra Ghosh</h1>
+        <h2 className="text-4xl font-bold text-white">Dr. Aritra Ghosh</h2>
         <p className="text-lg text-white/80">Oral & Dental Surgeon</p>
       </div>
 
@@ -172,14 +172,14 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
       // Special handling for the animated 'About' section
       if (targetId === 'about' && targetRef.current) {
         // The 'About' section is animated upwards by 600px at the end of the scroll.
-        const aboutAnimationOffset = -600; 
-        
+        const aboutAnimationOffset = -600;
+
         // Calculate the natural top position of the 'About' section (after the 400vh container)
         const aboutSectionNaturalTop = targetRef.current.offsetTop + targetRef.current.offsetHeight;
-        
+
         // Calculate the final visual top position after the animation.
         const finalAboutTop = aboutSectionNaturalTop + aboutAnimationOffset;
-        
+
         // Scroll to the final position, accounting for the sticky header.
         window.scrollTo({ top: finalAboutTop + yOffset, behavior: 'smooth' });
         return;
@@ -200,36 +200,36 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
     if (!canvas || !img) return;
 
     const draw = () => {
-        const ctx = canvas.getContext('2d');
-        if (!ctx || img.width === 0) return;
-        
-        const dpr = window.devicePixelRatio || 1;
-        const rect = canvas.getBoundingClientRect();
+      const ctx = canvas.getContext('2d');
+      if (!ctx || img.width === 0) return;
 
-        if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
-            canvas.width = rect.width * dpr;
-            canvas.height = rect.height * dpr;
-        }
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+      }
 
-        const imgAspectRatio = img.width / img.height;
-        const canvasAspectRatio = canvas.width / canvas.height;
-        let drawWidth, drawHeight, x, y;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        if (imgAspectRatio > canvasAspectRatio) {
-            drawHeight = canvas.height;
-            drawWidth = drawHeight * imgAspectRatio;
-            x = (canvas.width - drawWidth) / 2;
-            y = 0;
-        } else {
-            drawWidth = canvas.width;
-            drawHeight = drawWidth / imgAspectRatio;
-            x = 0;
-            y = (canvas.height - drawHeight) / 2;
-        }
-        
-        ctx.drawImage(img, x, y, drawWidth, drawHeight);
+      const imgAspectRatio = img.width / img.height;
+      const canvasAspectRatio = canvas.width / canvas.height;
+      let drawWidth, drawHeight, x, y;
+
+      if (imgAspectRatio > canvasAspectRatio) {
+        drawHeight = canvas.height;
+        drawWidth = drawHeight * imgAspectRatio;
+        x = (canvas.width - drawWidth) / 2;
+        y = 0;
+      } else {
+        drawWidth = canvas.width;
+        drawHeight = drawWidth / imgAspectRatio;
+        x = 0;
+        y = (canvas.height - drawHeight) / 2;
+      }
+
+      ctx.drawImage(img, x, y, drawWidth, drawHeight);
     };
 
     if (img.complete && img.naturalWidth > 0) {
@@ -249,38 +249,38 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
     });
     return () => unsub();
   }, [frameIndex, drawFrame]);
-  
+
   useEffect(() => {
     if (frames.length === 0) return;
-  
+
     let isCancelled = false;
     let loadedCount = 0;
-  
+
     const checkImages = () => {
       if (isCancelled) return;
-  
+
       loadedCount = frames.filter(img => img?.complete && img.naturalWidth > 0).length;
-  
+
       const progress = Math.round((loadedCount / TOTAL_FRAMES) * 100);
       setLoadingProgress(progress);
-  
+
       if (loadedCount === TOTAL_FRAMES) {
         setTimeout(() => {
           if (!isCancelled) setIsLoaded(true);
         }, 250);
       }
     };
-  
+
     frames.forEach(img => {
       if (img) {
         img.onload = checkImages;
         img.onerror = checkImages; // Treat error as loaded to not get stuck
       }
     });
-  
+
     // Initial check for cached images
     checkImages();
-  
+
     return () => {
       isCancelled = true;
     };
@@ -311,10 +311,10 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white"
         >
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-primary mb-4">Welcome to our clinic</h1>
+            <p className="text-4xl font-bold text-primary mb-4">Welcome to our clinic</p>
             <div className="w-64 mx-auto">
-                <Progress value={loadingProgress} className="h-2" />
-                <p className="text-lg text-primary mt-2 font-semibold">{loadingProgress}%</p>
+              <Progress value={loadingProgress} className="h-2" />
+              <p className="text-lg text-primary mt-2 font-semibold">{loadingProgress}%</p>
             </div>
           </div>
         </motion.div>
@@ -332,9 +332,9 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
         </div>
       </div>
       <motion.div id="about" style={{ y: aboutY, marginBottom: -600 }} className="relative z-[1]">
-          <div className="md:block hidden">
-            <About onCredentialsClick={onCredentialsClick} />
-          </div>
+        <div className="md:block hidden">
+          <About onCredentialsClick={onCredentialsClick} />
+        </div>
       </motion.div>
     </>
   );
