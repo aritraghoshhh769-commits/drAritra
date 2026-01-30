@@ -329,6 +329,7 @@ const ScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () => void
     <>
       <div className="md:hidden">
         <MobileHero />
+        <About onCredentialsClick={onCredentialsClick} />
       </div>
       <div id="home" className="hidden md:block">
         <DesktopScrollSequence onCredentialsClick={onCredentialsClick} />
