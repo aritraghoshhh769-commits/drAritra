@@ -12,7 +12,6 @@ import BottomNavBar from '@/components/BottomNavBar';
 import Gallery from '@/components/Gallery';
 import CredentialsModal from '@/components/CredentialsModal';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import About from '@/components/About';
 import AboutModal from '@/components/AboutModal';
 
 export default function Home() {
@@ -43,9 +42,6 @@ export default function Home() {
       {/* Main content (for skip-link accessibility) */}
       <main id="main-content">
         <ScrollSequence onCredentialsClick={handleCredentialsClick} />
-        <div className="md:hidden" id="about-mobile-anchor">
-          <About onCredentialsClick={handleCredentialsClick} />
-        </div>
         <Services />
         <Gallery />
         <DentalIssues />
