@@ -20,7 +20,9 @@ const Header = () => {
               const id = link.href.substring(1);
               const el = document.getElementById(id);
               if (el) {
-                  offsets.current[id] = el.offsetTop;
+                  // The offsetTop is the static position, before any transforms.
+                  // The 600px is the amount the content is pulled up by the animation.
+                  offsets.current[id] = el.offsetTop - 600;
               }
           }
       });
@@ -57,14 +59,12 @@ const Header = () => {
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#')) {
       e.preventDefault();
-      const targetId = href.substring(1);
-      const initialOffset = offsets.current[targetId];
+      const targetId = href.slice(1);
+      const targetOffset = offsets.current[targetId];
 
-      if (initialOffset !== undefined) {
-        const yOffset = -80; // Offset for the sticky header
-        // The final position is the element's static top offset minus the 600px animation pull-up.
-        const yPos = initialOffset - 600;
-        window.scrollTo({ top: yPos + yOffset, behavior: 'smooth' });
+      if (targetOffset !== undefined) {
+        const yOffset = -80; // Offset for the main header that will appear on scroll
+        window.scrollTo({ top: targetOffset + yOffset, behavior: 'smooth' });
       }
     }
   };
