@@ -60,8 +60,8 @@ hi! doctor
   }
 
   const timeSlots: string[] = [];
-  // 12 PM to 7 PM (19:00). Last slot is 6:30 PM (18:30).
-  for (let totalMinutes = 12 * 60; totalMinutes < 19 * 60; totalMinutes += 30) {
+  // 10 AM to 7 PM (19:00). Last slot is 6:30 PM (18:30).
+  for (let totalMinutes = 10 * 60; totalMinutes < 19 * 60; totalMinutes += 30) {
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
     const period = hours >= 12 ? 'PM' : 'AM';

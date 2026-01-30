@@ -12,7 +12,7 @@ export const siteConfig = {
         whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919002694838",
         email: process.env.NEXT_PUBLIC_EMAIL || "Aritroghosh2013@gmail.com",
         address: process.env.NEXT_PUBLIC_ADDRESS || "Mondal Apartment, M. Sarkar Para, Near Nabin Club, Doctor Para, Rampurhat",
-        mapUrl: process.env.NEXT_PUBLIC_MAP_URL || "https://maps.app.goo.gl/2YQysYQjgYBeqS5h7",
+        mapUrl: "https://maps.app.goo.gl/2YQysYQjgYBeqS5h7",
         gmailComposeUrl: "https://mail.google.com/mail/?view=cm&fs=1&to=Aritroghosh2013@gmail.com",
     },
 
@@ -43,7 +43,7 @@ export const siteConfig = {
 
     officeHours: {
         weekdays: "Monday - Friday",
-        weekdayHours: "12:00 PM - 07:00 PM",
+        weekdayHours: "10:00 AM - 07:00 PM",
         weekend: "Saturday & Sunday - Closed",
     },
 } as const;
