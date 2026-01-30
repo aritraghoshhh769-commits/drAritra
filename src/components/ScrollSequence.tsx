@@ -328,7 +328,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   return (
     <>
       {loadingScreen}
-      <div ref={targetRef} className="relative h-[250vh] w-full">
+      <div ref={targetRef} className="relative h-[300vh] w-full">
         <div className="sticky top-0 h-screen">
           <canvas ref={canvasRef} className="w-full h-full" />
           <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />
