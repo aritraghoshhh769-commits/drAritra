@@ -57,7 +57,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
     }
   };
 
-  const bottomBarY = useTransform(scrollYProgress, [0.5, 0.6], [0, 100]);
+  const bottomBarY = useTransform(scrollYProgress, [0.85, 0.95], [0, 100]);
 
 
   return (
