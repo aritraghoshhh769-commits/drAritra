@@ -22,21 +22,7 @@ const getFramePath = (frame: number): string => {
 // --- Hero Content (Desktop Overlay) ---
 const navLinks = siteConfig.navLinks;
 
-const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsClick: () => void; scrollYProgress: MotionValue<number> }) => {
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith('#')) {
-      e.preventDefault();
-      const targetId = href.slice(1);
-      const targetElement = document.getElementById(targetId);
-
-      if (targetElement) {
-        const yOffset = -80; // Offset for the main header that will appear on scroll
-        const y = targetElement.getBoundingClientRect().top + window.scrollY + yOffset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }
-    }
-  };
-
+const HeroContent = ({ onCredentialsClick, scrollYProgress, onLinkClick }: { onCredentialsClick: () => void; scrollYProgress: MotionValue<number>; onLinkClick: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void }) => {
   const bottomBarY = useTransform(scrollYProgress, [0.85, 0.95], [0, 100]);
 
 
@@ -99,7 +85,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
               <a
                 key={link.href}
                 href={link.href}
-                onClick={(e) => handleLinkClick(e, link.href)}
+                onClick={(e) => onLinkClick(e, link.href)}
                 className="text-xs text-white/60 hover:text-white"
               >
                 {link.label}
@@ -176,6 +162,30 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
 
   const aboutY = useTransform(scrollYProgress, [0.4, 1], [0, -600]);
   const frameIndex = useTransform(scrollYProgress, [0, 0.4], [0, TOTAL_FRAMES - 1]);
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const targetId = href.slice(1);
+
+      // The About section's position is animated, so we can't just use getBoundingClientRect.
+      // We know it appears right after the 400vh scroll container.
+      if (targetId === 'about' && targetRef.current) {
+        const yOffset = -80; // Offset for the sticky header that appears on scroll
+        const y = targetRef.current.offsetHeight + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        return;
+      }
+
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        const yOffset = -80; // Offset for the main header that will appear on scroll
+        const y = targetElement.getBoundingClientRect().top + window.scrollY + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }
+  };
 
   const drawFrame = useCallback((idx: number) => {
     const canvas = canvasRef.current;
@@ -311,7 +321,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
       <div ref={targetRef} className="relative h-[400vh] w-full">
         <div className="sticky top-0 h-screen">
           <canvas ref={canvasRef} className="w-full h-full" />
-          <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />
+          <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} onLinkClick={handleLinkClick} />
         </div>
       </div>
       <motion.div id="about" style={{ y: aboutY, marginBottom: -600 }} className="relative z-[1]">
