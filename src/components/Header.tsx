@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -10,26 +10,11 @@ const navLinks = siteConfig.navLinks;
 
 const Header = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const offsets = useRef<{ [key: string]: number }>({});
 
   useEffect(() => {
-    // A small delay to let browser finish layout before caching offsets
-    const timer = setTimeout(() => {
-      navLinks.forEach(link => {
-          if (link.href.startsWith('#')) {
-              const id = link.href.substring(1);
-              const el = document.getElementById(id);
-              if (el) {
-                  // The offsetTop is the static position, before any transforms.
-                  offsets.current[id] = el.offsetTop;
-              }
-          }
-      });
-    }, 100);
-    
     const aboutSection = document.getElementById('about');
     if (!aboutSection) {
-      return () => clearTimeout(timer);
+      return;
     }
 
     const observer = new IntersectionObserver(
@@ -47,7 +32,6 @@ const Header = () => {
     observer.observe(aboutSection);
 
     return () => {
-      clearTimeout(timer);
       if (aboutSection) {
         observer.unobserve(aboutSection);
       }
@@ -59,11 +43,12 @@ const Header = () => {
     if (href.startsWith('#')) {
       e.preventDefault();
       const targetId = href.slice(1);
-      const targetOffset = offsets.current[targetId];
+      const targetElement = document.getElementById(targetId);
 
-      if (targetOffset !== undefined) {
+      if (targetElement) {
         const yOffset = -80; // Offset for the main header that will appear on scroll
-        window.scrollTo({ top: targetOffset + yOffset, behavior: 'smooth' });
+        const y = targetElement.getBoundingClientRect().top + window.scrollY + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
       }
     }
   };

@@ -23,35 +23,16 @@ const getFramePath = (frame: number): string => {
 const navLinks = siteConfig.navLinks;
 
 const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsClick: () => void; scrollYProgress: MotionValue<number> }) => {
-  const offsets = useRef<{ [key: string]: number }>({});
-
-  useEffect(() => {
-    // A small delay to let browser finish layout before caching offsets
-    const timer = setTimeout(() => {
-      navLinks.forEach(link => {
-          if (link.href.startsWith('#')) {
-              const id = link.href.substring(1);
-              const el = document.getElementById(id);
-              if (el) {
-                  // The offsetTop is the static position, before any transforms.
-                  offsets.current[id] = el.offsetTop;
-              }
-          }
-      });
-    }, 100);
-    
-    return () => clearTimeout(timer);
-  }, []);
-
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#')) {
       e.preventDefault();
       const targetId = href.slice(1);
-      const targetOffset = offsets.current[targetId];
+      const targetElement = document.getElementById(targetId);
 
-      if (targetOffset !== undefined) {
+      if (targetElement) {
         const yOffset = -80; // Offset for the main header that will appear on scroll
-        window.scrollTo({ top: targetOffset + yOffset, behavior: 'smooth' });
+        const y = targetElement.getBoundingClientRect().top + window.scrollY + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
       }
     }
   };
