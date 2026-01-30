@@ -77,7 +77,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress, onLinkClick }: { onC
             onClick={onCredentialsClick}
             className="text-xs text-white/60 hover:text-white"
           >
-            Doctor's Credentials
+            Doctor&apos;s Credentials
           </button>
 
           <nav className="flex gap-6">
