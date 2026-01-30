@@ -10,13 +10,11 @@ import DentalIssues from '@/components/DentalIssues';
 import ClientOnly from '@/components/ClientOnly';
 import BottomNavBar from '@/components/BottomNavBar';
 import Gallery from '@/components/Gallery';
-import AboutModal from '@/components/AboutModal';
 import CredentialsModal from '@/components/CredentialsModal';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import About from '@/components/About';
 
 export default function Home() {
-  const [isAboutModalOpen, setAboutModalOpen] = useState(false);
   const [isCredentialsModalOpen, setCredentialsModalOpen] = useState(false);
 
   return (
@@ -34,7 +32,7 @@ export default function Home() {
       {/* Main content (for skip-link accessibility) */}
       <main id="main-content">
         <ScrollSequence onCredentialsClick={() => setCredentialsModalOpen(true)} />
-        <div className="md:hidden">
+        <div id="about-mobile" className="md:hidden">
           <About onCredentialsClick={() => setCredentialsModalOpen(true)} />
         </div>
         <Services />
@@ -45,21 +43,7 @@ export default function Home() {
 
       <Footer />
 
-      <BottomNavBar
-        onAboutClick={() => setAboutModalOpen(true)}
-      />
-
-      {/* About modal */}
-      <ClientOnly>
-        <AboutModal
-          isOpen={isAboutModalOpen}
-          onClose={() => setAboutModalOpen(false)}
-          onCredentialsClick={() => {
-            setAboutModalOpen(false);
-            setCredentialsModalOpen(true);
-          }}
-        />
-      </ClientOnly>
+      <BottomNavBar />
 
       {/* Credentials modal */}
       <ClientOnly>

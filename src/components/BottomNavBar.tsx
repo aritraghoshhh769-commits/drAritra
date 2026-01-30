@@ -22,11 +22,11 @@ const navItems = siteConfig.mobileNavItems.map(item => ({
   icon: iconMap[item.iconName] || Home,
 }));
 
-const BottomNavBar = ({ onAboutClick }: { onAboutClick: () => void; }) => {
+const BottomNavBar = () => {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const sectionIds = navItems.map(item => item.href.substring(1)).filter(id => id && !id.endsWith('-modal'));
+    const sectionIds = navItems.map(item => item.href.substring(1)).filter(id => id);
     const sections = sectionIds.map(id => document.getElementById(id));
     const homeSection = document.getElementById('home');
 
@@ -79,12 +79,7 @@ const BottomNavBar = ({ onAboutClick }: { onAboutClick: () => void; }) => {
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    if (href === '#about-modal') {
-      onAboutClick();
-      setActiveSection('about-modal');
-      return;
-    }
-
+    
     const targetId = href.substring(1);
     const targetElement = document.getElementById(targetId);
     if (targetElement) {

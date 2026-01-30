@@ -35,7 +35,7 @@ export const siteConfig = {
     // Mobile navigation with icon names (icons imported in component)
     mobileNavItems: [
         { href: '#home', label: 'Home', iconName: 'Home' as const },
-        { href: '#about-modal', label: 'About', iconName: 'User' as const },
+        { href: '#about-mobile', label: 'About', iconName: 'User' as const },
         { href: '#services', label: 'Services', iconName: 'BriefcaseMedical' as const },
         { href: '#gallery', label: 'Gallery', iconName: 'GalleryHorizontal' as const },
         { href: '#contact-us', label: 'Contact', iconName: 'Phone' as const },
