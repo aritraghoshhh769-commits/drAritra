@@ -22,11 +22,11 @@ const navItems = siteConfig.mobileNavItems.map(item => ({
   icon: iconMap[item.iconName] || Home,
 }));
 
-const BottomNavBar = () => {
+const BottomNavBar = ({ onAboutClick }: { onAboutClick: () => void }) => {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const sectionIds = navItems.map(item => item.href.substring(1)).filter(id => id);
+    const sectionIds = navItems.map(item => item.href.substring(1)).filter(id => id && id !== 'about-mobile');
     const sections = sectionIds.map(id => document.getElementById(id));
     const homeSection = document.getElementById('home');
 
@@ -77,10 +77,17 @@ const BottomNavBar = () => {
     };
   }, []);
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, item: typeof navItems[0]) => {
     e.preventDefault();
     
-    const targetId = href.substring(1);
+    const targetId = item.href.substring(1);
+
+    if (targetId === 'about-mobile') {
+      onAboutClick();
+      setActiveSection(targetId);
+      return;
+    }
+
     const targetElement = document.getElementById(targetId);
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: 'smooth' });
@@ -103,7 +110,7 @@ const BottomNavBar = () => {
             <a
               key={item.label}
               href={item.href}
-              onClick={(e) => handleLinkClick(e, item.href)}
+              onClick={(e) => handleLinkClick(e, item)}
               className={cn(
                 'flex flex-col items-center justify-center text-xs w-full h-full transition-colors',
                 activeSection === item.href.substring(1) ? 'text-accent' : 'text-foreground/70 hover:text-foreground'

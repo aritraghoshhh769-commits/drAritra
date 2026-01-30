@@ -12,10 +12,16 @@ import BottomNavBar from '@/components/BottomNavBar';
 import Gallery from '@/components/Gallery';
 import CredentialsModal from '@/components/CredentialsModal';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import About from '@/components/About';
+import AboutModal from '@/components/AboutModal';
 
 export default function Home() {
   const [isCredentialsModalOpen, setCredentialsModalOpen] = useState(false);
+  const [isAboutModalOpen, setAboutModalOpen] = useState(false);
+
+  const handleCredentialsClick = () => {
+    setAboutModalOpen(false); // Close about modal if open
+    setCredentialsModalOpen(true);
+  }
 
   return (
     <>
@@ -31,10 +37,7 @@ export default function Home() {
 
       {/* Main content (for skip-link accessibility) */}
       <main id="main-content">
-        <ScrollSequence onCredentialsClick={() => setCredentialsModalOpen(true)} />
-        <div id="about-mobile" className="md:hidden">
-          <About onCredentialsClick={() => setCredentialsModalOpen(true)} />
-        </div>
+        <ScrollSequence onCredentialsClick={handleCredentialsClick} />
         <Services />
         <Gallery />
         <DentalIssues />
@@ -43,13 +46,18 @@ export default function Home() {
 
       <Footer />
 
-      <BottomNavBar />
+      <BottomNavBar onAboutClick={() => setAboutModalOpen(true)} />
 
-      {/* Credentials modal */}
+      {/* Modals */}
       <ClientOnly>
         <CredentialsModal
           isOpen={isCredentialsModalOpen}
           onClose={() => setCredentialsModalOpen(false)}
+        />
+        <AboutModal 
+          isOpen={isAboutModalOpen}
+          onClose={() => setAboutModalOpen(false)}
+          onCredentialsClick={handleCredentialsClick}
         />
       </ClientOnly>
     </>
