@@ -9,7 +9,6 @@ import { Progress } from '@/components/ui/progress';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { siteConfig } from '@/lib/config';
 import About from '@/components/About';
-import ClientOnly from '@/components/ClientOnly';
 
 // --- Configuration ---
 const TOTAL_FRAMES = 120;
@@ -58,7 +57,8 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
     }
   };
 
-  const bottomBarY = useTransform(scrollYProgress, [0.4, 0.5], [0, 100]);
+  const bottomBarY = useTransform(scrollYProgress, [0.5, 0.6], [0, 100]);
+
 
   return (
     <>
@@ -328,7 +328,7 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
   return (
     <>
       {loadingScreen}
-      <div ref={targetRef} className="relative h-[300vh] w-full">
+      <div ref={targetRef} className="relative h-[400vh] w-full">
         <div className="sticky top-0 h-screen">
           <canvas ref={canvasRef} className="w-full h-full" />
           <HeroContent onCredentialsClick={onCredentialsClick} scrollYProgress={scrollYProgress} />
