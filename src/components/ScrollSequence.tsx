@@ -77,7 +77,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress, onLinkClick }: { onC
             onClick={onCredentialsClick}
             className="text-xs text-white/60 hover:text-white"
           >
-            Doctor&apos;s Credentials
+            Doctor's Credentials
           </button>
 
           <nav className="flex gap-6">
@@ -167,20 +167,27 @@ const DesktopScrollSequence = ({ onCredentialsClick }: { onCredentialsClick: () 
     if (href.startsWith('#')) {
       e.preventDefault();
       const targetId = href.slice(1);
+      const yOffset = -80; // Offset for the main header that will appear on scroll
 
-      // The About section's position is animated, so we can't just use getBoundingClientRect.
-      // We know it appears right after the 400vh scroll container.
+      // Special handling for the animated 'About' section
       if (targetId === 'about' && targetRef.current) {
-        const yOffset = -80; // Offset for the sticky header that appears on scroll
-        const y = targetRef.current.offsetHeight + yOffset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
+        // The 'About' section is animated upwards by 600px at the end of the scroll.
+        const aboutAnimationOffset = -600; 
+        
+        // Calculate the natural top position of the 'About' section (after the 400vh container)
+        const aboutSectionNaturalTop = targetRef.current.offsetTop + targetRef.current.offsetHeight;
+        
+        // Calculate the final visual top position after the animation.
+        const finalAboutTop = aboutSectionNaturalTop + aboutAnimationOffset;
+        
+        // Scroll to the final position, accounting for the sticky header.
+        window.scrollTo({ top: finalAboutTop + yOffset, behavior: 'smooth' });
         return;
       }
 
       const targetElement = document.getElementById(targetId);
 
       if (targetElement) {
-        const yOffset = -80; // Offset for the main header that will appear on scroll
         const y = targetElement.getBoundingClientRect().top + window.scrollY + yOffset;
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
