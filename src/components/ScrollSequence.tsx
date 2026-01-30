@@ -34,8 +34,7 @@ const HeroContent = ({ onCredentialsClick, scrollYProgress }: { onCredentialsCli
               const el = document.getElementById(id);
               if (el) {
                   // The offsetTop is the static position, before any transforms.
-                  // The 600px is the amount the content is pulled up by the animation.
-                  offsets.current[id] = el.offsetTop - 600;
+                  offsets.current[id] = el.offsetTop;
               }
           }
       });
